@@ -1788,7 +1788,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groupId: 0
-  mode: 1
+  mode: 7
   customPainterIndex: 0
   customPainterArgs: 
   enableTerrainMask: 1

@@ -8,11 +8,11 @@ public class UI_Controller : MonoBehaviour
     [SerializeField] private Button startButton;
     [SerializeField] private Button exitButton;
 
-    // private void OnEnable()
-    // {
-    //     startButton.onClick.AddListener(MenuOnClick);
-    //     exitButton.onClick.AddListener(ExitOnClick);
-    // }
+    private void OnEnable()
+    {
+        startButton.onClick.AddListener(MenuOnClick);
+        exitButton.onClick.AddListener(ExitOnClick);
+    }
 
     public void ExitOnClick()
     {

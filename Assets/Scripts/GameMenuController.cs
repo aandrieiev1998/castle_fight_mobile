@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace DefaultNamespace
@@ -8,11 +9,23 @@ namespace DefaultNamespace
         [SerializeField] private GameObject overlay;
         [SerializeField] private Button menuButton;
         [SerializeField] private Button unpauseButton;
+        [SerializeField] private Button mainMenuButton;
+
 
         private void Start()
         {
+            overlay.SetActive(false);
             menuButton.onClick.AddListener(MenuButtonOnClick);
             unpauseButton.onClick.AddListener(UnpauseButtonOnClick);
+            mainMenuButton.onClick.AddListener(MainMenuButtonOnClick);
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                overlay.SetActive(!overlay.activeSelf);
+            }
         }
 
         private void MenuButtonOnClick()
@@ -24,12 +37,10 @@ namespace DefaultNamespace
         {
             overlay.SetActive(false);
         }
-        private void Update()
+
+        private void MainMenuButtonOnClick()
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                overlay.SetActive(!overlay.activeSelf);
-            }
+            SceneManager.LoadScene(0);
         }
     }
 }

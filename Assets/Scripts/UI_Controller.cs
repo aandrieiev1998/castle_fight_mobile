@@ -7,6 +7,7 @@ public class UI_Controller : MonoBehaviour
 {
     [SerializeField] private Button startButton;
     [SerializeField] private Button exitButton;
+    [SerializeField] private Button settingsButton;
 
     private void OnEnable()
     {

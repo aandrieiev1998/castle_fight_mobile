@@ -10,13 +10,16 @@ namespace DefaultNamespace
         [SerializeField] private Button menuButton;
         [SerializeField] private Button unpauseButton;
         [SerializeField] private Button mainMenuButton;
-
-
+        [SerializeField] private Button audioButton;
+        [SerializeField] private Button musicButton;
+        
         private void Start()
         {
             overlay.SetActive(false);
             menuButton.onClick.AddListener(MenuButtonOnClick);
             unpauseButton.onClick.AddListener(UnpauseButtonOnClick);
+            // audioButton.onClick.AddListener(SoundOfOnClick);
+            // musicButton.onClick.AddListener(MusicOfOnClick);
             mainMenuButton.onClick.AddListener(MainMenuButtonOnClick);
         }
 
@@ -28,6 +31,7 @@ namespace DefaultNamespace
             }
         }
 
+        
         private void MenuButtonOnClick()
         {
             overlay.SetActive(!overlay.activeSelf);
@@ -38,6 +42,16 @@ namespace DefaultNamespace
             overlay.SetActive(false);
         }
 
+        // private void SoundOfOnClick()
+        // {
+        //     
+        // }
+        //
+        // private void MusicOfOnClick()
+        // {
+        //     
+        // }
+        //
         private void MainMenuButtonOnClick()
         {
             SceneManager.LoadScene(0);

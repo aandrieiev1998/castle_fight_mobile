@@ -16,8 +16,8 @@ public class AudioSource : MonoBehaviour
         
     }
 
-    public void PlayAudio(AudioClip clip)
-    {
-        GetComponent<AudioSource>().PlayAudio(clip);
-    }
+    // public void PlayAudio(AudioClip clip)
+    // {
+    //     GetComponent<AudioSource>().PlayAudio(clip);
+    // }
 }

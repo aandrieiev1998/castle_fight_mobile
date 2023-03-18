@@ -113,19 +113,6 @@ Shader "Polaris/BuiltinRP/Demo/WaterBasic"
 			fresnel = saturate(pow(max(0, 1 - vDotN), power)) - bias;
 		}
 
-		void CalculateFoamColor(float4 vertexScreenPos, float4 vertexPos, float4 tint, float foamDistance, out float4 foamColor)
-		{
-			float screenDepth;
-			float surfaceDepth;
-			CalculateScreenDepthEyeSpace(vertexScreenPos, screenDepth);
-			CalculateSurfaceDepthEyeSpace(vertexPos, surfaceDepth);
-
-			float waterDepth = screenDepth - surfaceDepth;
-			float depthClip = waterDepth <= foamDistance;
-	
-			foamColor = depthClip*tint;
-		}
-
 		void vertexFunction(inout appdata_full v, out Input o)
 		{
 			UNITY_INITIALIZE_OUTPUT(Input, o);
@@ -154,8 +141,7 @@ Shader "Polaris/BuiltinRP/Demo/WaterBasic"
 
 		void finalColorFunction(Input i, SurfaceOutputStandardSpecular o, inout fixed4 color)
 		{
-			float4 foamColor = float4(0,0,0,0); 
-			CalculateFoamColor(i.screenPos, i.vertexPos, _FoamColor, _FoamDistance, foamColor);
+			float4 foamColor = float4(0,0,0,0);
 			color = lerp(color, foamColor, foamColor.a);
 
 			UNITY_APPLY_FOG(i.fogCoord, color); // apply fog 

@@ -14,7 +14,7 @@ public class TileHandler : MonoBehaviour
         Debug.Log(gameObject.name);
         if (!_occupied)
         {
-            Instantiate(barrackPrefab, transform.position, Quaternion.Euler(Vector3.zero), transform);
+            
             _occupied = true;
         }
     }
@@ -30,6 +30,8 @@ public class TileHandler : MonoBehaviour
             {
                 Debug.Log($"{hit.collider.name} Detected",
                     hit.collider.gameObject);
+                var building = Instantiate(barrackPrefab, hit.transform.position, Quaternion.Euler(new Vector3(-90f, 0f, 0f)), transform);
+                building.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
             }
         }
     }

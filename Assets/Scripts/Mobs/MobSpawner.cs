@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Buildings;
+using Pathfinding;
 using UnityEngine;
 
 namespace Mobs
@@ -10,6 +11,8 @@ namespace Mobs
     {
         [SerializeField] private List<MobDefinition> _mobPrefabs;
         [SerializeField] private BuildingContainer _buildingContainer;
+        [SerializeField] private Transform _mobsParent;
+        [SerializeField] private Transform _mobsDefaultTarget;
 
         private Dictionary<BuildingData, Coroutine> cePizda = new();
         private List<GameObject> spawnedMobs = new();
@@ -32,13 +35,23 @@ namespace Mobs
                 //
                 yield return new WaitForSeconds(interval);
 
-                var mobToSpawnDefinition = _mobPrefabs.Single(entry => entry._type == mobType);
-                var mobToSpawn = mobToSpawnDefinition._prefab;
-                var spawnedMob = Instantiate(mobToSpawn, origin, Quaternion.identity);
-                spawnedMob.AddComponent<MobData>();
+                var mobDefinition = _mobPrefabs.Single(entry => entry._type == mobType);
+                var mobPrefab = mobDefinition._prefab;
+                var mob = Instantiate(mobPrefab, origin, Quaternion.identity, _mobsParent);
 
-                spawnedMobs.Add(spawnedMob);
-                Debug.Log("Mob has been spawned");
+                var mobData = mob.AddComponent<MobData>();
+                mobData._currentHp = mobDefinition._stats._maxHp;
+
+                var aiPath = mob.AddComponent<AIPath>();
+                aiPath.radius = mobDefinition._aiRadius;
+                aiPath.height = mobDefinition._aiHeight;
+                aiPath.maxSpeed = mobDefinition._aiMaxSpeed;
+
+                var destinationSetter = mob.AddComponent<AIDestinationSetter>();
+                destinationSetter.target = _mobsDefaultTarget;
+
+                spawnedMobs.Add(mob);
+                Debug.Log($"Spawned mob: {mobDefinition._type}");
             }
         }
     }

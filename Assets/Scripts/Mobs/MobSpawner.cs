@@ -8,33 +8,35 @@ namespace Mobs
 {
     public class MobSpawner : MonoBehaviour
     {
-        [SerializeField] private List<MobEntry> _mobPrefabs;
+        [SerializeField] private List<MobDefinition> _mobPrefabs;
         [SerializeField] private BuildingContainer _buildingContainer;
 
-        // private Dictionary<Coroutine, GameObject> buildings;
+        private Dictionary<BuildingData, Coroutine> cePizda = new();
         private List<GameObject> spawnedMobs = new();
 
         private void Start()
         {
-            _buildingContainer.newActiveBuilding += BuildingAdded;
+            _buildingContainer.NewActiveBuilding += BuildingAdded;
         }
 
         private void BuildingAdded(BuildingDefinition buildingDefinition, Vector3 position)
         {
-            StartCoroutine(SpawnMob(buildingDefinition._spawnedMob, buildingDefinition._stats._mobSpawnInterval,
+            var coroutine = StartCoroutine(StartSpawningMobsForSingleBuilding(buildingDefinition._spawnedMob, buildingDefinition._stats._mobSpawnInterval,
                 position));
         }
 
-
-        private IEnumerator SpawnMob(MobType mobType, float interval, Vector3 origin)
+        private IEnumerator StartSpawningMobsForSingleBuilding(MobType mobType, float interval, Vector3 origin)
         {
             while (true)
             {
                 //
                 yield return new WaitForSeconds(interval);
-                
-                var mobToSpawn = _mobPrefabs.Single(entry => entry._type == mobType)._prefab;
+
+                var mobToSpawnDefinition = _mobPrefabs.Single(entry => entry._type == mobType);
+                var mobToSpawn = mobToSpawnDefinition._prefab;
                 var spawnedMob = Instantiate(mobToSpawn, origin, Quaternion.identity);
+                spawnedMob.AddComponent<MobData>();
+
                 spawnedMobs.Add(spawnedMob);
                 Debug.Log("Mob has been spawned");
             }

@@ -2722,7 +2722,7 @@ GameObject:
   m_Component:
   - component: {fileID: 416955270}
   m_Layer: 0
-  m_Name: Team1
+  m_Name: FirstTeamBuildings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9318,9 +9318,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e98ca4fe5033c69409ce8e91c6aa593c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  barrackPrefab: {fileID: 100000, guid: e2f28d7d7478cb64597ebb9077abfe6e, type: 3}
+  _buildingDefinitions:
+  - _type: 0
+    _stats:
+      _maxHp: 100
+      _mobSpawnInterval: 5
+    _spawnedMob: 0
+    _prefab: {fileID: 100000, guid: e2f28d7d7478cb64597ebb9077abfe6e, type: 3}
+  - _type: 1
+    _stats:
+      _maxHp: 0
+      _mobSpawnInterval: 0
+    _spawnedMob: 1
+    _prefab: {fileID: 100000, guid: 7036859d28e2cb84c9948a1fcf49fe95, type: 3}
   playerCamera: {fileID: 963194227}
   buildingContainer: {fileID: 1425196803}
+  buildingsParent: {fileID: 416955270}
 --- !u!4 &1425196802
 Transform:
   m_ObjectHideFlags: 0
@@ -9348,19 +9361,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a0017daa72348ca9ae88e02d4cab553, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _buildingPrefabs:
-  - _type: 0
-    _stats:
-      _maxHp: 1000
-      _mobSpawnInterval: 5
-    _spawnedMob: 0
-    _prefab: {fileID: 100000, guid: e2f28d7d7478cb64597ebb9077abfe6e, type: 3}
-  - _type: 1
-    _stats:
-      _maxHp: 1000
-      _mobSpawnInterval: 7
-    _spawnedMob: 0
-    _prefab: {fileID: 100000, guid: 7036859d28e2cb84c9948a1fcf49fe95, type: 3}
   _activeBuildings: []
 --- !u!1 &1434988191
 GameObject:
@@ -13679,7 +13679,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2004580697}
   m_Layer: 0
-  m_Name: Team2
+  m_Name: SecondTeamBuildings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

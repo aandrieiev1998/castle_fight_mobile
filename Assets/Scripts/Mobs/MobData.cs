@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace Buildings
+namespace Mobs
 {
-    public class BuildingData : MonoBehaviour
+    public class MobData : MonoBehaviour
     {
         public int _currentHp;
     }

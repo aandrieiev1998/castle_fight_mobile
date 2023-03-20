@@ -7,16 +7,16 @@ namespace Buildings
     public class BuildingContainer : MonoBehaviour
     {
 
-        public List<BuildingEntry> _buildingPrefabs;
+        public List<BuildingDefinition> _buildingPrefabs;
         public List<GameObject> _activeBuildings;
         
-        public Action<BuildingEntry, Vector3> newActiveBuilding;
+        public Action<BuildingDefinition, Vector3> newActiveBuilding;
         
         
-        public void AddActiveBuilding(BuildingEntry buildingEntry, GameObject buildingOnScene)
+        public void AddActiveBuilding(BuildingDefinition buildingDefinition, GameObject buildingOnScene)
         {
             _activeBuildings.Add(buildingOnScene);
-            newActiveBuilding.Invoke(buildingEntry, buildingOnScene.transform.position);
+            newActiveBuilding.Invoke(buildingDefinition, buildingOnScene.transform.position);
         }
         
     }

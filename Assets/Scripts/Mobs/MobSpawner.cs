@@ -19,9 +19,9 @@ namespace Mobs
             _buildingContainer.newActiveBuilding += BuildingAdded;
         }
 
-        private void BuildingAdded(BuildingEntry buildingEntry, Vector3 position)
+        private void BuildingAdded(BuildingDefinition buildingDefinition, Vector3 position)
         {
-            StartCoroutine(SpawnMob(buildingEntry._spawnedMob, buildingEntry._stats._mobSpawnInterval,
+            StartCoroutine(SpawnMob(buildingDefinition._spawnedMob, buildingDefinition._stats._mobSpawnInterval,
                 position));
         }
 

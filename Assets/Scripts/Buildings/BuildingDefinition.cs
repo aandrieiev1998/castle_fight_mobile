@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Buildings
 {
     [Serializable]
-    public struct BuildingEntry
+    public struct BuildingDefinition
     {
         public BuildingType _type;
         public BuildingStats _stats;

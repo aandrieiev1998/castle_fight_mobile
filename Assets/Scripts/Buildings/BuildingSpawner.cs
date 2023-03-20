@@ -34,7 +34,7 @@ namespace Buildings
                         Quaternion.Euler(new Vector3(-90f, 0f, 0f)), transform);
                     building.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                     
-                    buildingContainer.AddBuilding(buildingContainer._buildingPrefabs[0], building);
+                    buildingContainer.AddActiveBuilding(buildingContainer._buildingPrefabs[0], building);
                 }
             }
         }

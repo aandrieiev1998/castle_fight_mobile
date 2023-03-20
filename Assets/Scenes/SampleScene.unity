@@ -8831,7 +8831,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   barrackPrefab: {fileID: 100000, guid: e2f28d7d7478cb64597ebb9077abfe6e, type: 3}
   playerCamera: {fileID: 963194227}
-  buildingContainer: {fileID: 0}
+  buildingContainer: {fileID: 1425196803}
 --- !u!4 &1425196802
 Transform:
   m_ObjectHideFlags: 0
@@ -8922,7 +8922,7 @@ MonoBehaviour:
     _prefab: {fileID: 155132, guid: bcc60fdbd3a37b44cbc0cb99db483477, type: 3}
   - _type: 1
     _prefab: {fileID: 179124, guid: 04c79b5f6e9ebab48af48fdcf7b6d570, type: 3}
-  _buildingContainer: {fileID: 0}
+  _buildingContainer: {fileID: 1425196803}
 --- !u!1001 &1485586551
 PrefabInstance:
   m_ObjectHideFlags: 0

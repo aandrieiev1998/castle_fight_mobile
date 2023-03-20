@@ -9,13 +9,14 @@ namespace Buildings
 
         public List<BuildingEntry> _buildingPrefabs;
         public List<GameObject> _activeBuildings;
-        public Action<BuildingEntry, Vector3> buildingAdded;
+        
+        public Action<BuildingEntry, Vector3> newActiveBuilding;
         
         
-        public void AddBuilding(BuildingEntry buildingEntry, GameObject buildingOnScene)
+        public void AddActiveBuilding(BuildingEntry buildingEntry, GameObject buildingOnScene)
         {
             _activeBuildings.Add(buildingOnScene);
-            buildingAdded.Invoke(buildingEntry, buildingOnScene.transform.position);
+            newActiveBuilding.Invoke(buildingEntry, buildingOnScene.transform.position);
         }
         
     }

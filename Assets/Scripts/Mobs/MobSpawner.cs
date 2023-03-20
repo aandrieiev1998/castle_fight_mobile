@@ -16,7 +16,7 @@ namespace Mobs
 
         private void Start()
         {
-            _buildingContainer.buildingAdded += BuildingAdded;
+            _buildingContainer.newActiveBuilding += BuildingAdded;
         }
 
         private void BuildingAdded(BuildingEntry buildingEntry, Vector3 position)
@@ -28,11 +28,16 @@ namespace Mobs
 
         private IEnumerator SpawnMob(MobType mobType, float interval, Vector3 origin)
         {
-            var mobToSpawn = _mobPrefabs.Single(entry => entry._type == mobType)._prefab;
-            var spawnedMob = Instantiate(mobToSpawn, origin, Quaternion.identity);
-            spawnedMobs.Add(spawnedMob);
-            Debug.Log("Mob has been spawned");
-            yield return new WaitForSeconds(interval);
+            while (true)
+            {
+                //
+                yield return new WaitForSeconds(interval);
+                
+                var mobToSpawn = _mobPrefabs.Single(entry => entry._type == mobType)._prefab;
+                var spawnedMob = Instantiate(mobToSpawn, origin, Quaternion.identity);
+                spawnedMobs.Add(spawnedMob);
+                Debug.Log("Mob has been spawned");
+            }
         }
     }
 }

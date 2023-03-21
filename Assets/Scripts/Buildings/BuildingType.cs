@@ -5,7 +5,7 @@ namespace Buildings
     [Serializable]
     public enum BuildingType
     {
-        Barracks,
-        Archery
+        Barracks = 0,
+        Archery = 1
     }
 }

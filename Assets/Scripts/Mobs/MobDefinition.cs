@@ -9,8 +9,6 @@ namespace Mobs
         public MobType _type;
         public MobStats _stats;
         public GameObject _prefab;
-        public float _aiRadius;
-        public float _aiHeight;
-        public float _aiMaxSpeed;
+        public PathfindingParameters _pathfindingParameters;
     }
 }

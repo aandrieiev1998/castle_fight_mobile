@@ -1,4 +1,5 @@
 ﻿using System;
+using Mechanics;
 
 namespace Buildings
 {
@@ -6,6 +7,7 @@ namespace Buildings
     public struct BuildingStats
     {
         public int _maxHp;
+        public int _armor;
         public float _mobSpawnInterval;
     }
 }

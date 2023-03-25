@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using GamePlay;
 using UI;
 using UnityEngine;
 
@@ -11,7 +12,8 @@ namespace Buildings
         [SerializeField] private BuildingContainer _buildingContainer;
         [SerializeField] private Transform _buildingsParent;
         [SerializeField] private BuildingsMenuController _buildingMenuController;
-
+        [SerializeField] private MatchInfo _matchInfo; 
+        
         private const int LayerIndex = 6;
         private Vector3 spawnPoint;
         private BuildingPlatform selectedPlatform;
@@ -67,6 +69,7 @@ namespace Buildings
 
             var buildingData = building.AddComponent<BuildingData>();
             buildingData._currentHp = buildingDefinition._stats._maxHp;
+            buildingData._PlayerTeam = _matchInfo.LocalPlayerTeam;
 
             _buildingContainer.AddActiveBuilding(buildingDefinition, buildingData);
 

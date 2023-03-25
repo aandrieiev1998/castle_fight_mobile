@@ -41,6 +41,9 @@ namespace Mobs
 
                 var mobData = mob.AddComponent<MobData>();
                 mobData._currentHp = mobDefinition._stats._maxHp;
+                mobData._currentDamage = mobDefinition._stats._damage;
+                mobData._currentArmor = mobDefinition._stats._armor;
+                mobData._CurrentArmorType = mobDefinition._stats.ArmorType;
 
                 var aiPath = mob.AddComponent<AIPath>();
                 aiPath.radius = mobDefinition._pathfindingParameters._aiRadius;

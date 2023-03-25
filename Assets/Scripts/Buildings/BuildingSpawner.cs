@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Match;
 using UI;
 using UnityEngine;
@@ -60,7 +61,7 @@ namespace Buildings
 
         private void SpawnBuilding(BuildingType buildingType, Vector3 position)
         {
-            var buildingDefinition = _buildingDefinitions[(int) buildingType];
+            var buildingDefinition = _buildingDefinitions.Single(definition => definition._type == buildingType);
             var buildingPrefab = buildingDefinition._prefab;
 
             var building = Instantiate(buildingPrefab, position,

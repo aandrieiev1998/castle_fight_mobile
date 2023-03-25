@@ -7,7 +7,7 @@ namespace Buildings
     {
         Throne = 0,
         Tower = 1,
-        Barracks = 0,
-        Archery = 1
+        Barracks = 2,
+        Archery = 3
     }
 }

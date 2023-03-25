@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Buildings
 {
+    [Serializable]
     public class BaseBuildingDefinition
     {
         public BuildingType _type;

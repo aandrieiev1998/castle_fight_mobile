@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1755,6 +1755,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1459697110}
   - {fileID: 1893516722}
   m_Father: {fileID: 479309552}
   m_RootOrder: 1
@@ -5163,7 +5164,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1644572199}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &542598319
 GameObject:
@@ -8721,7 +8722,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.53729963, y: 0, z: 0, w: 0.8433915}
-  m_LocalPosition: {x: 47.5, y: 30, z: 28.6}
+  m_LocalPosition: {x: 128, y: 35, z: 18}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8799,6 +8800,37 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 971189674}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &980178600
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 980178601}
+  m_Layer: 0
+  m_Name: CameraSpawnpoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &980178601
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 980178600}
+  m_LocalRotation: {x: 0.53729963, y: -0, z: -0, w: 0.8433915}
+  m_LocalPosition: {x: 35, y: 35, z: 18}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1644572199}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &983314234
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12780,21 +12812,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e98ca4fe5033c69409ce8e91c6aa593c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _baseBuildingDefinitions:
+  - _type: 0
+    _stats:
+      _armor: 0
+      _maxHp: 0
+    _prefab: {fileID: 0}
   _buildingDefinitions:
   - _type: 2
+    _mobStats:
+      _armor: 0
+      _maxHp: 0
+      _mobSpawnInterval: 0
     _prefab: {fileID: 100000, guid: e2f28d7d7478cb64597ebb9077abfe6e, type: 3}
     _spawnedMob: 0
-    _stats:
-      _armor: 0
-      _maxHp: 100
-      _mobSpawnInterval: 3.5
   - _type: 3
+    _mobStats:
+      _armor: 0
+      _maxHp: 0
+      _mobSpawnInterval: 0
     _prefab: {fileID: 100000, guid: 7036859d28e2cb84c9948a1fcf49fe95, type: 3}
     _spawnedMob: 1
-    _stats:
-      _armor: 0
-      _maxHp: 100
-      _mobSpawnInterval: 2.5
   _playerCamera: {fileID: 963194227}
   _buildingContainer: {fileID: 1425196803}
   _buildingsParent: {fileID: 416955270}
@@ -12883,9 +12921,6 @@ MonoBehaviour:
   - _type: 0
     _stats:
       _maxHp: 150
-      _damage: 0
-      _armor: 3
-      _ArmorType: 2
       _visionRadius: 10
     _prefab: {fileID: 155132, guid: bcc60fdbd3a37b44cbc0cb99db483477, type: 3}
     _pathfindingParameters:
@@ -12895,9 +12930,6 @@ MonoBehaviour:
   - _type: 1
     _stats:
       _maxHp: 100
-      _damage: 0
-      _armor: 2
-      _ArmorType: 1
       _visionRadius: 10
     _prefab: {fileID: 179124, guid: 04c79b5f6e9ebab48af48fdcf7b6d570, type: 3}
     _pathfindingParameters:
@@ -12921,7 +12953,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   data:
-    dataString: UEsDBBQAAAgIAAAQIezNuLXtnAIAAKUFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFtVNtu2kAQ/RW0z02EISG0b60hpJWSoNAqDyUPi3eMV6x3rb0ESMS/d2ZtsEOKkGydmTMzZy5+Z1K7CjJv7MxKcW8EsG89Ru/sS6813sGOr41eyDc4+jxL4Qty4tHniXtpEE+I5kwJ3srsu14rcu4jGLTMjS2nYg2pcd4hnHPlAE3WeGJrhN57bNcQ9s3zjZ69A75loD3Y1isZjM/8hleXX+k3GkRC0JniZQWCCm95g+tRw7upA2vU1LhQ/ZlRSrqmIOb3VRSc8soFlIMOQnIUGEsh/wLkuvAUuEt+zHMHvinO8v1EWuxTHZX9MHXzSu42dWGvXAWoRcWa6qD3n+wXSTTn1pR3x7xJn3L4QmabJ77PuPOd7nbhycfCg95yteErBc8F6AczsyZogUZvA1GDg8GkE+qkLS0g27R+da1nYKg+zzNp53mI6nepkuWKkMvrGlgoE/s9Ig5YnMxPLDjuh2siIUpF/HHwm6+7i9QYbqV1Hk1NQk3VrUyw5MqmsWckJvjUWA0RbmquQHPl93MM489HeGbrpD2z3HI6mSZ5Yztewhklwq1/v39mmpttOywHv0JZzY3UfgHcZkUnnivM9h5c8Ri8khpaRWR4wCamRut6/dx/aItgc551aB52PliYcM/jEWBNuCWiS8WGRoYOStFCRhUU/C+qoP8LNbngmFdFmD0YHc/nw/OFFmEdpPi45mzcz4Z5Lq4SSG7GwwQuhqthnsEVDJOhGMPohsU7kBp7ztW8blozKtwg3WrRuPPHr1pvZnkVL09Yvp3Jt9J0xi91bhaZBdCPdYSTWLCYBL8QYiokylyA91LH3WPvS6ZMtgGxPAVaxsZOd97yZRtlySr5ajwhS5bGb9mSEXw6q7mFVwlbSn4MdmCHf1BLAwQUAAAICAAAECHsye6VYG0AAAB4AAAACQAkAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAatWKkstKs7Mz1OyUjDRM9IzNNdRUEovSizIKAaKGII4pZkpIHa0koVBsnFaWoqJYaqhuYWxYaqucZJxWnKqSaqxoXGKRaqZuVIsUH1JZUGqX2JuKkRPQGJJRlpmXkpmXrqee1FmijvIaKXYWgBQSwECLQAUAAAICAAAECHszbi17ZwCAAClBQAACwAkAAAAAAAAAAAAAAAAAAAAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwECLQAUAAAICAAAECHsye6VYG0AAAB4AAAACQAkAAAAAAAAAAAAAADpAgAAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsFBgAAAAACAAIAuAAAAKEDAAAAAA==
+    dataString: UEsDBBQAAAgIAAAIIezNuLXtnAIAAKUFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFtVNtu2kAQ/RW0z02EISG0b60hpJWSoNAqDyUPi3eMV6x3rb0ESMS/d2ZtsEOKkGydmTMzZy5+Z1K7CjJv7MxKcW8EsG89Ru/sS6813sGOr41eyDc4+jxL4Qty4tHniXtpEE+I5kwJ3srsu14rcu4jGLTMjS2nYg2pcd4hnHPlAE3WeGJrhN57bNcQ9s3zjZ69A75loD3Y1isZjM/8hleXX+k3GkRC0JniZQWCCm95g+tRw7upA2vU1LhQ/ZlRSrqmIOb3VRSc8soFlIMOQnIUGEsh/wLkuvAUuEt+zHMHvinO8v1EWuxTHZX9MHXzSu42dWGvXAWoRcWa6qD3n+wXSTTn1pR3x7xJn3L4QmabJ77PuPOd7nbhycfCg95yteErBc8F6AczsyZogUZvA1GDg8GkE+qkLS0g27R+da1nYKg+zzNp53mI6nepkuWKkMvrGlgoE/s9Ig5YnMxPLDjuh2siIUpF/HHwm6+7i9QYbqV1Hk1NQk3VrUyw5MqmsWckJvjUWA0RbmquQHPl93MM489HeGbrpD2z3HI6mSZ5Yztewhklwq1/v39mmpttOywHv0JZzY3UfgHcZkUnnivM9h5c8Ri8khpaRWR4wCamRut6/dx/aItgc551aB52PliYcM/jEWBNuCWiS8WGRoYOStFCRhUU/C+qoP8LNbngmFdFmD0YHc/nw/OFFmEdpPi45mzcz4Z5Lq4SSG7GwwQuhqthnsEVDJOhGMPohsU7kBp7ztW8blozKtwg3WrRuPPHr1pvZnkVL09Yvp3Jt9J0xi91bhaZBdCPdYSTWLCYBL8QYiokylyA91LH3WPvS6ZMtgGxPAVaxsZOd97yZRtlySr5ajwhS5bGb9mSEXw6q7mFVwlbSn4MdmCHf1BLAwQUAAAICAAACCHsye6VYG0AAAB4AAAACQAkAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAatWKkstKs7Mz1OyUjDRM9IzNNdRUEovSizIKAaKGII4pZkpIHa0koVBsnFaWoqJYaqhuYWxYaqucZJxWnKqSaqxoXGKRaqZuVIsUH1JZUGqX2JuKkRPQGJJRlpmXkpmXrqee1FmijvIaKXYWgBQSwECLQAUAAAICAAACCHszbi17ZwCAAClBQAACwAkAAAAAAAAAAAAAAAAAAAAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwECLQAUAAAICAAACCHsye6VYG0AAAB4AAAACQAkAAAAAAAAAAAAAADpAgAAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsFBgAAAAACAAIAuAAAAKEDAAAAAA==
     upgradeData: 
     file_cachedStartup: {fileID: 0}
     data_cachedStartup: 
@@ -12962,6 +12994,37 @@ MonoBehaviour:
     pivotPointRoot: {fileID: 0}
     spreadOutCount: 1
   showGraphs: 1
+--- !u!1 &1459697109
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1459697110}
+  m_Layer: 0
+  m_Name: CameraSpawnpoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1459697110
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1459697109}
+  m_LocalRotation: {x: 0.53729963, y: -0, z: -0, w: 0.8433915}
+  m_LocalPosition: {x: 222, y: 35, z: 18}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 228326597}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1485586551
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14012,6 +14075,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 980178601}
   - {fileID: 528771613}
   m_Father: {fileID: 479309552}
   m_RootOrder: 0
@@ -16889,7 +16953,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 228326597}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1903747627
 PrefabInstance:

@@ -8,7 +8,7 @@ namespace Buildings
 {
     public class BuildingSpawner : MonoBehaviour
     {
-        [SerializeField] private List<BuildingDefinition> _buildingDefinitions;
+        [SerializeField] private List<MobBuildingDefinition> _buildingDefinitions;
         [SerializeField] private Camera _playerCamera;
         [SerializeField] private BuildingContainer _buildingContainer;
         [SerializeField] private Transform _buildingsParent;

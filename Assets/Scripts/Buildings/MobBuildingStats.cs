@@ -4,10 +4,8 @@ using Mechanics;
 namespace Buildings
 {
     [Serializable]
-    public struct BuildingStats
+    public class MobBuildingStats : BaseBuildingStats
     {
-        public int _maxHp;
-        public int _armor;
         public float _mobSpawnInterval;
     }
 }

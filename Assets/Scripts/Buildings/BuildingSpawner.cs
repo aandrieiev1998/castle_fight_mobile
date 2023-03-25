@@ -80,6 +80,8 @@ namespace Buildings
 
             var buildingData = building.AddComponent<BuildingData>();
             buildingData._currentHp = buildingDefinition._stats._maxHp;
+            buildingData._currentArmor = buildingDefinition._stats._maxArmor;
+            buildingData._armorType = buildingDefinition._stats._armorType;
             buildingData._PlayerTeam = _matchInfo.LocalPlayerTeam;
 
             _buildingContainer.AddActiveBuilding(buildingDefinition, buildingData);

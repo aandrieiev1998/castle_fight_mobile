@@ -9,7 +9,7 @@ namespace Mobs
         public int _maxHp;
         public int _damage;
         public int _armor;
-        public ArmorType ArmorType;
+        public ArmorType _ArmorType;
         public float _visionRadius;
     }
 }

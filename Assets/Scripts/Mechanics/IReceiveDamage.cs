@@ -1,8 +1,5 @@
-﻿using Buildings;
-
-namespace Mechanics
+﻿namespace Mechanics
 {
-
     public interface IReceiveDamage
     {
         const float buildArmorFactor = 1.2f;

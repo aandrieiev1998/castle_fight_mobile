@@ -8,6 +8,7 @@ namespace Buildings
 {
     public class BuildingSpawner : MonoBehaviour
     {
+        [SerializeField] private List<BaseBuildingDefinition> _baseBuildingDefinitions;
         [SerializeField] private List<MobBuildingDefinition> _buildingDefinitions;
         [SerializeField] private Camera _playerCamera;
         [SerializeField] private BuildingContainer _buildingContainer;
@@ -79,7 +80,7 @@ namespace Buildings
             // building.
 
             var buildingData = building.AddComponent<BuildingData>();
-            buildingData._currentHp = buildingDefinition._stats._maxHp;
+            buildingData._currentHp = buildingDefinition._mobStats._maxHp;
             buildingData._PlayerTeam = _matchInfo.LocalPlayerTeam;
 
             _buildingContainer.AddActiveBuilding(buildingDefinition, buildingData);

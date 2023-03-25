@@ -24,7 +24,7 @@ namespace Mobs
 
         private void BuildingAdded(MobBuildingDefinition mobBuildingDefinition, Vector3 position)
         {
-            var coroutine = StartCoroutine(StartSpawningMobsForSingleBuilding(mobBuildingDefinition._spawnedMob, mobBuildingDefinition._stats._mobSpawnInterval,
+            var coroutine = StartCoroutine(StartSpawningMobsForSingleBuilding(mobBuildingDefinition._spawnedMob, mobBuildingDefinition._mobStats._mobSpawnInterval,
                 position));
         }
 

@@ -11124,6 +11124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _teamSelectionMenuView: {fileID: 703024023}
+  _matchInfo: {fileID: 158450540}
 --- !u!1001 &1238511440
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12798,7 +12799,13 @@ MonoBehaviour:
   _buildingContainer: {fileID: 1425196803}
   _buildingsParent: {fileID: 416955270}
   _buildingMenuController: {fileID: 1236819679}
-  _matchInfo: {fileID: 0}
+  _teamSelectionMenuController: {fileID: 1236819681}
+  _matchInfo: {fileID: 158450540}
+  _teamMaterials:
+  - _playerTeam: 0
+    _material: {fileID: 2100000, guid: 792a4bad9e08b8e41bfbd3f0b8aac1ab, type: 2}
+  - _playerTeam: 1
+    _material: {fileID: 2100000, guid: 98a7fdcb4ebb44344b4afe0424d44b82, type: 2}
 --- !u!4 &1425196802
 Transform:
   m_ObjectHideFlags: 0

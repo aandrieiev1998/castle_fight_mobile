@@ -2,7 +2,6 @@
 
 namespace Buildings
 {
-    [Serializable]
     public class BaseBuildingStats
     {
         public int _armor;

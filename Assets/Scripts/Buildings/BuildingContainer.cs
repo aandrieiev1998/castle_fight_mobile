@@ -8,13 +8,13 @@ namespace Buildings
     {
         public List<BuildingData> _activeBuildings;
 
-        public event Action<BuildingDefinition, Vector3> NewActiveBuilding;
+        public event Action<MobBuildingDefinition, Vector3> NewActiveBuilding;
 
 
-        public void AddActiveBuilding(BuildingDefinition buildingDefinition, BuildingData buildingData)
+        public void AddActiveBuilding(MobBuildingDefinition mobBuildingDefinition, BuildingData buildingData)
         {
             _activeBuildings.Add(buildingData);
-            NewActiveBuilding?.Invoke(buildingDefinition, buildingData.transform.position);
+            NewActiveBuilding?.Invoke(mobBuildingDefinition, buildingData.transform.position);
         }
     }
 }

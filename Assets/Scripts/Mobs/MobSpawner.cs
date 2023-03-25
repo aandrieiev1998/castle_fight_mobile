@@ -22,9 +22,9 @@ namespace Mobs
             _buildingContainer.NewActiveBuilding += BuildingAdded;
         }
 
-        private void BuildingAdded(BuildingDefinition buildingDefinition, Vector3 position)
+        private void BuildingAdded(MobBuildingDefinition mobBuildingDefinition, Vector3 position)
         {
-            var coroutine = StartCoroutine(StartSpawningMobsForSingleBuilding(buildingDefinition._spawnedMob, buildingDefinition._stats._mobSpawnInterval,
+            var coroutine = StartCoroutine(StartSpawningMobsForSingleBuilding(mobBuildingDefinition._spawnedMob, mobBuildingDefinition._stats._mobSpawnInterval,
                 position));
         }
 

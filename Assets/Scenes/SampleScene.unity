@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -11544,7 +11544,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 3221225719
 --- !u!114 &1284274364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12812,24 +12812,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e98ca4fe5033c69409ce8e91c6aa593c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseBuildingDefinitions:
-  - _type: 0
-    _stats:
-      _armor: 0
-      _maxHp: 0
-    _prefab: {fileID: 0}
+  _baseBuildingDefinitions: []
   _buildingDefinitions:
   - _type: 2
     _mobStats:
-      _armor: 0
       _maxHp: 0
+      _maxArmor: 0
+      _armorType: 0
       _mobSpawnInterval: 0
     _prefab: {fileID: 100000, guid: e2f28d7d7478cb64597ebb9077abfe6e, type: 3}
     _spawnedMob: 0
   - _type: 3
     _mobStats:
-      _armor: 0
       _maxHp: 0
+      _maxArmor: 0
+      _armorType: 0
       _mobSpawnInterval: 0
     _prefab: {fileID: 100000, guid: 7036859d28e2cb84c9948a1fcf49fe95, type: 3}
     _spawnedMob: 1
@@ -12921,6 +12918,9 @@ MonoBehaviour:
   - _type: 0
     _stats:
       _maxHp: 150
+      _damage: 0
+      _armor: 0
+      _ArmorType: 0
       _visionRadius: 10
     _prefab: {fileID: 155132, guid: bcc60fdbd3a37b44cbc0cb99db483477, type: 3}
     _pathfindingParameters:
@@ -12930,6 +12930,9 @@ MonoBehaviour:
   - _type: 1
     _stats:
       _maxHp: 100
+      _damage: 0
+      _armor: 0
+      _ArmorType: 0
       _visionRadius: 10
     _prefab: {fileID: 179124, guid: 04c79b5f6e9ebab48af48fdcf7b6d570, type: 3}
     _pathfindingParameters:

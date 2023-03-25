@@ -10,7 +10,7 @@ namespace Buildings
     {
         [SerializeField] private List<BaseBuildingDefinition> _baseBuildingDefinitions;
         [SerializeField] private List<MobBuildingDefinition> _buildingDefinitions;
-        [SerializeField] private Camera _playerCamera;
+        [SerializeField] private UnityEngine.Camera _playerCamera;
         [SerializeField] private BuildingContainer _buildingContainer;
         [SerializeField] private Transform _buildingsParent;
         [SerializeField] private BuildingsMenuController _buildingMenuController;
@@ -80,9 +80,9 @@ namespace Buildings
             // building.
 
             var buildingData = building.AddComponent<BuildingData>();
-            buildingData._currentHp = buildingDefinition._stats._maxHp;
-            buildingData._currentArmor = buildingDefinition._stats._maxArmor;
-            buildingData._armorType = buildingDefinition._stats._armorType;
+            buildingData._currentHp = buildingDefinition._mobStats._maxHp;
+            buildingData._currentArmor = buildingDefinition._mobStats._maxArmor;
+            buildingData._armorType = buildingDefinition._mobStats._armorType;
             buildingData._PlayerTeam = _matchInfo.LocalPlayerTeam;
 
             _buildingContainer.AddActiveBuilding(buildingDefinition, buildingData);

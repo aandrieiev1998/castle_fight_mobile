@@ -12781,14 +12781,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _buildingDefinitions:
-  - _type: 0
+  - _type: 2
     _stats:
       _maxHp: 100
       _armor: 0
       _mobSpawnInterval: 3.5
     _spawnedMob: 0
     _prefab: {fileID: 100000, guid: e2f28d7d7478cb64597ebb9077abfe6e, type: 3}
-  - _type: 1
+  - _type: 3
     _stats:
       _maxHp: 100
       _armor: 0

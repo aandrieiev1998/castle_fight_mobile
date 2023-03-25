@@ -8,6 +8,7 @@ namespace UI
     {
 
         [SerializeField] private TeamSelectionMenuView _teamSelectionMenuView;
+        [SerializeField] private MatchInfo _matchInfo;
 
         public event Action<PlayerTeam> PlayerTeamSelected;
 
@@ -22,6 +23,7 @@ namespace UI
         private void SelectTeam(PlayerTeam team)
         {
             Debug.Log($"Selected team: {team}");
+            _matchInfo.LocalPlayerTeam = team;
             PlayerTeamSelected?.Invoke(team);   
         }
         

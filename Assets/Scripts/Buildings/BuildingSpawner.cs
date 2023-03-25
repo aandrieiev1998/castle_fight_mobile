@@ -13,8 +13,10 @@ namespace Buildings
         [SerializeField] private BuildingContainer _buildingContainer;
         [SerializeField] private Transform _buildingsParent;
         [SerializeField] private BuildingsMenuController _buildingMenuController;
-        [SerializeField] private MatchInfo _matchInfo; 
-        
+        [SerializeField] private TeamSelectionMenuController _teamSelectionMenuController;
+        [SerializeField] private MatchInfo _matchInfo;
+        [SerializeField] private List<TeamMaterial> _teamMaterials;
+
         private const int LayerIndex = 6;
         private Vector3 spawnPoint;
         private BuildingPlatform selectedPlatform;
@@ -23,6 +25,12 @@ namespace Buildings
         private void Start()
         {
             _buildingMenuController.BuildingSelected += OnBuildingSelected;
+            _teamSelectionMenuController.PlayerTeamSelected += OnLocalPlayerTeamSelected;
+        }
+
+        private void OnLocalPlayerTeamSelected(PlayerTeam playerTeam)
+        {
+            _teamSelectionMenuController.Hide();
         }
 
         private void Update()
@@ -67,6 +75,8 @@ namespace Buildings
             var building = Instantiate(buildingPrefab, position,
                 Quaternion.Euler(new Vector3(-90f, 0f, 0f)), _buildingsParent);
             building.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            
+            // building.
 
             var buildingData = building.AddComponent<BuildingData>();
             buildingData._currentHp = buildingDefinition._stats._maxHp;

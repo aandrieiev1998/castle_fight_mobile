@@ -22,18 +22,15 @@ namespace Buildings
             _buildingMenuController.BuildingSelected += OnBuildingSelected;
         }
 
-        private void OnMouseDown()
-        {
-            Debug.Log(gameObject.name);
-            if (!occupied)
-            {
-                occupied = true;
-            }
-        }
-
         private void Update()
         {
             HandlePlayerInput();
+        }
+
+        private void OnBuildingSelected(BuildingType buildingType)
+        {
+            SpawnBuilding(buildingType, spawnPoint);
+            _buildingMenuController.Hide();
         }
 
         private void HandlePlayerInput()
@@ -59,12 +56,6 @@ namespace Buildings
             }
         }
 
-        private void OnBuildingSelected(BuildingType buildingType)
-        {
-            SpawnBuilding(buildingType, spawnPoint);
-            _buildingMenuController.Hide();
-        }
-
         private void SpawnBuilding(BuildingType buildingType, Vector3 position)
         {
             var buildingDefinition = _buildingDefinitions[(int) buildingType];
@@ -78,7 +69,7 @@ namespace Buildings
             buildingData._currentHp = buildingDefinition._stats._maxHp;
 
             _buildingContainer.AddActiveBuilding(buildingDefinition, buildingData);
-            
+
             selectedPlatform.IsOccupied = true;
         }
     }

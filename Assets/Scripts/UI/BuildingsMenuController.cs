@@ -16,9 +16,18 @@ namespace UI
             
             _buildingMenuView.BarrackButton.onClick.AddListener(() => {SelectBuilding(BuildingType.Barracks);});
             _buildingMenuView.ArcheryButton.onClick.AddListener(() => {SelectBuilding(BuildingType.Archery);});
+            
             _buildingMenuView.CancelButton.onClick.AddListener(Hide);
             
             _buildingMenuView.gameObject.SetActive(false);
+        }
+
+        private void OnDestroy()
+        {
+            _buildingMenuView.BarrackButton.onClick.RemoveAllListeners();
+            _buildingMenuView.ArcheryButton.onClick.RemoveAllListeners();
+            
+            _buildingMenuView.CancelButton.onClick.RemoveListener(Hide);
         }
 
         private void SelectBuilding(BuildingType buildingType)

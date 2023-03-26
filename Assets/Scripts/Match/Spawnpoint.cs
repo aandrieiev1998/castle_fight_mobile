@@ -1,5 +1,6 @@
 ﻿using System;
 using Buildings;
+using Buildings.Types;
 using UnityEngine;
 
 namespace Match
@@ -8,7 +9,7 @@ namespace Match
     public struct Spawnpoint
     {
         public PlayerTeam _playerTeam;
-        public BuildingType _buildingType;
+        public BaseBuildingType _baseBuildingType;
         public Transform _transform;
     }
 }

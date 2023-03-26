@@ -6,9 +6,9 @@ namespace Buildings.Stats
     [Serializable]
     public class MobBuildingStats
     {
-        public int _maxHp;
-        public int _maxArmor;
-        public ArmorType _armorType;
-        public float _mobSpawnInterval;
+        public int maxHp;
+        public int maxArmor;
+        public ArmorType armorType;
+        public float mobSpawnInterval;
     }
 }

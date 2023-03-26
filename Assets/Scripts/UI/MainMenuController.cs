@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class UI_Controller : MonoBehaviour
+public class MainMenuController : MonoBehaviour
 {
     [SerializeField] private Button startButton;
     [SerializeField] private Button exitButton;

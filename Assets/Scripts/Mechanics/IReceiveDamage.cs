@@ -2,27 +2,27 @@
 {
     public interface IReceiveDamage
     {
-        const float buildArmorFactor = 1.2f;
+        const float BuildArmorFactor = 1.2f;
 
-        const float lightArmorFactor = 0.3f;
+        const float LightArmorFactor = 0.3f;
 
-        const float midleArmorFactor = 0.5f;
+        const float MiddleArmorFactor = 0.5f;
 
-        const float heavyArmorFactor = 0.7f;
+        const float HeavyArmorFactor = 0.7f;
 
-        const float mechanicArmorFactor = 0.5f;
+        const float MechanicArmorFactor = 0.5f;
 
-        float DamageModifier(int health, int damage, int armor, ArmorType armorType)
+        float FinalDamage(int health, int damage, int armor, ArmorType armorType)
         {
-            float finalDamage = armorType switch
+            float damageModifier = armorType switch
             {
-                ArmorType.LightArmor => health - (damage / (armor * lightArmorFactor)),
-                ArmorType.MidleArmor => health - (damage / (armor * midleArmorFactor)),
-                ArmorType.HeavyArmor => health - (damage / (armor * heavyArmorFactor)),
-                ArmorType.MechanicArmor => health - (damage / (armor * mechanicArmorFactor)),
-                ArmorType.Building => health - (damage / (armor * buildArmorFactor))
+                ArmorType.LightArmor => health - (damage / (armor * LightArmorFactor)),
+                ArmorType.MidleArmor => health - (damage / (armor * MiddleArmorFactor)),
+                ArmorType.HeavyArmor => health - (damage / (armor * HeavyArmorFactor)),
+                ArmorType.MechanicArmor => health - (damage / (armor * MechanicArmorFactor)),
+                ArmorType.Building => health - (damage / (armor * BuildArmorFactor))
             };
-            return finalDamage;
+            return damageModifier;
         }
     }
 }

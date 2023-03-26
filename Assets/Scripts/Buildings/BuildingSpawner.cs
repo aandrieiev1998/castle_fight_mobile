@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Buildings.Definition;
 using Match;
 using UI;
 using UnityEngine;
@@ -80,9 +81,9 @@ namespace Buildings
             // building.
 
             var buildingData = building.AddComponent<BuildingData>();
-            buildingData._currentHp = buildingDefinition._mobStats._maxHp;
-            buildingData._currentArmor = buildingDefinition._mobStats._maxArmor;
-            buildingData._armorType = buildingDefinition._mobStats._armorType;
+            // buildingData._currentHp = buildingDefinition._mobStats._maxHp;
+            // buildingData._currentArmor = buildingDefinition._mobStats._maxArmor;
+            // buildingData._armorType = buildingDefinition._mobStats._armorType;
             buildingData._PlayerTeam = _matchInfo.LocalPlayerTeam;
 
             _buildingContainer.AddActiveBuilding(buildingDefinition, buildingData);

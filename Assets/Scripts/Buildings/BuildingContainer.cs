@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Buildings.Definition;
 using UnityEngine;
 
 namespace Buildings

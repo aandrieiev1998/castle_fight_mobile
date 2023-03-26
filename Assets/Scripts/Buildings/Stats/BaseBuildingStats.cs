@@ -1,7 +1,7 @@
 ﻿using System;
 using Mechanics;
 
-namespace Buildings
+namespace Buildings.Stats
 {
     [Serializable]
     public class BaseBuildingStats

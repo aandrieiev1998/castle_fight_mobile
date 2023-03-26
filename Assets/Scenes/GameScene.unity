@@ -1395,6 +1395,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _localPlayerTeam: 0
+  _teamsAmount: 0
 --- !u!114 &158450541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12917,13 +12918,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e98ca4fe5033c69409ce8e91c6aa593c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseBuildingDefinitions: []
+  _baseBuildingDefinitions:
+  - _type: 0
+    _prefab: {fileID: 0}
+    _stats:
+      _maxHp: 0
+      _maxArmor: 0
+      _armorType: 0
   _buildingDefinitions:
   - _type: 2
     _prefab: {fileID: 100000, guid: e2f28d7d7478cb64597ebb9077abfe6e, type: 3}
+    _stats:
+      _maxHp: 0
+      _maxArmor: 0
+      _armorType: 0
+      _mobSpawnInterval: 0
     _spawnedMob: 0
   - _type: 3
     _prefab: {fileID: 100000, guid: 7036859d28e2cb84c9948a1fcf49fe95, type: 3}
+    _stats:
+      _maxHp: 0
+      _maxArmor: 0
+      _armorType: 0
+      _mobSpawnInterval: 0
     _spawnedMob: 1
   _playerCamera: {fileID: 963194227}
   _buildingContainer: {fileID: 1425196803}

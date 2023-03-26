@@ -11,7 +11,7 @@ namespace Buildings
     {
         [SerializeField] private List<BaseBuildingDefinition> _baseBuildingDefinitions;
         [SerializeField] private List<MobBuildingDefinition> _buildingDefinitions;
-        [SerializeField] private UnityEngine.Camera _playerCamera;
+        [SerializeField] private Camera _playerCamera;
         [SerializeField] private BuildingContainer _buildingContainer;
         [SerializeField] private Transform _buildingsParent;
         [SerializeField] private BuildingsMenuController _buildingMenuController;
@@ -69,6 +69,11 @@ namespace Buildings
             }
         }
 
+        private void SpawnBaseBuildings()
+        {
+            
+        }
+
         private void SpawnBuilding(BuildingType buildingType, Vector3 position)
         {
             var buildingDefinition = _buildingDefinitions.Single(definition => definition._type == buildingType);
@@ -84,7 +89,7 @@ namespace Buildings
             // buildingData._currentHp = buildingDefinition._mobStats._maxHp;
             // buildingData._currentArmor = buildingDefinition._mobStats._maxArmor;
             // buildingData._armorType = buildingDefinition._mobStats._armorType;
-            buildingData._PlayerTeam = _matchInfo.LocalPlayerTeam;
+            buildingData._playerTeam = _matchInfo.LocalPlayerTeam;
 
             _buildingContainer.AddActiveBuilding(buildingDefinition, buildingData);
 

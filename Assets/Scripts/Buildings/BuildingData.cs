@@ -9,6 +9,6 @@ namespace Buildings
         public int _currentHp;
         public int _currentArmor;
         public ArmorType _armorType;
-        public PlayerTeam _PlayerTeam;
+        public PlayerTeam _playerTeam;
     }
 }

@@ -8,7 +8,7 @@ namespace Buildings.Definition
     public class BaseBuildingDefinition
     {
         public BuildingType _type;
-        // public BaseBuildingStats _stats;
         public GameObject _prefab;
+        public BaseBuildingStats _stats;
     }
 }

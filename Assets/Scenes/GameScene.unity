@@ -12960,32 +12960,34 @@ MonoBehaviour:
     _prefab: {fileID: 6664381571008634771, guid: fbb5e3bae1081764da9545903a83822e,
       type: 3}
     _stats:
-      _maxHp: 0
-      _maxArmor: 0
-      _armorType: 0
+      maxHp: 0
+      damage: 0
+      maxArmor: 0
+      armorType: 0
   - _type: 1
     _prefab: {fileID: 0}
     _stats:
-      _maxHp: 0
-      _maxArmor: 0
-      _armorType: 0
+      maxHp: 0
+      damage: 0
+      maxArmor: 0
+      armorType: 0
   _mobBuildingDefinitions:
   - _type: 0
     _prefab: {fileID: 100000, guid: e2f28d7d7478cb64597ebb9077abfe6e, type: 3}
     _spawnedMob: 0
     _stats:
-      _maxHp: 0
-      _maxArmor: 0
-      _armorType: 0
-      _mobSpawnInterval: 2
+      maxHp: 0
+      maxArmor: 0
+      armorType: 0
+      mobSpawnInterval: 3
   - _type: 1
     _prefab: {fileID: 100000, guid: 7036859d28e2cb84c9948a1fcf49fe95, type: 3}
     _spawnedMob: 1
     _stats:
-      _maxHp: 0
-      _maxArmor: 0
-      _armorType: 0
-      _mobSpawnInterval: 2.5
+      maxHp: 0
+      maxArmor: 0
+      armorType: 0
+      mobSpawnInterval: 3.5
   _playerCamera: {fileID: 963194227}
   _buildingContainer: {fileID: 1425196803}
   _spawnPointsContainer: {fileID: 1425196804}

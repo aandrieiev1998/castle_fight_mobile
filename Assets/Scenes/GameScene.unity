@@ -12972,12 +12972,20 @@ MonoBehaviour:
   _mobBuildingDefinitions:
   - _type: 0
     _prefab: {fileID: 100000, guid: e2f28d7d7478cb64597ebb9077abfe6e, type: 3}
+    _spawnedMob: 0
+    _stats:
+      _maxHp: 0
+      _maxArmor: 0
+      _armorType: 0
+      _mobSpawnInterval: 2
+  - _type: 1
+    _prefab: {fileID: 100000, guid: 7036859d28e2cb84c9948a1fcf49fe95, type: 3}
+    _spawnedMob: 1
     _stats:
       _maxHp: 0
       _maxArmor: 0
       _armorType: 0
       _mobSpawnInterval: 2.5
-    _spawnedMob: 0
   _playerCamera: {fileID: 963194227}
   _buildingContainer: {fileID: 1425196803}
   _spawnPointsContainer: {fileID: 1425196804}
@@ -13019,7 +13027,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a0017daa72348ca9ae88e02d4cab553, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _activeBuildings: []
+  _baseBuildings: []
+  _mobBuildings: []
 --- !u!114 &1425196804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13122,7 +13131,11 @@ MonoBehaviour:
       _aiMaxSpeed: 5
   _buildingContainer: {fileID: 1425196803}
   _mobsParent: {fileID: 486798253}
-  _mobsDefaultTarget: {fileID: 0}
+  _teamMaterials:
+  - _playerTeam: 0
+    _material: {fileID: 2100000, guid: 792a4bad9e08b8e41bfbd3f0b8aac1ab, type: 2}
+  - _playerTeam: 1
+    _material: {fileID: 2100000, guid: 98a7fdcb4ebb44344b4afe0424d44b82, type: 2}
 --- !u!114 &1434988194
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Buildings.Data;
 using Buildings.Definition;
 using Buildings.Types;
 using Match;
@@ -97,10 +98,12 @@ namespace Buildings
             var buildingSpawnPoint = _spawnPointsContainer.BaseBuildingSpawnPoints.Single(sp => sp._playerTeam == playerTeam);
 
             var building = Instantiate(buildingDefinition._prefab, buildingSpawnPoint._transform.position, buildingSpawnPoint._transform.rotation);
-            var buildingData = building.GetComponent<BuildingData>();
+            var buildingData = building.AddComponent<BaseBuildingData>();
             buildingData._playerTeam = playerTeam;
             var buildingRenderer = building.GetComponent<Renderer>();
             buildingRenderer.material = _teamMaterials.Single(tm => tm._playerTeam == playerTeam)._material;
+            
+            _buildingContainer.AddBaseBuilding(buildingDefinition, buildingData);
         }
 
         public void SpawnMobBuilding(MobBuildingType baseBuildingType, PlayerTeam playerTeam, Vector3 position)
@@ -114,7 +117,7 @@ namespace Buildings
 
             // building.
 
-            var buildingData = building.AddComponent<BuildingData>();
+            var buildingData = building.AddComponent<MobBuildingData>();
             // buildingData._currentHp = buildingDefinition._mobStats._maxHp;
             // buildingData._currentArmor = buildingDefinition._mobStats._maxArmor;
             // buildingData._armorType = buildingDefinition._mobStats._armorType;

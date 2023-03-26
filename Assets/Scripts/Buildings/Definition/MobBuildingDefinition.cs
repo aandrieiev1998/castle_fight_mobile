@@ -11,7 +11,7 @@ namespace Buildings.Definition
     {
         public MobBuildingType _type;
         public GameObject _prefab;
-        public MobBuildingStats _stats;
         public MobType _spawnedMob;
+        public MobBuildingStats _stats;
     }
 }

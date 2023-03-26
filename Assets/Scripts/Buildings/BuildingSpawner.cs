@@ -11,15 +11,16 @@ namespace Buildings
     public class BuildingSpawner : MonoBehaviour
     {
         [SerializeField] private List<BaseBuildingDefinition> _baseBuildingDefinitions;
-        [SerializeField] private List<MobBuildingDefinition> _buildingDefinitions;
+        [SerializeField] private List<MobBuildingDefinition> _mobBuildingDefinitions;
         [SerializeField] private Camera _playerCamera;
         [SerializeField] private BuildingContainer _buildingContainer;
-        [SerializeField] private SpawnpointsContainer _spawnPointsContainer;
+        [SerializeField] private SpawnPointsContainer _spawnPointsContainer;
         [SerializeField] private Transform _buildingsParent;
         [SerializeField] private BuildingsMenuController _buildingMenuController;
         [SerializeField] private TeamSelectionMenuController _teamSelectionMenuController;
         [SerializeField] private MatchInfo _matchInfo;
         [SerializeField] private List<TeamMaterial> _teamMaterials;
+        [SerializeField] private GameObject _buildingPlatformPrefab;
 
         private const int LayerIndex = 6;
         private Vector3 spawnPoint;
@@ -35,6 +36,7 @@ namespace Buildings
         private void OnLocalPlayerTeamSelected(PlayerTeam playerTeam)
         {
             _teamSelectionMenuController.Hide();
+            SpawnBuildingPlatforms(playerTeam);
             SpawnBaseBuildings();
         }
 
@@ -45,7 +47,7 @@ namespace Buildings
 
         private void OnBuildingSelected(MobBuildingType baseBuildingType)
         {
-            SpawnMobBuilding(baseBuildingType, spawnPoint);
+            SpawnMobBuilding(baseBuildingType, _matchInfo.LocalPlayerTeam, spawnPoint);
             _buildingMenuController.Hide();
         }
 
@@ -72,6 +74,17 @@ namespace Buildings
             }
         }
 
+        private void SpawnBuildingPlatforms(PlayerTeam playerTeam)
+        {
+            var spawnPoints = _spawnPointsContainer.MobBuildingsSpawnPoints.Where(bp => bp._playerTeam == playerTeam).ToList();
+            foreach (var spawnPoint in spawnPoints)
+            {
+                var buildingPlatform = Instantiate(_buildingPlatformPrefab, spawnPoint._transform.position, Quaternion.identity);
+                var buildingPlatformData = buildingPlatform.GetComponent<BuildingPlatform>();
+                buildingPlatformData.PlayerTeam = playerTeam;
+            }
+        }
+
         private void SpawnBaseBuildings()
         {
             SpawnBaseBuilding(BaseBuildingType.Throne, PlayerTeam.Blue);
@@ -81,7 +94,7 @@ namespace Buildings
         private void SpawnBaseBuilding(BaseBuildingType buildingType, PlayerTeam playerTeam)
         {
             var buildingDefinition = _baseBuildingDefinitions.Single(bdd => bdd._type == buildingType);
-            var buildingSpawnPoint = _spawnPointsContainer.Spawnpoints.Single(sp => sp._playerTeam == playerTeam);
+            var buildingSpawnPoint = _spawnPointsContainer.BaseBuildingSpawnPoints.Single(sp => sp._playerTeam == playerTeam);
 
             var building = Instantiate(buildingDefinition._prefab, buildingSpawnPoint._transform.position, buildingSpawnPoint._transform.rotation);
             var buildingData = building.GetComponent<BuildingData>();
@@ -90,9 +103,9 @@ namespace Buildings
             buildingRenderer.material = _teamMaterials.Single(tm => tm._playerTeam == playerTeam)._material;
         }
 
-        private void SpawnMobBuilding(MobBuildingType baseBuildingType, Vector3 position)
+        public void SpawnMobBuilding(MobBuildingType baseBuildingType, PlayerTeam playerTeam, Vector3 position)
         {
-            var buildingDefinition = _buildingDefinitions.Single(definition => definition._type == baseBuildingType);
+            var buildingDefinition = _mobBuildingDefinitions.Single(definition => definition._type == baseBuildingType);
             var buildingPrefab = buildingDefinition._prefab;
 
             var building = Instantiate(buildingPrefab, position,
@@ -105,11 +118,11 @@ namespace Buildings
             // buildingData._currentHp = buildingDefinition._mobStats._maxHp;
             // buildingData._currentArmor = buildingDefinition._mobStats._maxArmor;
             // buildingData._armorType = buildingDefinition._mobStats._armorType;
-            buildingData._playerTeam = _matchInfo.LocalPlayerTeam;
+            buildingData._playerTeam = playerTeam;
 
             _buildingContainer.AddActiveBuilding(buildingDefinition, buildingData);
 
-            selectedPlatform.IsOccupied = true;
+            // selectedPlatform.IsOccupied = true;
         }
     }
 }

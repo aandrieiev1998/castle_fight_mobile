@@ -28,7 +28,7 @@ namespace Mobs
         private void MobBuildingAdded(MobBuildingDefinition mobBuildingDefinition, MobBuildingData buildingData)
         {
             StartCoroutine(StartSpawningMobsForSingleBuilding(buildingData._playerTeam,
-                mobBuildingDefinition._spawnedMob, mobBuildingDefinition._stats._mobSpawnInterval,
+                mobBuildingDefinition._spawnedMob, mobBuildingDefinition._stats.mobSpawnInterval,
                 buildingData.transform.position));
         }
 

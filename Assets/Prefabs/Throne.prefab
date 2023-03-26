@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6664381571008634782}
   - component: {fileID: 6664381571008634769}
   - component: {fileID: 6664381571008634768}
-  - component: {fileID: 1366597209199524995}
   m_Layer: 7
   m_Name: Throne
   m_TagString: Untagged
@@ -98,19 +97,3 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 6.8453336, y: 7.456107, z: 5.4616423}
   m_Center: {x: 0, y: -1.0785111e-14, z: 2.7589343}
---- !u!114 &1366597209199524995
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6664381571008634771}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7136a00f4c146f797cdcb192e69a2f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _currentHp: 0
-  _currentArmor: 0
-  _armorType: 0
-  _playerTeam: 0

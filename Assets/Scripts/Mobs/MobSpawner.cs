@@ -44,14 +44,14 @@ namespace Mobs
             }
         }
 
-        private void SpawnMob(PlayerTeam team, MobType mobType, Vector3 position)
+        private void SpawnMob(PlayerTeam mobTeam, MobType mobType, Vector3 position)
         {
             var mobDefinition = _mobPrefabs.Single(entry => entry._type == mobType);
             var mobPrefab = mobDefinition._prefab;
             var mob = Instantiate(mobPrefab, position, Quaternion.identity, _mobsParent);
 
             var renderers = mob.GetComponentsInChildren<Renderer>();
-            var teamMaterial = _teamMaterials.Single(tm => tm._playerTeam == team);
+            var teamMaterial = _teamMaterials.Single(tm => tm._playerTeam == mobTeam);
             foreach (var rend in renderers)
             {
                 rend.material = teamMaterial._material;
@@ -61,7 +61,8 @@ namespace Mobs
             mobData._currentHp = mobDefinition._stats._maxHp;
             mobData._currentDamage = mobDefinition._stats._damage;
             mobData._currentArmor = mobDefinition._stats._armor;
-            mobData._CurrentArmorType = mobDefinition._stats._ArmorType;
+            mobData._currentArmorType = mobDefinition._stats._ArmorType;
+            mobData._currentTeam = mobTeam;
 
             var aiPath = mob.AddComponent<AIPath>();
             aiPath.radius = mobDefinition._pathfindingParameters._aiRadius;
@@ -72,7 +73,7 @@ namespace Mobs
             var destinationSetter = mob.AddComponent<AIDestinationSetter>();
             
             var enemyThrone = _buildingContainer._baseBuildings.Single(bd =>
-                bd._playerTeam != team && bd._buildingType == BaseBuildingType.Throne);
+                bd._playerTeam != mobTeam && bd._buildingType == BaseBuildingType.Throne);
             
             destinationSetter.target = enemyThrone.transform;
 
@@ -83,6 +84,7 @@ namespace Mobs
             mobTrigger.isTrigger = true;
 
             var mobAI = mob.AddComponent<MobAI>();
+            mobAI.MobDestinationSetter = destinationSetter;
 
             spawnedMobs.Add(mob);
             Debug.Log($"Spawned mob: {mobDefinition._type}");

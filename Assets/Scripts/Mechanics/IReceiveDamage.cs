@@ -12,8 +12,12 @@
 
         const float MechanicArmorFactor = 0.5f;
 
-        float FinalDamage(int health, int damage, int armor, ArmorType armorType)
+        float FinalDamage(int health, int damage, float armor, ArmorType armorType)
         {
+            if (armor <= 0)
+            {
+                armor = 0.01f;
+            }
             float damageModifier = armorType switch
             {
                 ArmorType.LightArmor => health - (damage / (armor * LightArmorFactor)),

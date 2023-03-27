@@ -6,6 +6,7 @@ using Buildings.Data;
 using Buildings.Definition;
 using Buildings.Types;
 using Match;
+using Mechanics;
 using Pathfinding;
 using UnityEngine;
 
@@ -64,6 +65,9 @@ namespace Mobs
             mobData._currentArmorType = mobDefinition._stats._ArmorType;
             mobData._currentTeam = mobTeam;
 
+            var mobHealth = mob.AddComponent<HealthSystem>();
+            mobHealth.Data = mobData;
+            
             var aiPath = mob.AddComponent<AIPath>();
             aiPath.radius = mobDefinition._pathfindingParameters._aiRadius;
             aiPath.height = mobDefinition._pathfindingParameters._aiHeight;

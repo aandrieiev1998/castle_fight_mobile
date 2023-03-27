@@ -12,21 +12,6 @@
 
         const float MechanicArmorFactor = 0.5f;
 
-        float FinalDamage(int health, int damage, float armor, ArmorType armorType)
-        {
-            if (armor <= 0)
-            {
-                armor = 0.01f;
-            }
-            float damageModifier = armorType switch
-            {
-                ArmorType.LightArmor => health - (damage / (armor * LightArmorFactor)),
-                ArmorType.MidleArmor => health - (damage / (armor * MiddleArmorFactor)),
-                ArmorType.HeavyArmor => health - (damage / (armor * HeavyArmorFactor)),
-                ArmorType.MechanicArmor => health - (damage / (armor * MechanicArmorFactor)),
-                ArmorType.Building => health - (damage / (armor * BuildArmorFactor))
-            };
-            return damageModifier;
-        }
+        public float FinalDamage(int damage, float armor, ArmorType armorType);
     }
 }

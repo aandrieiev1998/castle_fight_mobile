@@ -1,4 +1,6 @@
 ﻿using System.Collections;
+using System.Linq;
+using Buildings;
 using Mechanics;
 using Pathfinding;
 using Stats;
@@ -8,16 +10,11 @@ namespace Mobs
 {
     public class MobAI : MonoBehaviour
     {
-        private AIDestinationSetter mobDestinationSetter;
+        public AIDestinationSetter _mobDestinationSetter;
+        public BuildingContainer _buildingContainer;
+
         private Coroutine attackCoroutine;
         private HealthSystem _healthSystem;
-
-        public AIDestinationSetter MobDestinationSetter
-        {
-            get => mobDestinationSetter;
-            set => mobDestinationSetter = value;
-        }
-
         private MobBehaviour mobBehaviour;
         private bool stopUpdatingTarget;
         private float timeSinceLastTargetUpdate;
@@ -48,10 +45,10 @@ namespace Mobs
 
             if (mobBehaviour._mobData._playerTeam != targetMobBehaviour._mobData._playerTeam)
             {
-                var destinationTarget = mobDestinationSetter.target;
+                var destinationTarget = _mobDestinationSetter.target;
                 if (destinationTarget != targetMobBehaviour.transform)
                 {
-                    mobDestinationSetter.target = targetMobBehaviour.transform;
+                    _mobDestinationSetter.target = targetMobBehaviour.transform;
                     timeSinceLastTargetUpdate = 0f;
                     stopUpdatingTarget = true;
 
@@ -68,14 +65,16 @@ namespace Mobs
             var targetMobBehaviour = target.GetComponent<MobBehaviour>();
             if (targetMobBehaviour == null) return;
 
-            if (targetMobBehaviour._mobData._attackTarget == mobDestinationSetter.target)
+            if (_mobDestinationSetter.target == target.transform)
             {
                 StopCoroutine(attackCoroutine);
-                Debug.Log($"Target lost: {mobDestinationSetter.target}");
-                mobDestinationSetter.target = null;
-                mobAnimator.SetBool(Running,true);
+                Debug.Log($"Target lost: {_mobDestinationSetter.target}");
                 
-                // todo set target to Throne or another enemy in vision
+                var enemyThrone = _buildingContainer._buildings.Single(bb =>
+                    bb._buildingData._playerTeam != mobBehaviour._mobData._playerTeam &&
+                    bb._buildingData._buildingType == BuildingType.Throne);
+
+                _mobDestinationSetter.target = enemyThrone.transform;
             }
         }
 

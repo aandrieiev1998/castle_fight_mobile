@@ -105,7 +105,8 @@ namespace Mobs
             mobTrigger.isTrigger = true;
 
             var mobAI = mob.AddComponent<MobAI>();
-            mobAI.MobDestinationSetter = destinationSetter;
+            mobAI._mobDestinationSetter = destinationSetter;
+            mobAI._buildingContainer = _buildingContainer;
 
             // Debug.Log($"Spawned mob: {mobDefinition._type}");
             return mob;

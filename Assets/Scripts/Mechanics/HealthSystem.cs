@@ -20,6 +20,7 @@ namespace Mechanics
         private void Die()
         {
             Destroy(gameObject);
+            Debug.Log("DEAD");
         }
 
         public float FinalDamage(int damage, float armor, ArmorType armorType)

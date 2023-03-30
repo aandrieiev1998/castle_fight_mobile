@@ -80,7 +80,7 @@ namespace Mobs
             // mobData._currentTeam = mobTeam;
 
             var mobHealth = mob.AddComponent<HealthSystem>();
-            mobHealth.Data = mobData;
+            // mobHealth.Data = mobData;
             
             var aiPath = mob.AddComponent<AIPath>();
             var mobBehaviour = mobPrefab.GetComponent<MobBehaviour>();

@@ -84,6 +84,10 @@ namespace Mobs
             }
 
             var mobBehaviour = mob.GetComponent<MobBehaviour>();
+            mobBehaviour._mobData._playerTeam = mobTeam;
+            mobBehaviour._mobData._mobType = mobBehaviour._mobStats._mobType;
+            mobBehaviour._mobData._armorType = mobBehaviour._mobStats._armorType;
+            
             var mobHealth = mob.AddComponent<HealthSystem>();
             mobHealth._mobData = mobBehaviour._mobData;
 

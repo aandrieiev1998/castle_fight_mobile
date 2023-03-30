@@ -13,7 +13,6 @@ namespace Mobs
         public MobType _mobType;
         public ArmorType _armorType;
         public PlayerTeam _playerTeam;
-        public Transform _attackTarget;
         public Dictionary<StatType, ActiveStat> activeStats = new();
     }
 }

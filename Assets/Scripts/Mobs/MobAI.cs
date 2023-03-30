@@ -24,7 +24,8 @@ namespace Mobs
         private float distanceToClosestTargetInVision;
 
         private Animator mobAnimator;
-        private static readonly int ENEMY_IN_VISION = Animator.StringToHash("EnemyInVision");
+        private static readonly int Attacking = Animator.StringToHash("Attacking");
+        private static readonly int Running = Animator.StringToHash("Running");
 
         private void Start()
         {
@@ -56,7 +57,7 @@ namespace Mobs
 
                     var enemyHealth = target.GetComponent<HealthSystem>();
                     attackCoroutine = StartCoroutine(Attack(enemyHealth));
-                    mobAnimator.SetBool(ENEMY_IN_VISION, true);
+                    mobAnimator.SetBool(Attacking, true);
                     Debug.Log($"Target updated: {destinationTarget}");
                 }
             }
@@ -72,7 +73,8 @@ namespace Mobs
                 StopCoroutine(attackCoroutine);
                 Debug.Log($"Target lost: {mobDestinationSetter.target}");
                 mobDestinationSetter.target = null;
-
+                mobAnimator.SetBool(Running,true);
+                
                 // todo set target to Throne or another enemy in vision
             }
         }

@@ -1,15 +1,14 @@
-﻿using System;
-using Mechanics;
+﻿using Mechanics;
+using Stats;
+using UnityEngine;
 
 namespace Mobs
 {
-    [Serializable]
-    public class MobStats
+    [CreateAssetMenu(menuName = "CFM/MobStats")]
+    public class MobStats : BaseStats
     {
-        public int _maxHp;
-        public int _damage;
-        public int _armor;
-        public ArmorType _ArmorType;
-        public float _visionRadius;
+        public MobType _mobType;
+        public ArmorType _armorType;
+        public AttackType _attackType;
     }
 }

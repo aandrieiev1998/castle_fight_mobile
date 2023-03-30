@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using Buildings;
-using Buildings.Types;
 using Match;
 using UI;
 using UnityEngine;
@@ -32,12 +31,12 @@ namespace Bots
                 _spawnPointsContainer.MobBuildingsSpawnPoints.Where(sp => sp._playerTeam == botTeam).ToList();
             foreach (var mobBuildingSpawnPoint in mobBuildingsSpawnPoints)
             {
-                _buildingSpawner.SpawnMobBuilding(MobBuildingType.Barracks, botTeam,
+                _buildingSpawner.SpawnBuilding(BuildingType.Barracks, botTeam,
                     mobBuildingSpawnPoint._transform.position);
             }
 
             Debug.Log(
-                $"Spawned {mobBuildingsSpawnPoints.Count} buildings of type {MobBuildingType.Barracks}");
+                $"Spawned {mobBuildingsSpawnPoints.Count} buildings of type {BuildingType.Barracks}");
         }
     }
 }

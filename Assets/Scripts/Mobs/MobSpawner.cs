@@ -1,15 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Buildings;
-using Buildings.Data;
-using Buildings.Definition;
-using Buildings.Types;
 using Match;
 using Mechanics;
 using Pathfinding;
-using Scripts2.Mobs;
-using Unity.VisualScripting;
+using Stats;
 using UnityEngine;
 
 namespace Mobs
@@ -26,16 +23,30 @@ namespace Mobs
 
         private void Start()
         {
-            _buildingContainer.NewMobBuilding += MobBuildingAdded;
+            _buildingContainer.NewBuilding += BuildingAdded;
             _mobPrefabs.ForEach(mobPrefab =>
-                mobPrefabsDictionary.Add(mobPrefab.GetComponent<MobBehaviour>()._type, mobPrefab));
+            {
+                try
+                {
+                    mobPrefabsDictionary.Add(mobPrefab.GetComponent<MobBehaviour>()._mobStats._mobType, mobPrefab);
+                }
+                catch (Exception)
+                {
+                    Debug.LogError("Check mob scriptable objects. There is a duplicate MobType");
+                }
+            });
+
         }
 
-        private void MobBuildingAdded(MobBuildingDefinition mobBuildingDefinition, MobBuildingData buildingData)
+        private void BuildingAdded(BuildingBehaviour buildingBehaviour)
         {
-            StartCoroutine(StartSpawningMobsForSingleBuilding(buildingData._playerTeam,
-                mobBuildingDefinition._spawnedMob, mobBuildingDefinition._stats.mobSpawnInterval,
-                buildingData.transform.position));
+            if (buildingBehaviour._buildingData.activeStats.ContainsKey(StatType.MobSpawnRate))
+            {
+                StartCoroutine(StartSpawningMobsForSingleBuilding(buildingBehaviour._buildingData._playerTeam,
+                    buildingBehaviour._buildingStats._spawnedMob,
+                    buildingBehaviour._buildingData.activeStats[StatType.MobSpawnRate]._currentValue,
+                    buildingBehaviour.transform.position));
+            }
         }
 
         private IEnumerator StartSpawningMobsForSingleBuilding(PlayerTeam team, MobType mobType, float interval,
@@ -72,31 +83,24 @@ namespace Mobs
                 rend.material = teamMaterial._material;
             }
 
-            // var mobData = mob.AddComponent<MobData>();
-            // mobData._currentHp = mobDefinition._stats._maxHp;
-            // mobData._currentDamage = mobDefinition._stats._damage;
-            // mobData._currentArmor = mobDefinition._stats._armor;
-            // mobData._currentArmorType = mobDefinition._stats._ArmorType;
-            // mobData._currentTeam = mobTeam;
-
+            var mobBehaviour = mob.GetComponent<MobBehaviour>();
             var mobHealth = mob.AddComponent<HealthSystem>();
-            // mobHealth.Data = mobData;
-            
+            mobHealth._mobData = mobBehaviour._mobData;
+
             var aiPath = mob.AddComponent<AIPath>();
-            var mobBehaviour = mobPrefab.GetComponent<MobBehaviour>();
             aiPath.radius = mobBehaviour._pathfindingParameters._aiRadius;
             aiPath.height = mobBehaviour._pathfindingParameters._aiHeight;
             aiPath.maxSpeed = mobBehaviour._pathfindingParameters._aiMaxSpeed;
 
             var destinationSetter = mob.AddComponent<AIDestinationSetter>();
 
-            var enemyThrone = _buildingContainer._baseBuildings.Single(bd =>
-                bd._playerTeam != mobTeam && bd._buildingType == BaseBuildingType.Throne);
+            var enemyThrone = _buildingContainer._buildings.Single(bb =>
+                bb._buildingData._playerTeam != mobTeam && bb._buildingData._buildingType == BuildingType.Throne);
 
             destinationSetter.target = enemyThrone.transform;
 
             var mobTrigger = mob.AddComponent<CapsuleCollider>();
-            // mobTrigger.radius = mobDefinition._stats._visionRadius;
+            mobTrigger.radius = mobBehaviour._mobStats.Stats[StatType.VisionRadius];
             mobTrigger.height = 100;
             mobTrigger.isTrigger = true;
 

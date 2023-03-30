@@ -1,4 +1,4 @@
-﻿namespace Scripts2.Stats.Enums
+﻿namespace Mobs
 {
     public enum AttackType
     {

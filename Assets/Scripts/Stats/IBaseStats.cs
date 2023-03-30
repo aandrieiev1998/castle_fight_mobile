@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Scripts2.Stats
+namespace Stats
 {
     public interface IBaseStats
     {

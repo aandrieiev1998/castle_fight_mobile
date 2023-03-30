@@ -1,4 +1,4 @@
-﻿namespace Scripts2.Stats
+﻿namespace Stats
 {
     public enum StatType
     {
@@ -14,6 +14,9 @@
         AttackDamage,
         AttackSpeed,
         AttackCooldown,
+        
+        AttackRadius,
+        VisionRadius,
         
         MovementSpeed,
 

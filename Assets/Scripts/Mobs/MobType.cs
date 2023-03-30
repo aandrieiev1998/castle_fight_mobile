@@ -2,6 +2,7 @@
 {
     public enum MobType
     {
-        Swordsman, Archer, Knight, Catapulta
+        None,
+        Swordsman, Archer, Knight, Catapult
     }
 }

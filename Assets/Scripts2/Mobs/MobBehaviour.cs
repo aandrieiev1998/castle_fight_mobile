@@ -2,7 +2,6 @@
 using Scripts2.Stats;
 using Sirenix.Utilities;
 using UnityEngine;
-using MobData = Scripts2.Data.MobData;
 using MobStats = Scripts2.Stats.MobStats;
 
 namespace Scripts2.Mobs

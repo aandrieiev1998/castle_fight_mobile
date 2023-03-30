@@ -15,6 +15,9 @@
         AttackSpeed,
         AttackCooldown,
         
+        AttackRadius,
+        VisionRadius,
+        
         MovementSpeed,
 
         MobSpawnRate,

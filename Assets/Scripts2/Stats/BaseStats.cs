@@ -25,7 +25,7 @@ namespace Scripts2.Stats
                 {
                     statsDictionary.Add(stat._statType, stat._baseValue);
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     Debug.LogError("Check stats configuration, there is a duplicate StatType");
                 }

@@ -115,8 +115,10 @@ namespace Buildings
                 Quaternion.Euler(new Vector3(-90f, 0f, 0f)), _buildingsParent);
             building.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 
-            // building.
-
+            var teamMaterial = _teamMaterials.Single(tm => tm._playerTeam == playerTeam);
+            var buildingRenderer = building.GetComponent<Renderer>();
+            buildingRenderer.material = teamMaterial._material;
+            
             var buildingData = building.AddComponent<MobBuildingData>();
             // buildingData._currentHp = buildingDefinition._mobStats._maxHp;
             // buildingData._currentArmor = buildingDefinition._mobStats._maxArmor;

@@ -7,7 +7,6 @@ using Buildings.Data;
 using Buildings.Definition;
 using Buildings.Types;
 using Match;
-using Mechanics;
 using Pathfinding;
 using Scripts2.Mobs;
 using UnityEngine;
@@ -33,7 +32,7 @@ namespace Mobs
                 {
                     mobPrefabsDictionary.Add(mobPrefab.GetComponent<MobBehaviour>()._mobStats._mobType, mobPrefab);
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     Debug.LogError("Check mob scriptable objects. There is a duplicate MobType");
                 }

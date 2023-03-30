@@ -1,30 +1,21 @@
 ﻿using Mobs;
+using Stats;
 using UnityEngine;
 
 namespace Mechanics
 {
     public class HealthSystem : MonoBehaviour, IReceiveDamage
     {
-        public MobData Data;
-        private float currentHealth;
-        private int currentArmor;
-        private ArmorType currentArmorType;
+        public MobData _mobData;
         
-        private void Start()
-        {
-            currentHealth = Data._currentHp;
-            currentArmor = Data._currentArmor;
-            currentArmorType = Data._currentArmorType;
-        }
-
         public void TakeDamage(int damage)
         {
-            currentHealth -= FinalDamage(damage, this.currentArmor, currentArmorType);
-            if (currentHealth <= 0)
+            _mobData.activeStats[StatType.Health]._currentValue -= FinalDamage(damage, _mobData.activeStats[StatType.Armor]._currentValue, _mobData._armorType);
+            if (_mobData.activeStats[StatType.Health]._currentValue <= 0)
             {
                 Die();
             }
-            Debug.Log($"Received damage {damage} current health = {currentHealth}");
+            Debug.Log($"Received damage {damage} current health = {_mobData.activeStats[StatType.Health]._currentValue}");
         }
         private void Die()
         {

@@ -1,19 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using Match;
-using Mechanics;
 using Stats;
-using UnityEngine;
 
-namespace Mobs
+namespace Buildings
 {
     [Serializable]
-    public class MobData
+    public class BuildingData 
     {
-        public MobType _mobType;
-        public ArmorType _armorType;
+        public BuildingType _buildingType;
         public PlayerTeam _playerTeam;
-        public Transform _attackTarget;
         public Dictionary<StatType, ActiveStat> activeStats = new();
     }
 }

@@ -9,20 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a368eebbeb24cac8a68f92d54559ca3, type: 3}
-  m_Name: Swordsman
+  m_Script: {fileID: 11500000, guid: 4144f82b1efb48ab8b218b7eaca38602, type: 3}
+  m_Name: Barracks
   m_EditorClassIdentifier: 
   _stats:
   - _statType: 0
-    _baseValue: 100
+    _baseValue: 500
   - _statType: 2
     _baseValue: 5
-  - _statType: 7
-    _baseValue: 5
-  - _statType: 8
-    _baseValue: 3
-  - _statType: 11
-    _baseValue: 3
-  _mobType: 1
-  _armorType: 1
-  _attackType: 0
+  - _statType: 13
+    _baseValue: 2.5
+  _buildingType: 10
+  _spawnedMob: 1

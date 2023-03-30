@@ -1,4 +1,4 @@
-﻿namespace Scripts2.Stats
+﻿namespace Stats
 {
     public enum StatType
     {

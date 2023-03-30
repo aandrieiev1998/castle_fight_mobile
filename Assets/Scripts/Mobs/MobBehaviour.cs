@@ -1,10 +1,8 @@
-﻿using Mobs;
-using Scripts2.Stats;
-using Sirenix.Utilities;
+﻿using Sirenix.Utilities;
+using Stats;
 using UnityEngine;
-using MobStats = Scripts2.Stats.MobStats;
 
-namespace Scripts2.Mobs
+namespace Mobs
 {
     public class MobBehaviour : MonoBehaviour
     {
@@ -12,10 +10,11 @@ namespace Scripts2.Mobs
         public MobData _mobData;
         public PathfindingParameters _pathfindingParameters; // todo refactor
 
-        private void Start()
+        private void Awake()
         {
             _mobStats.Stats.ForEach(pair =>
-                _mobData._activeStats.Add(new ActiveStat(pair.Key, pair.Value, pair.Value)));
+                _mobData.activeStats.Add(pair.Key, new ActiveStat(pair.Key, pair.Value, pair.Value)));
+            _mobData._mobType = _mobStats._mobType;
         }
     }
 }

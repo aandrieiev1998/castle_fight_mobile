@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using Mechanics;
 using Pathfinding;
+using Stats;
 using UnityEngine;
 
 namespace Mobs
@@ -17,7 +18,7 @@ namespace Mobs
             set => mobDestinationSetter = value;
         }
 
-        private MobData mobData;
+        private MobBehaviour mobBehaviour;
         private bool stopUpdatingTarget;
         private float timeSinceLastTargetUpdate;
         private float distanceToClosestTargetInVision;
@@ -27,7 +28,7 @@ namespace Mobs
 
         private void Start()
         {
-            mobData = GetComponent<MobData>();
+            mobBehaviour = GetComponent<MobBehaviour>();
             _healthSystem = GetComponent<HealthSystem>();
             mobAnimator = GetComponent<Animator>();
         }
@@ -37,36 +38,36 @@ namespace Mobs
             timeSinceLastTargetUpdate += Time.deltaTime;
         }
 
-        private void OnTriggerEnter(Collider other)
+        private void OnTriggerEnter(Collider target)
         {
             if (stopUpdatingTarget) return;
 
-            var colliderMobData = other.GetComponent<MobData>();
-            if (colliderMobData == null) return;
+            var targetMobBehaviour = target.GetComponent<MobBehaviour>();
+            if (targetMobBehaviour == null) return;
 
-            if (mobData._currentTeam != colliderMobData._currentTeam)
+            if (mobBehaviour._mobData._playerTeam != targetMobBehaviour._mobData._playerTeam)
             {
-                var target = mobDestinationSetter.target;
-                if (target != colliderMobData.transform)
+                var destinationTarget = mobDestinationSetter.target;
+                if (destinationTarget != targetMobBehaviour.transform)
                 {
-                    mobDestinationSetter.target = colliderMobData.transform;
+                    mobDestinationSetter.target = targetMobBehaviour.transform;
                     timeSinceLastTargetUpdate = 0f;
                     stopUpdatingTarget = true;
 
-                    var enemyHealth = other.GetComponent<HealthSystem>();
+                    var enemyHealth = target.GetComponent<HealthSystem>();
                     attackCoroutine = StartCoroutine(Attack(enemyHealth));
                     mobAnimator.SetBool(ENEMY_IN_VISION, true);
-                    Debug.Log($"Target updated: {target}");
+                    Debug.Log($"Target updated: {destinationTarget}");
                 }
             }
         }
 
-        private void OnTriggerExit(Collider other)
+        private void OnTriggerExit(Collider target)
         {
-            var colliderMobData = other.GetComponent<MobData>();
-            if (colliderMobData == null) return;
+            var targetMobBehaviour = target.GetComponent<MobBehaviour>();
+            if (targetMobBehaviour == null) return;
 
-            if (colliderMobData._target == mobDestinationSetter.target)
+            if (targetMobBehaviour._mobData._attackTarget == mobDestinationSetter.target)
             {
                 StopCoroutine(attackCoroutine);
                 Debug.Log($"Target lost: {mobDestinationSetter.target}");
@@ -78,7 +79,7 @@ namespace Mobs
 
         private IEnumerator Attack(HealthSystem enemyHealth)
         {
-            enemyHealth.TakeDamage(mobData._currentDamage);
+            enemyHealth.TakeDamage((int) mobBehaviour._mobData.activeStats[StatType.AttackDamage]._currentValue);
             yield return new WaitForSeconds(1);
         }
     }

@@ -21,5 +21,8 @@ MonoBehaviour:
     _baseValue: 3
   - _statType: 7
     _baseValue: 4
-  _mobType: 1
+  - _statType: 11
+    _baseValue: 3
+  _mobType: 2
+  _armorType: 1
   _attackType: 1

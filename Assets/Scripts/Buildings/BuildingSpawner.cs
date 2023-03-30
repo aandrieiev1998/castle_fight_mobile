@@ -1,8 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using Buildings.Data;
-using Buildings.Definition;
-using Buildings.Types;
 using Match;
 using UI;
 using UnityEngine;
@@ -11,8 +8,8 @@ namespace Buildings
 {
     public class BuildingSpawner : MonoBehaviour
     {
-        [SerializeField] private List<BaseBuildingDefinition> _baseBuildingDefinitions;
-        [SerializeField] private List<MobBuildingDefinition> _mobBuildingDefinitions;
+        [SerializeField] private List<GameObject> _buildingPrefabs;
+        [SerializeField] private GameObject _buildingPlatformPrefab;
         [SerializeField] private Camera _playerCamera;
         [SerializeField] private BuildingContainer _buildingContainer;
         [SerializeField] private SpawnPointsContainer _spawnPointsContainer;
@@ -21,7 +18,6 @@ namespace Buildings
         [SerializeField] private TeamSelectionMenuController _teamSelectionMenuController;
         [SerializeField] private MatchInfo _matchInfo;
         [SerializeField] private List<TeamMaterial> _teamMaterials;
-        [SerializeField] private GameObject _buildingPlatformPrefab;
 
         private const int LayerIndex = 6;
         private Vector3 spawnPoint;
@@ -46,9 +42,9 @@ namespace Buildings
             HandlePlayerInput();
         }
 
-        private void OnBuildingSelected(MobBuildingType baseBuildingType)
+        private void OnBuildingSelected(BuildingType buildingType)
         {
-            SpawnMobBuilding(baseBuildingType, _matchInfo.LocalPlayerTeam, spawnPoint);
+            SpawnBuilding(buildingType, _matchInfo.LocalPlayerTeam, spawnPoint);
             _buildingMenuController.Hide();
         }
 
@@ -77,10 +73,12 @@ namespace Buildings
 
         private void SpawnBuildingPlatforms(PlayerTeam playerTeam)
         {
-            var spawnPoints = _spawnPointsContainer.MobBuildingsSpawnPoints.Where(bp => bp._playerTeam == playerTeam).ToList();
+            var spawnPoints = _spawnPointsContainer.MobBuildingsSpawnPoints.Where(bp => bp._playerTeam == playerTeam)
+                .ToList();
             foreach (var spawnPoint in spawnPoints)
             {
-                var buildingPlatform = Instantiate(_buildingPlatformPrefab, spawnPoint._transform.position, Quaternion.identity);
+                var buildingPlatform = Instantiate(_buildingPlatformPrefab, spawnPoint._transform.position,
+                    Quaternion.identity);
                 var buildingPlatformData = buildingPlatform.GetComponent<BuildingPlatform>();
                 buildingPlatformData.PlayerTeam = playerTeam;
             }
@@ -88,28 +86,18 @@ namespace Buildings
 
         private void SpawnBaseBuildings()
         {
-            SpawnBaseBuilding(BaseBuildingType.Throne, PlayerTeam.Blue);
-            SpawnBaseBuilding(BaseBuildingType.Throne, PlayerTeam.Red);
+            SpawnBuilding(BuildingType.Throne, PlayerTeam.Blue,
+                _spawnPointsContainer.BaseBuildingSpawnPoints.Single(sp => sp._playerTeam == PlayerTeam.Blue)._transform
+                    .position);
+            SpawnBuilding(BuildingType.Throne, PlayerTeam.Red,
+                _spawnPointsContainer.BaseBuildingSpawnPoints.Single(sp => sp._playerTeam == PlayerTeam.Red)._transform
+                    .position);
         }
 
-        private void SpawnBaseBuilding(BaseBuildingType buildingType, PlayerTeam playerTeam)
+        public void SpawnBuilding(BuildingType buildingType, PlayerTeam playerTeam, Vector3 position)
         {
-            var buildingDefinition = _baseBuildingDefinitions.Single(bdd => bdd._type == buildingType);
-            var buildingSpawnPoint = _spawnPointsContainer.BaseBuildingSpawnPoints.Single(sp => sp._playerTeam == playerTeam);
-
-            var building = Instantiate(buildingDefinition._prefab, buildingSpawnPoint._transform.position, buildingSpawnPoint._transform.rotation);
-            var buildingData = building.AddComponent<BaseBuildingData>();
-            buildingData._playerTeam = playerTeam;
-            var buildingRenderer = building.GetComponent<Renderer>();
-            buildingRenderer.material = _teamMaterials.Single(tm => tm._playerTeam == playerTeam)._material;
-            
-            _buildingContainer.AddBaseBuilding(buildingDefinition, buildingData);
-        }
-
-        public void SpawnMobBuilding(MobBuildingType baseBuildingType, PlayerTeam playerTeam, Vector3 position)
-        {
-            var buildingDefinition = _mobBuildingDefinitions.Single(definition => definition._type == baseBuildingType);
-            var buildingPrefab = buildingDefinition._prefab;
+            var buildingPrefab = _buildingPrefabs.Single(prefab =>
+                prefab.GetComponent<BuildingBehaviour>()._buildingStats._buildingType == buildingType);
 
             var building = Instantiate(buildingPrefab, position,
                 Quaternion.Euler(new Vector3(-90f, 0f, 0f)), _buildingsParent);
@@ -118,14 +106,12 @@ namespace Buildings
             var teamMaterial = _teamMaterials.Single(tm => tm._playerTeam == playerTeam);
             var buildingRenderer = building.GetComponent<Renderer>();
             buildingRenderer.material = teamMaterial._material;
-            
-            var buildingData = building.AddComponent<MobBuildingData>();
-            // buildingData._currentHp = buildingDefinition._mobStats._maxHp;
-            // buildingData._currentArmor = buildingDefinition._mobStats._maxArmor;
-            // buildingData._armorType = buildingDefinition._mobStats._armorType;
+
+            var buildingBehaviour = building.GetComponent<BuildingBehaviour>();
+            var buildingData = buildingBehaviour._buildingData;
             buildingData._playerTeam = playerTeam;
 
-            _buildingContainer.AddActiveBuilding(buildingDefinition, buildingData);
+            _buildingContainer.AddActiveBuilding(buildingBehaviour);
 
             // selectedPlatform.IsOccupied = true;
         }

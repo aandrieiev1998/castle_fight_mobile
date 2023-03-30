@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Scripts2.Stats
+namespace Stats
 {
     [Serializable]
     public class ActiveStat

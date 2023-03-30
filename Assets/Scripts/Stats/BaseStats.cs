@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Scripts2.Stats
+namespace Stats
 {
     public abstract class BaseStats : ScriptableObject, IBaseStats, ISerializationCallbackReceiver
     {

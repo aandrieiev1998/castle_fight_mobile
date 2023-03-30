@@ -14307,30 +14307,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mobPrefabs:
-  - _type: 0
-    _stats:
-      _maxHp: 150
-      _damage: 0
-      _armor: 0
-      _ArmorType: 0
-      _visionRadius: 10
-    _prefab: {fileID: 155132, guid: bcc60fdbd3a37b44cbc0cb99db483477, type: 3}
-    _pathfindingParameters:
-      _aiRadius: 0.35
-      _aiHeight: 1.5
-      _aiMaxSpeed: 3.5
-  - _type: 1
-    _stats:
-      _maxHp: 100
-      _damage: 0
-      _armor: 0
-      _ArmorType: 0
-      _visionRadius: 10
-    _prefab: {fileID: 179124, guid: 04c79b5f6e9ebab48af48fdcf7b6d570, type: 3}
-    _pathfindingParameters:
-      _aiRadius: 0.35
-      _aiHeight: 1.5
-      _aiMaxSpeed: 5
+  - {fileID: 0}
+  - {fileID: 0}
   _buildingContainer: {fileID: 1425196803}
   _mobsParent: {fileID: 486798253}
   _teamMaterials:

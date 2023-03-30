@@ -7,22 +7,27 @@ using Buildings.Definition;
 using Buildings.Types;
 using Match;
 using Pathfinding;
+using Scripts2.Mobs;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Mobs
 {
     public class MobSpawner : MonoBehaviour
     {
-        [SerializeField] private List<MobDefinition> _mobPrefabs;
+        [SerializeField] private List<GameObject> _mobPrefabs;
         [SerializeField] private BuildingContainer _buildingContainer;
         [SerializeField] private Transform _mobsParent; // todo refactor this for 2 teams
         [SerializeField] private List<TeamMaterial> _teamMaterials;
 
-        private List<GameObject> spawnedMobs = new();
+        private readonly Dictionary<MobType, GameObject> mobPrefabsDictionary = new();
+        private readonly Dictionary<PlayerTeam, List<GameObject>> mobs = new();
 
         private void Start()
         {
             _buildingContainer.NewMobBuilding += MobBuildingAdded;
+            _mobPrefabs.ForEach(mobPrefab =>
+                mobPrefabsDictionary.Add(mobPrefab.GetComponent<MobBehaviour>()._type, mobPrefab));
         }
 
         private void MobBuildingAdded(MobBuildingDefinition mobBuildingDefinition, MobBuildingData buildingData)
@@ -40,14 +45,23 @@ namespace Mobs
                 //
                 yield return new WaitForSeconds(interval);
 
-                SpawnMob(team, mobType, origin);
+                var mob = SpawnMob(team, mobType, origin);
+
+                if (!mobs.ContainsKey(team))
+                {
+                    var mobsList = new List<GameObject> {mob};
+                    mobs.Add(team, mobsList);
+                }
+                else
+                {
+                    mobs[team].Add(mob);
+                }
             }
         }
 
-        private void SpawnMob(PlayerTeam mobTeam, MobType mobType, Vector3 position)
+        private GameObject SpawnMob(PlayerTeam mobTeam, MobType mobType, Vector3 position)
         {
-            var mobDefinition = _mobPrefabs.Single(entry => entry._type == mobType);
-            var mobPrefab = mobDefinition._prefab;
+            var mobPrefab = mobPrefabsDictionary[mobType];
             var mob = Instantiate(mobPrefab, position, Quaternion.identity, _mobsParent);
 
             var renderers = mob.GetComponentsInChildren<Renderer>();
@@ -57,37 +71,36 @@ namespace Mobs
                 rend.material = teamMaterial._material;
             }
 
-            var mobData = mob.AddComponent<MobData>();
-            mobData._currentHp = mobDefinition._stats._maxHp;
-            mobData._currentDamage = mobDefinition._stats._damage;
-            mobData._currentArmor = mobDefinition._stats._armor;
-            mobData._currentArmorType = mobDefinition._stats._ArmorType;
-            mobData._currentTeam = mobTeam;
+            // var mobData = mob.AddComponent<MobData>();
+            // mobData._currentHp = mobDefinition._stats._maxHp;
+            // mobData._currentDamage = mobDefinition._stats._damage;
+            // mobData._currentArmor = mobDefinition._stats._armor;
+            // mobData._currentArmorType = mobDefinition._stats._ArmorType;
+            // mobData._currentTeam = mobTeam;
 
             var aiPath = mob.AddComponent<AIPath>();
-            aiPath.radius = mobDefinition._pathfindingParameters._aiRadius;
-            aiPath.height = mobDefinition._pathfindingParameters._aiHeight;
-            aiPath.maxSpeed = mobDefinition._pathfindingParameters._aiMaxSpeed;
-
+            var mobBehaviour = mobPrefab.GetComponent<MobBehaviour>();
+            aiPath.radius = mobBehaviour._pathfindingParameters._aiRadius;
+            aiPath.height = mobBehaviour._pathfindingParameters._aiHeight;
+            aiPath.maxSpeed = mobBehaviour._pathfindingParameters._aiMaxSpeed;
 
             var destinationSetter = mob.AddComponent<AIDestinationSetter>();
-            
+
             var enemyThrone = _buildingContainer._baseBuildings.Single(bd =>
                 bd._playerTeam != mobTeam && bd._buildingType == BaseBuildingType.Throne);
-            
+
             destinationSetter.target = enemyThrone.transform;
 
-
             var mobTrigger = mob.AddComponent<CapsuleCollider>();
-            mobTrigger.radius = mobDefinition._stats._visionRadius;
+            // mobTrigger.radius = mobDefinition._stats._visionRadius;
             mobTrigger.height = 100;
             mobTrigger.isTrigger = true;
 
             var mobAI = mob.AddComponent<MobAI>();
             mobAI.MobDestinationSetter = destinationSetter;
 
-            spawnedMobs.Add(mob);
-            Debug.Log($"Spawned mob: {mobDefinition._type}");
+            // Debug.Log($"Spawned mob: {mobDefinition._type}");
+            return mob;
         }
     }
 }

@@ -75,6 +75,7 @@ namespace Mobs
                     bb._buildingData._buildingType == BuildingType.Throne);
 
                 _mobDestinationSetter.target = enemyThrone.transform;
+                mobAnimator.SetBool(Running, true);
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Buildings;
@@ -9,7 +10,6 @@ using Match;
 using Mechanics;
 using Pathfinding;
 using Scripts2.Mobs;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Mobs
@@ -28,7 +28,17 @@ namespace Mobs
         {
             _buildingContainer.NewMobBuilding += MobBuildingAdded;
             _mobPrefabs.ForEach(mobPrefab =>
-                mobPrefabsDictionary.Add(mobPrefab.GetComponent<MobBehaviour>()._type, mobPrefab));
+            {
+                try
+                {
+                    mobPrefabsDictionary.Add(mobPrefab.GetComponent<MobBehaviour>()._mobStats._mobType, mobPrefab);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError("Check mob scriptable objects. There is a duplicate MobType");
+                }
+            });
+
         }
 
         private void MobBuildingAdded(MobBuildingDefinition mobBuildingDefinition, MobBuildingData buildingData)
@@ -79,7 +89,7 @@ namespace Mobs
             // mobData._currentArmorType = mobDefinition._stats._ArmorType;
             // mobData._currentTeam = mobTeam;
 
-            var mobHealth = mob.AddComponent<HealthSystem>();
+            // var mobHealth = mob.AddComponent<HealthSystem>();
             // mobHealth.Data = mobData;
             
             var aiPath = mob.AddComponent<AIPath>();

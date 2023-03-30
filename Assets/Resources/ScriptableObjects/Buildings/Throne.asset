@@ -17,5 +17,3 @@ MonoBehaviour:
     _baseValue: 1000
   - _statType: 2
     _baseValue: 10
-  - _statType: 0
-    _baseValue: 0

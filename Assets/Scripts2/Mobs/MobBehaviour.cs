@@ -1,22 +1,22 @@
-﻿using System.Collections.Generic;
-using Mobs;
-using Scripts2.Data;
+﻿using Mobs;
 using Scripts2.Stats;
+using Sirenix.Utilities;
 using UnityEngine;
+using MobData = Scripts2.Data.MobData;
 using MobStats = Scripts2.Stats.MobStats;
 
 namespace Scripts2.Mobs
 {
     public class MobBehaviour : MonoBehaviour
     {
-        public MobType _type;
         public MobStats _mobStats;
-        public Dictionary<StatType, BaseData> mobData;
-        public PathfindingParameters _pathfindingParameters;
+        public MobData _mobData;
+        public PathfindingParameters _pathfindingParameters; // todo refactor
 
         private void Start()
         {
-            // _mobStats.Stats TODO
+            _mobStats.Stats.ForEach(pair =>
+                _mobData._activeStats.Add(new ActiveStat(pair.Key, pair.Value, pair.Value)));
         }
     }
 }

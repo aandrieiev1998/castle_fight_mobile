@@ -17010,39 +17010,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e98ca4fe5033c69409ce8e91c6aa593c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseBuildingDefinitions:
-  - _type: 0
-    _prefab: {fileID: 6664381571008634771, guid: fbb5e3bae1081764da9545903a83822e,
-      type: 3}
-    _stats:
-      maxHp: 0
-      damage: 0
-      maxArmor: 0
-      armorType: 0
-  - _type: 1
-    _prefab: {fileID: 0}
-    _stats:
-      maxHp: 0
-      damage: 0
-      maxArmor: 0
-      armorType: 0
-  _mobBuildingDefinitions:
-  - _type: 0
-    _prefab: {fileID: 100000, guid: e2f28d7d7478cb64597ebb9077abfe6e, type: 3}
-    _spawnedMob: 0
-    _stats:
-      maxHp: 0
-      maxArmor: 0
-      armorType: 0
-      mobSpawnInterval: 3
-  - _type: 1
-    _prefab: {fileID: 100000, guid: 7036859d28e2cb84c9948a1fcf49fe95, type: 3}
-    _spawnedMob: 1
-    _stats:
-      maxHp: 0
-      maxArmor: 0
-      armorType: 0
-      mobSpawnInterval: 3.5
+  _buildingPrefabs:
+  - {fileID: 6664381571008634771, guid: fbb5e3bae1081764da9545903a83822e, type: 3}
+  - {fileID: 3958160397411626674, guid: 2c00b4d7c5e9861408bd932a77bac060, type: 3}
+  - {fileID: 7074046020344237921, guid: f07049f1f6dbc5d47ba4fc503eb21172, type: 3}
+  _buildingPlatformPrefab: {fileID: 3994865822428321008, guid: e221c68fdfcc58c4db739f7e9074b2ae,
+    type: 3}
   _playerCamera: {fileID: 963194227}
   _buildingContainer: {fileID: 1425196803}
   _spawnPointsContainer: {fileID: 1425196804}
@@ -17055,8 +17028,6 @@ MonoBehaviour:
     _material: {fileID: 2100000, guid: 4a8b820c98c7b4540bab4e4f3d70d7fb, type: 2}
   - _playerTeam: 1
     _material: {fileID: 2100000, guid: a2085ab309c94a143a706621cd42e213, type: 2}
-  _buildingPlatformPrefab: {fileID: 3994865822428321008, guid: e221c68fdfcc58c4db739f7e9074b2ae,
-    type: 3}
 --- !u!4 &1425196802
 Transform:
   m_ObjectHideFlags: 0
@@ -17084,8 +17055,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a0017daa72348ca9ae88e02d4cab553, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseBuildings: []
-  _mobBuildings: []
+  _buildings: []
 --- !u!114 &1425196804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17185,7 +17155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   data:
-    dataString: UEsDBBQAAAgIAAAQIezNuLXtnAIAAKUFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFtVNtu2kAQ/RW0z02EISG0b60hpJWSoNAqDyUPi3eMV6x3rb0ESMS/d2ZtsEOKkGydmTMzZy5+Z1K7CjJv7MxKcW8EsG89Ru/sS6813sGOr41eyDc4+jxL4Qty4tHniXtpEE+I5kwJ3srsu14rcu4jGLTMjS2nYg2pcd4hnHPlAE3WeGJrhN57bNcQ9s3zjZ69A75loD3Y1isZjM/8hleXX+k3GkRC0JniZQWCCm95g+tRw7upA2vU1LhQ/ZlRSrqmIOb3VRSc8soFlIMOQnIUGEsh/wLkuvAUuEt+zHMHvinO8v1EWuxTHZX9MHXzSu42dWGvXAWoRcWa6qD3n+wXSTTn1pR3x7xJn3L4QmabJ77PuPOd7nbhycfCg95yteErBc8F6AczsyZogUZvA1GDg8GkE+qkLS0g27R+da1nYKg+zzNp53mI6nepkuWKkMvrGlgoE/s9Ig5YnMxPLDjuh2siIUpF/HHwm6+7i9QYbqV1Hk1NQk3VrUyw5MqmsWckJvjUWA0RbmquQHPl93MM489HeGbrpD2z3HI6mSZ5Yztewhklwq1/v39mmpttOywHv0JZzY3UfgHcZkUnnivM9h5c8Ri8khpaRWR4wCamRut6/dx/aItgc551aB52PliYcM/jEWBNuCWiS8WGRoYOStFCRhUU/C+qoP8LNbngmFdFmD0YHc/nw/OFFmEdpPi45mzcz4Z5Lq4SSG7GwwQuhqthnsEVDJOhGMPohsU7kBp7ztW8blozKtwg3WrRuPPHr1pvZnkVL09Yvp3Jt9J0xi91bhaZBdCPdYSTWLCYBL8QYiokylyA91LH3WPvS6ZMtgGxPAVaxsZOd97yZRtlySr5ajwhS5bGb9mSEXw6q7mFVwlbSn4MdmCHf1BLAwQUAAAICAAAECHsye6VYG0AAAB4AAAACQAkAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAatWKkstKs7Mz1OyUjDRM9IzNNdRUEovSizIKAaKGII4pZkpIHa0koVBsnFaWoqJYaqhuYWxYaqucZJxWnKqSaqxoXGKRaqZuVIsUH1JZUGqX2JuKkRPQGJJRlpmXkpmXrqee1FmijvIaKXYWgBQSwECLQAUAAAICAAAECHszbi17ZwCAAClBQAACwAkAAAAAAAAAAAAAAAAAAAAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwECLQAUAAAICAAAECHsye6VYG0AAAB4AAAACQAkAAAAAAAAAAAAAADpAgAAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsFBgAAAAACAAIAuAAAAKEDAAAAAA==
+    dataString: UEsDBBQAAAgIAAAQIexLQ4BcnwIAAKcFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFtVFtv2jAU/ivIz2tFoKN0b1ugdJPaorKpD0sfjH1CLBw78qVAK/77jp1A0nQSUsJ3bt93LnknQtkKmNNmYQS/1xzItwEJ7+TLoDXewZ5utFqJNzj5PAvuiuBEo88TdUIjnoQwq0twRrDvaiOD8xBBr0SuTTnnG0i1dRbhnEoLaDLahWiF0PuA7JuAQ/N8C8/BEd8YKAem9UpG08ub0eSm5zydXA6vbibXMcYrJmlZAQ/c29DJqcK4Tq1QVeMRFDAtpbANJeIOVZSc0sp6FIQOXFCUGMkE/wLEpnD4Z9QNfsxzC65hZuhhJgx2qs5Kfui6fSW125rXK5UealmRU530/pP9Ionm3Ojy7lQ3GYYarhBs+0QPjFrX6W8Xnn0k7tWOyi1dS3guQD3ohdFecTQ640OotzCadVKdtaUFsG3rV3Ptgb76PNGknegxqt+nUpTrgFx+rYGV1LHfcUZgcDI/kXDcENtkQjSQ+GPhN910V6kx3ApjHZqagiqwW2tvgiuZx54FMd6l2iiIcMO5AkWlOywxjeuPsGfrlO1Zbmk4mqZ4YzvdQi8kwq3/cNgzLfWuHZaFX76sllootwJqWNHJZwu9uwdbPHonhYJWUTA8YBNTrVS9fvY/YStvcso6YQ72zhuYUUfjESAn3BLeDcWGxgjlpQwLGVWE5H9RRfi9hCYXFOvKCJMHreL5fHi+hEXYeME/rjmZDtk4z/lVAsn1dJzAxXg9zhlcwTgZ8ylMrkm8A6Gw51Qu66Y1o8INUq0WhTt/+q4NFoZW8fK4obuFeCt1Z/xC5XrFDIB6rDOcxYLBIviF4HMuUOYKnBMq7h55z4jUbAs8OyfKYmPne2do1mbJSCVetQtIRtL4NctIgM9ntTTwKmAXip+SHcnxH1BLAwQUAAAICAAAECHsye6VYG0AAAB4AAAACQAkAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAatWKkstKs7Mz1OyUjDRM9IzNNdRUEovSizIKAaKGII4pZkpIHa0koVBsnFaWoqJYaqhuYWxYaqucZJxWnKqSaqxoXGKRaqZuVIsUH1JZUGqX2JuKkRPQGJJRlpmXkpmXrqee1FmijvIaKXYWgBQSwECLQAUAAAICAAAECHsS0OAXJ8CAACnBQAACwAkAAAAAAAAAAAAAAAAAAAAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwECLQAUAAAICAAAECHsye6VYG0AAAB4AAAACQAkAAAAAAAAAAAAAADsAgAAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsFBgAAAAACAAIAuAAAAKQDAAAAAA==
     upgradeData: 
     file_cachedStartup: {fileID: 0}
     data_cachedStartup: 

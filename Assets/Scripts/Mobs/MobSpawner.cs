@@ -6,6 +6,7 @@ using Buildings.Data;
 using Buildings.Definition;
 using Buildings.Types;
 using Match;
+using Mechanics;
 using Pathfinding;
 using Scripts2.Mobs;
 using Unity.VisualScripting;
@@ -78,6 +79,9 @@ namespace Mobs
             // mobData._currentArmorType = mobDefinition._stats._ArmorType;
             // mobData._currentTeam = mobTeam;
 
+            var mobHealth = mob.AddComponent<HealthSystem>();
+            mobHealth.Data = mobData;
+            
             var aiPath = mob.AddComponent<AIPath>();
             var mobBehaviour = mobPrefab.GetComponent<MobBehaviour>();
             aiPath.radius = mobBehaviour._pathfindingParameters._aiRadius;

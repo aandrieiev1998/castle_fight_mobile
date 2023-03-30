@@ -1,4 +1,6 @@
-﻿using Pathfinding;
+﻿using System.Collections;
+using Mechanics;
+using Pathfinding;
 using UnityEngine;
 
 namespace Mobs
@@ -6,6 +8,8 @@ namespace Mobs
     public class MobAI : MonoBehaviour
     {
         private AIDestinationSetter mobDestinationSetter;
+        private Coroutine attackCoroutine;
+        private HealthSystem _healthSystem;
 
         public AIDestinationSetter MobDestinationSetter
         {
@@ -24,6 +28,7 @@ namespace Mobs
         private void Start()
         {
             mobData = GetComponent<MobData>();
+            _healthSystem = GetComponent<HealthSystem>();
             mobAnimator = GetComponent<Animator>();
         }
 
@@ -48,6 +53,8 @@ namespace Mobs
                     timeSinceLastTargetUpdate = 0f;
                     stopUpdatingTarget = true;
 
+                    var enemyHealth = other.GetComponent<HealthSystem>();
+                    attackCoroutine = StartCoroutine(Attack(enemyHealth));
                     mobAnimator.SetBool(ENEMY_IN_VISION, true);
                     Debug.Log($"Target updated: {target}");
                 }
@@ -61,11 +68,18 @@ namespace Mobs
 
             if (colliderMobData._target == mobDestinationSetter.target)
             {
+                StopCoroutine(attackCoroutine);
                 Debug.Log($"Target lost: {mobDestinationSetter.target}");
                 mobDestinationSetter.target = null;
 
                 // todo set target to Throne or another enemy in vision
             }
+        }
+
+        private IEnumerator Attack(HealthSystem enemyHealth)
+        {
+            enemyHealth.TakeDamage(mobData._currentDamage);
+            yield return new WaitForSeconds(1);
         }
     }
 }

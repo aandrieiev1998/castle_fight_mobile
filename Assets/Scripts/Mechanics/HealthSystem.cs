@@ -28,7 +28,6 @@ namespace Mechanics
         }
         private void Die()
         {
-            // Код для обработки смерти объекта
             Destroy(gameObject);
         }
 

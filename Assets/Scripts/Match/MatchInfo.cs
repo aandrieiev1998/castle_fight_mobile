@@ -5,7 +5,7 @@ namespace Match
     public class MatchInfo : MonoBehaviour
     {
 
-        [SerializeField] private PlayerTeam _localPlayerTeam;
+        [SerializeField] private TeamColor _localTeamColor;
         [SerializeField] private int _teamsAmount;
 
         public int TeamsAmount
@@ -14,7 +14,7 @@ namespace Match
             set => _teamsAmount = value;
         }
 
-        public PlayerTeam LocalPlayerTeam { get; set; }
+        public TeamColor LocalTeamColor { get; set; }
 
     }
 }

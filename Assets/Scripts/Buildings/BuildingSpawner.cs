@@ -30,10 +30,10 @@ namespace Buildings
             _teamSelectionMenuController.PlayerTeamSelected += OnLocalPlayerTeamSelected;
         }
 
-        private void OnLocalPlayerTeamSelected(PlayerTeam playerTeam)
+        private void OnLocalPlayerTeamSelected(TeamColor teamColor)
         {
             _teamSelectionMenuController.Hide();
-            SpawnBuildingPlatforms(playerTeam);
+            SpawnBuildingPlatforms(teamColor);
             SpawnBaseBuildings();
         }
 
@@ -44,7 +44,7 @@ namespace Buildings
 
         private void OnBuildingSelected(BuildingType buildingType)
         {
-            SpawnBuilding(buildingType, _matchInfo.LocalPlayerTeam, spawnPoint);
+            SpawnBuilding(buildingType, _matchInfo.LocalTeamColor, spawnPoint);
             _buildingMenuController.Hide();
         }
 
@@ -71,30 +71,30 @@ namespace Buildings
             }
         }
 
-        private void SpawnBuildingPlatforms(PlayerTeam playerTeam)
+        private void SpawnBuildingPlatforms(TeamColor teamColor)
         {
-            var spawnPoints = _spawnPointsContainer.MobBuildingsSpawnPoints.Where(bp => bp._playerTeam == playerTeam)
+            var spawnPoints = _spawnPointsContainer.MobBuildingsSpawnPoints.Where(bp => bp._teamColor == teamColor)
                 .ToList();
             foreach (var spawnPoint in spawnPoints)
             {
                 var buildingPlatform = Instantiate(_buildingPlatformPrefab, spawnPoint._transform.position,
                     Quaternion.identity);
                 var buildingPlatformData = buildingPlatform.GetComponent<BuildingPlatform>();
-                buildingPlatformData.PlayerTeam = playerTeam;
+                buildingPlatformData.TeamColor = teamColor;
             }
         }
 
         private void SpawnBaseBuildings()
         {
-            SpawnBuilding(BuildingType.Throne, PlayerTeam.Blue,
-                _spawnPointsContainer.BaseBuildingSpawnPoints.Single(sp => sp._playerTeam == PlayerTeam.Blue)._transform
+            SpawnBuilding(BuildingType.Throne, TeamColor.Blue,
+                _spawnPointsContainer.BaseBuildingSpawnPoints.Single(sp => sp._teamColor == TeamColor.Blue)._transform
                     .position);
-            SpawnBuilding(BuildingType.Throne, PlayerTeam.Red,
-                _spawnPointsContainer.BaseBuildingSpawnPoints.Single(sp => sp._playerTeam == PlayerTeam.Red)._transform
+            SpawnBuilding(BuildingType.Throne, TeamColor.Red,
+                _spawnPointsContainer.BaseBuildingSpawnPoints.Single(sp => sp._teamColor == TeamColor.Red)._transform
                     .position);
         }
 
-        public void SpawnBuilding(BuildingType buildingType, PlayerTeam playerTeam, Vector3 position)
+        public void SpawnBuilding(BuildingType buildingType, TeamColor teamColor, Vector3 position)
         {
             var buildingPrefab = _buildingPrefabs.Single(prefab =>
                 prefab.GetComponent<BuildingBehaviour>()._buildingStats._buildingType == buildingType);
@@ -103,13 +103,13 @@ namespace Buildings
                 Quaternion.Euler(new Vector3(-90f, 0f, 0f)), _buildingsParent);
             building.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 
-            var teamMaterial = _teamMaterials.Single(tm => tm._playerTeam == playerTeam);
+            var teamMaterial = _teamMaterials.Single(tm => tm._teamColor == teamColor);
             var buildingRenderer = building.GetComponent<Renderer>();
             buildingRenderer.material = teamMaterial._material;
 
             var buildingBehaviour = building.GetComponent<BuildingBehaviour>();
             var buildingData = buildingBehaviour._buildingData;
-            buildingData._playerTeam = playerTeam;
+            buildingData._teamColor = teamColor;
 
             _buildingContainer.AddActiveBuilding(buildingBehaviour);
 

@@ -43,7 +43,7 @@ namespace Mobs
             var targetMobBehaviour = target.GetComponent<MobBehaviour>();
             if (targetMobBehaviour == null) return;
 
-            if (mobBehaviour._mobData._playerTeam != targetMobBehaviour._mobData._playerTeam)
+            if (mobBehaviour._mobData._teamColor != targetMobBehaviour._mobData._teamColor)
             {
                 var destinationTarget = _mobDestinationSetter.target;
                 if (destinationTarget != targetMobBehaviour.transform)
@@ -71,7 +71,7 @@ namespace Mobs
                 Debug.Log($"Target lost: {_mobDestinationSetter.target}");
                 
                 var enemyThrone = _buildingContainer._buildings.Single(bb =>
-                    bb._buildingData._playerTeam != mobBehaviour._mobData._playerTeam &&
+                    bb._buildingData._teamColor != mobBehaviour._mobData._teamColor &&
                     bb._buildingData._buildingType == BuildingType.Throne);
 
                 _mobDestinationSetter.target = enemyThrone.transform;

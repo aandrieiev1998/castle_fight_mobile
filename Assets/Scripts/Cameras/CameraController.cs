@@ -42,22 +42,22 @@ namespace Cameras
             LimitHeight();
         }
         
-        private void OnPlayerTeamSelected(PlayerTeam playerTeam)
+        private void OnPlayerTeamSelected(TeamColor teamColor)
         {
-            switch (playerTeam)
+            switch (teamColor)
             {
-                case PlayerTeam.Blue:
+                case TeamColor.Blue:
                     MoveToLocation(CameraLocationId.BlueTeamThrone);
                     break;
-                case PlayerTeam.Red:
+                case TeamColor.Red:
                     MoveToLocation(CameraLocationId.RedTeamThrone);
                     break;
-                case PlayerTeam.Green:
+                case TeamColor.Green:
                     break;
-                case PlayerTeam.Yellow:
+                case TeamColor.Yellow:
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(playerTeam), playerTeam, null);
+                    throw new ArgumentOutOfRangeException(nameof(teamColor), teamColor, null);
             }
 
             _allowMoveCamera = true;

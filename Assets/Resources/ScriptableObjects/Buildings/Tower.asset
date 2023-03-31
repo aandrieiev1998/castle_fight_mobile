@@ -21,3 +21,7 @@ MonoBehaviour:
     _baseValue: 5
   - _statType: 7
     _baseValue: 50
+  - _statType: 11
+    _baseValue: 4
+  _buildingType: 0
+  _spawnedMob: 0

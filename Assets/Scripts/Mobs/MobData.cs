@@ -12,7 +12,7 @@ namespace Mobs
     {
         public MobType _mobType;
         public ArmorType _armorType;
-        public PlayerTeam _playerTeam;
+        public TeamColor _teamColor;
         public Dictionary<StatType, ActiveStat> activeStats = new();
     }
 }

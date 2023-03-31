@@ -1,6 +1,6 @@
 ﻿namespace Match
 {
-    public enum PlayerTeam
+    public enum TeamColor
     {
         Blue = 0,
         Red = 1,

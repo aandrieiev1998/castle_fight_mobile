@@ -10,21 +10,21 @@ namespace UI
         [SerializeField] private TeamSelectionMenuView _teamSelectionMenuView;
         [SerializeField] private MatchInfo _matchInfo;
 
-        public event Action<PlayerTeam> PlayerTeamSelected;
+        public event Action<TeamColor> PlayerTeamSelected;
 
         private void Start()
         {
             _teamSelectionMenuView.gameObject.SetActive(true);
             
-            _teamSelectionMenuView.FistTeamButton.onClick.AddListener(() => {SelectTeam(PlayerTeam.Blue);});
-            _teamSelectionMenuView.SecondTeamButton.onClick.AddListener(() => {SelectTeam(PlayerTeam.Red);});
+            _teamSelectionMenuView.FistTeamButton.onClick.AddListener(() => {SelectTeam(TeamColor.Blue);});
+            _teamSelectionMenuView.SecondTeamButton.onClick.AddListener(() => {SelectTeam(TeamColor.Red);});
         }
 
-        private void SelectTeam(PlayerTeam team)
+        private void SelectTeam(TeamColor teamColor)
         {
-            Debug.Log($"Selected team: {team}");
-            _matchInfo.LocalPlayerTeam = team;
-            PlayerTeamSelected?.Invoke(team);   
+            Debug.Log($"Selected team: {teamColor}");
+            _matchInfo.LocalTeamColor = teamColor;
+            PlayerTeamSelected?.Invoke(teamColor);   
         }
         
         public void Hide()

@@ -1,6 +1,7 @@
 ﻿using Mechanics;
-using Stats;
+using Scripts2.Mobs;
 using UnityEngine;
+using BaseStats = Stats.BaseStats;
 
 namespace Mobs
 {
@@ -10,5 +11,6 @@ namespace Mobs
         public MobType _mobType;
         public ArmorType _armorType;
         public AttackType _attackType;
+        public SwordsmanStats _swordsmanStats;
     }
 }

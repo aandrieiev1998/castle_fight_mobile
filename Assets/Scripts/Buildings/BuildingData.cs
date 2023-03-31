@@ -9,7 +9,7 @@ namespace Buildings
     public class BuildingData 
     {
         public BuildingType _buildingType;
-        public PlayerTeam _playerTeam;
+        public TeamColor _teamColor;
         public Dictionary<StatType, ActiveStat> activeStats = new();
     }
 }

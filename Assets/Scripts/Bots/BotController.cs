@@ -18,17 +18,17 @@ namespace Bots
             _teamSelectionMenuController.PlayerTeamSelected += OnPlayerTeamSelected;
         }
 
-        private void OnPlayerTeamSelected(PlayerTeam playerTeam)
+        private void OnPlayerTeamSelected(TeamColor teamColor)
         {
-            var botTeam = playerTeam switch
+            var botTeam = teamColor switch
             {
-                PlayerTeam.Blue => PlayerTeam.Red,
-                PlayerTeam.Red => PlayerTeam.Blue,
+                TeamColor.Blue => TeamColor.Red,
+                TeamColor.Red => TeamColor.Blue,
                 _ => throw new Exception("Bot crashed")
             };
 
             var mobBuildingsSpawnPoints =
-                _spawnPointsContainer.MobBuildingsSpawnPoints.Where(sp => sp._playerTeam == botTeam).ToList();
+                _spawnPointsContainer.MobBuildingsSpawnPoints.Where(sp => sp._teamColor == botTeam).ToList();
             foreach (var mobBuildingSpawnPoint in mobBuildingsSpawnPoints)
             {
                 _buildingSpawner.SpawnBuilding(BuildingType.Barracks, botTeam,

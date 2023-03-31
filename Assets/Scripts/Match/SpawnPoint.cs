@@ -6,7 +6,7 @@ namespace Match
     [Serializable]
     public struct SpawnPoint
     {
-        public PlayerTeam _playerTeam;
+        public TeamColor _teamColor;
         public Transform _transform;
     }
 }

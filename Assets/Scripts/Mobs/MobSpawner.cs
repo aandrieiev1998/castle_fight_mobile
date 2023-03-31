@@ -19,7 +19,7 @@ namespace Mobs
         [SerializeField] private List<TeamMaterial> _teamMaterials;
 
         private readonly Dictionary<MobType, GameObject> mobPrefabsDictionary = new();
-        private readonly Dictionary<PlayerTeam, List<GameObject>> mobs = new();
+        private readonly Dictionary<TeamColor, List<GameObject>> mobs = new();
 
         private void Start()
         {
@@ -42,14 +42,14 @@ namespace Mobs
         {
             if (buildingBehaviour._buildingData.activeStats.ContainsKey(StatType.MobSpawnRate))
             {
-                StartCoroutine(StartSpawningMobsForSingleBuilding(buildingBehaviour._buildingData._playerTeam,
+                StartCoroutine(StartSpawningMobsForSingleBuilding(buildingBehaviour._buildingData._teamColor,
                     buildingBehaviour._buildingStats._spawnedMob,
                     buildingBehaviour._buildingData.activeStats[StatType.MobSpawnRate]._currentValue,
                     buildingBehaviour.transform.position));
             }
         }
 
-        private IEnumerator StartSpawningMobsForSingleBuilding(PlayerTeam team, MobType mobType, float interval,
+        private IEnumerator StartSpawningMobsForSingleBuilding(TeamColor teamColor, MobType mobType, float interval,
             Vector3 origin)
         {
             while (true)
@@ -57,34 +57,34 @@ namespace Mobs
                 //
                 yield return new WaitForSeconds(interval);
 
-                var mob = SpawnMob(team, mobType, origin);
+                var mob = SpawnMob(teamColor, mobType, origin);
 
-                if (!mobs.ContainsKey(team))
+                if (!mobs.ContainsKey(teamColor))
                 {
                     var mobsList = new List<GameObject> {mob};
-                    mobs.Add(team, mobsList);
+                    mobs.Add(teamColor, mobsList);
                 }
                 else
                 {
-                    mobs[team].Add(mob);
+                    mobs[teamColor].Add(mob);
                 }
             }
         }
 
-        private GameObject SpawnMob(PlayerTeam mobTeam, MobType mobType, Vector3 position)
+        private GameObject SpawnMob(TeamColor mobTeamColor, MobType mobType, Vector3 position)
         {
             var mobPrefab = mobPrefabsDictionary[mobType];
             var mob = Instantiate(mobPrefab, position, Quaternion.identity, _mobsParent);
 
             var renderers = mob.GetComponentsInChildren<Renderer>();
-            var teamMaterial = _teamMaterials.Single(tm => tm._playerTeam == mobTeam);
+            var teamMaterial = _teamMaterials.Single(tm => tm._teamColor == mobTeamColor);
             foreach (var rend in renderers)
             {
                 rend.material = teamMaterial._material;
             }
 
             var mobBehaviour = mob.GetComponent<MobBehaviour>();
-            mobBehaviour._mobData._playerTeam = mobTeam;
+            mobBehaviour._mobData._teamColor = mobTeamColor;
             mobBehaviour._mobData._mobType = mobBehaviour._mobStats._mobType;
             mobBehaviour._mobData._armorType = mobBehaviour._mobStats._armorType;
             
@@ -99,7 +99,7 @@ namespace Mobs
             var destinationSetter = mob.AddComponent<AIDestinationSetter>();
 
             var enemyThrone = _buildingContainer._buildings.Single(bb =>
-                bb._buildingData._playerTeam != mobTeam && bb._buildingData._buildingType == BuildingType.Throne);
+                bb._buildingData._teamColor != mobTeamColor && bb._buildingData._buildingType == BuildingType.Throne);
 
             destinationSetter.target = enemyThrone.transform;
 

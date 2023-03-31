@@ -5,7 +5,7 @@ namespace Buildings
 {
     public class BuildingPlatform : MonoBehaviour
     {
-        [SerializeField] private PlayerTeam _playerTeam;
+        [SerializeField] private TeamColor _teamColor;
         [SerializeField] private bool _isOccupied;
         
         
@@ -15,10 +15,10 @@ namespace Buildings
             set => _isOccupied = value;
         }
 
-        public PlayerTeam PlayerTeam
+        public TeamColor TeamColor
         {
-            get => _playerTeam;
-            set => _playerTeam = value;
+            get => _teamColor;
+            set => _teamColor = value;
         }
     }
 }

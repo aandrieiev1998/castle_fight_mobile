@@ -1,10 +1,11 @@
-﻿using Scripts3.Mechanics;
+﻿using Match;
+using Scripts3.Mechanics;
 using Scripts3.Systems;
 using UnityEngine;
 
 namespace Scripts3.Mobs
 {
-    public abstract class Mob : MonoBehaviour, IHealthSystem, IDamageSystem, IBountySystem
+    public abstract class Mob : MonoBehaviour, IHealthSystem, IDamageSystem, IBountySystem, ITeamSystem
     {
         [SerializeField] private float _rageDistance;
         [SerializeField] private int _spawnInterval;
@@ -90,5 +91,7 @@ namespace Scripts3.Mobs
             get => _experienceForKill;
             set => _experienceForKill = value;
         }
+
+        public TeamColor TeamColor { get; set; }
     }
 }

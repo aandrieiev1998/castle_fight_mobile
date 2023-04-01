@@ -18,7 +18,6 @@ namespace Buildings
         [SerializeField] private BuildingsMenuController _buildingMenuController;
         [SerializeField] private TeamSelectionMenuController _teamSelectionMenuController;
         [SerializeField] private MatchInfo _matchInfo;
-        [SerializeField] private List<TeamMaterial> _teamMaterials;
 
         private const int LayerIndex = 6;
         private Vector3 spawnPoint;
@@ -103,9 +102,9 @@ namespace Buildings
                 Quaternion.Euler(new Vector3(-90f, 0f, 0f)), _buildingsParent);
             building.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 
-            var teamMaterial = _teamMaterials.Single(tm => tm._teamColor == teamColor);
+            var teamMaterial = TeamMaterials.BuildingMaterials[teamColor];
             var buildingRenderer = building.GetComponent<Renderer>();
-            buildingRenderer.material = teamMaterial._material;
+            buildingRenderer.material = teamMaterial;
             // selectedPlatform.IsOccupied = true;
         }
     }

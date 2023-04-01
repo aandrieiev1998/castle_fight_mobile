@@ -1,10 +1,11 @@
-﻿using Scripts3.Mechanics;
+﻿using Match;
+using Scripts3.Mechanics;
 using Scripts3.Systems;
 using UnityEngine;
 
 namespace Scripts3.Buildings
 {
-    public abstract class Building : MonoBehaviour, IHealthSystem
+    public abstract class Building : MonoBehaviour, IHealthSystem, ITeamSystem
     {
         [SerializeField] private float _healthAmount;
         [SerializeField] private float _healthRegen;
@@ -34,5 +35,7 @@ namespace Scripts3.Buildings
             get => _armorType;
             set => _armorType = value;
         }
+
+        public TeamColor TeamColor { get; set; }
     }
 }

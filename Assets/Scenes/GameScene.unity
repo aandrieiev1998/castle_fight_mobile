@@ -1795,7 +1795,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea7530becf0041989564cd2512773ab1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _localPlayerTeam: 0
+  _localTeamColor: 0
   _teamsAmount: 0
 --- !u!1 &184848555
 GameObject:
@@ -17024,9 +17024,9 @@ MonoBehaviour:
   _teamSelectionMenuController: {fileID: 1236819681}
   _matchInfo: {fileID: 158450540}
   _teamMaterials:
-  - _playerTeam: 0
+  - _teamColor: 0
     _material: {fileID: 2100000, guid: 4a8b820c98c7b4540bab4e4f3d70d7fb, type: 2}
-  - _playerTeam: 1
+  - _teamColor: 0
     _material: {fileID: 2100000, guid: a2085ab309c94a143a706621cd42e213, type: 2}
 --- !u!4 &1425196802
 Transform:
@@ -17069,22 +17069,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _baseBuildingSpawnPoints:
-  - _playerTeam: 0
+  - _teamColor: 0
     _transform: {fileID: 528771613}
-  - _playerTeam: 1
+  - _teamColor: 0
     _transform: {fileID: 1893516722}
   _mobBuildingsSpawnPoints:
-  - _playerTeam: 0
+  - _teamColor: 0
     _transform: {fileID: 982736475}
-  - _playerTeam: 0
+  - _teamColor: 0
     _transform: {fileID: 628335118}
-  - _playerTeam: 0
+  - _teamColor: 0
     _transform: {fileID: 774635230}
-  - _playerTeam: 1
+  - _teamColor: 0
     _transform: {fileID: 128758502}
-  - _playerTeam: 1
+  - _teamColor: 0
     _transform: {fileID: 944039791}
-  - _playerTeam: 1
+  - _teamColor: 0
     _transform: {fileID: 809988768}
 --- !u!1 &1434988191
 GameObject:
@@ -17097,6 +17097,7 @@ GameObject:
   - component: {fileID: 1434988192}
   - component: {fileID: 1434988193}
   - component: {fileID: 1434988194}
+  - component: {fileID: 1434988195}
   m_Layer: 0
   m_Name: MobContext
   m_TagString: Untagged
@@ -17137,9 +17138,9 @@ MonoBehaviour:
   _buildingContainer: {fileID: 1425196803}
   _mobsParent: {fileID: 486798253}
   _teamMaterials:
-  - _playerTeam: 0
+  - _teamColor: 0
     _material: {fileID: 2100000, guid: 792a4bad9e08b8e41bfbd3f0b8aac1ab, type: 2}
-  - _playerTeam: 1
+  - _teamColor: 0
     _material: {fileID: 2100000, guid: 98a7fdcb4ebb44344b4afe0424d44b82, type: 2}
 --- !u!114 &1434988194
 MonoBehaviour:
@@ -17196,6 +17197,19 @@ MonoBehaviour:
     pivotPointRoot: {fileID: 0}
     spreadOutCount: 1
   showGraphs: 1
+--- !u!114 &1434988195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1434988191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a603a32885274a618565b26f0cf30082, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Mob: {fileID: 0}
 --- !u!1 &1459697109
 GameObject:
   m_ObjectHideFlags: 0

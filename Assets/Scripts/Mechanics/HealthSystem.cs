@@ -25,9 +25,9 @@ namespace Mechanics
 
         public float FinalDamage(int damage, float armor, ArmorType armorType)
         {
-            if (armor <= 0)
+            if (armor < 1)
             {
-                armor = 0.01f;
+                armor = 1;
             }
             float damageModifier = armorType switch
             {

@@ -107,7 +107,7 @@ namespace Cameras
         {
             var scroll = Input.GetAxis("Mouse ScrollWheel");
             var cameraPosition = _cameraTransform.position;
-            cameraPosition.y -= scroll * 1000 * _cameraSpeed * Time.deltaTime;
+            cameraPosition.y -= scroll * 200 * _cameraSpeed * Time.deltaTime;
             cameraPosition.y = Mathf.Clamp(cameraPosition.y, _cameraMinHeight, _cameraMaxHeight);
             _cameraTransform.position = cameraPosition;
         }

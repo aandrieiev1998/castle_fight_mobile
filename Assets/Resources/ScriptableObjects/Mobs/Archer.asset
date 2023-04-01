@@ -20,7 +20,7 @@ MonoBehaviour:
   - _statType: 8
     _baseValue: 3
   - _statType: 7
-    _baseValue: 4
+    _baseValue: 100
   - _statType: 11
     _baseValue: 3
   _mobType: 2

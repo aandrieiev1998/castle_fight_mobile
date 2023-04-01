@@ -16643,8 +16643,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _buildingPrefabs:
-  - {fileID: 3958160397411626674, guid: 2c00b4d7c5e9861408bd932a77bac060, type: 3}
-  - {fileID: 7074046020344237921, guid: f07049f1f6dbc5d47ba4fc503eb21172, type: 3}
+  - {fileID: -8724389656931425538, guid: 2c00b4d7c5e9861408bd932a77bac060, type: 3}
+  - {fileID: -2783736864680515134, guid: f07049f1f6dbc5d47ba4fc503eb21172, type: 3}
   _playerCamera: {fileID: 963194227}
   _buildingMenuController: {fileID: 1236819679}
   _teamSelectionMenuController: {fileID: 1236819681}

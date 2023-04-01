@@ -1,9 +1,5 @@
-﻿using System.Collections;
-using System.Linq;
-using Buildings;
-using Pathfinding;
+﻿using Pathfinding;
 using Scripts3.Mobs;
-using Stats;
 using UnityEngine;
 
 namespace Mobs

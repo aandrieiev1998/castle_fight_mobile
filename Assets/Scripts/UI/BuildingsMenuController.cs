@@ -1,5 +1,7 @@
 ﻿using System;
 using Buildings;
+using Scripts3.Buildings;
+using Scripts3.Buildings.MobBuildings;
 using UnityEngine;
 
 namespace UI
@@ -8,14 +10,14 @@ namespace UI
     {
         [SerializeField] private BuildingMenuView _buildingMenuView;
 
-        public event Action<BuildingType> BuildingSelected;
+        public event Action<Type> BuildingSelected;
 
         private void Start()
         {
             _buildingMenuView.gameObject.SetActive(true);
             
-            _buildingMenuView.BarrackButton.onClick.AddListener(() => {SelectMobBuilding(BuildingType.Barracks);});
-            _buildingMenuView.ArcheryButton.onClick.AddListener(() => {SelectMobBuilding(BuildingType.Archery);});
+            _buildingMenuView.BarrackButton.onClick.AddListener(() => {SelectMobBuilding(typeof(Barracks));});
+            _buildingMenuView.ArcheryButton.onClick.AddListener(() => {SelectMobBuilding(typeof(Archery));});
             
             _buildingMenuView.CancelButton.onClick.AddListener(Hide);
             
@@ -30,7 +32,7 @@ namespace UI
             _buildingMenuView.CancelButton.onClick.RemoveListener(Hide);
         }
 
-        private void SelectMobBuilding(BuildingType buildingType)
+        private void SelectMobBuilding(Type buildingType)
         {
             Debug.Log($"Selected building: {buildingType}");
             BuildingSelected?.Invoke(buildingType);

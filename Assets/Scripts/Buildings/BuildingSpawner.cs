@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Match;
+using Scripts3.Buildings;
 using UI;
 using UnityEngine;
 
@@ -8,10 +10,9 @@ namespace Buildings
 {
     public class BuildingSpawner : MonoBehaviour
     {
-        [SerializeField] private List<GameObject> _buildingPrefabs;
+        [SerializeField] private List<Building> _buildingPrefabs;
         [SerializeField] private GameObject _buildingPlatformPrefab;
         [SerializeField] private Camera _playerCamera;
-        [SerializeField] private BuildingContainer _buildingContainer;
         [SerializeField] private SpawnPointsContainer _spawnPointsContainer;
         [SerializeField] private Transform _buildingsParent;
         [SerializeField] private BuildingsMenuController _buildingMenuController;
@@ -42,7 +43,7 @@ namespace Buildings
             HandlePlayerInput();
         }
 
-        private void OnBuildingSelected(BuildingType buildingType)
+        private void OnBuildingSelected(Type buildingType)
         {
             SpawnBuilding(buildingType, _matchInfo.LocalTeamColor, spawnPoint);
             _buildingMenuController.Hide();
@@ -86,18 +87,17 @@ namespace Buildings
 
         private void SpawnBaseBuildings()
         {
-            SpawnBuilding(BuildingType.Throne, TeamColor.Blue,
+            SpawnBuilding(typeof(Castle), TeamColor.Blue,
                 _spawnPointsContainer.BaseBuildingSpawnPoints.Single(sp => sp._teamColor == TeamColor.Blue)._transform
                     .position);
-            SpawnBuilding(BuildingType.Throne, TeamColor.Red,
+            SpawnBuilding(typeof(Castle), TeamColor.Red,
                 _spawnPointsContainer.BaseBuildingSpawnPoints.Single(sp => sp._teamColor == TeamColor.Red)._transform
                     .position);
         }
 
-        public void SpawnBuilding(BuildingType buildingType, TeamColor teamColor, Vector3 position)
+        public void SpawnBuilding(Type buildingType, TeamColor teamColor, Vector3 position)
         {
-            var buildingPrefab = _buildingPrefabs.Single(prefab =>
-                prefab.GetComponent<BuildingBehaviour>()._buildingStats._buildingType == buildingType);
+            var buildingPrefab = _buildingPrefabs.Single(bp => bp.GetType() == buildingType);
 
             var building = Instantiate(buildingPrefab, position,
                 Quaternion.Euler(new Vector3(-90f, 0f, 0f)), _buildingsParent);
@@ -106,13 +106,6 @@ namespace Buildings
             var teamMaterial = _teamMaterials.Single(tm => tm._teamColor == teamColor);
             var buildingRenderer = building.GetComponent<Renderer>();
             buildingRenderer.material = teamMaterial._material;
-
-            var buildingBehaviour = building.GetComponent<BuildingBehaviour>();
-            var buildingData = buildingBehaviour._buildingData;
-            buildingData._teamColor = teamColor;
-
-            _buildingContainer.AddActiveBuilding(buildingBehaviour);
-
             // selectedPlatform.IsOccupied = true;
         }
     }

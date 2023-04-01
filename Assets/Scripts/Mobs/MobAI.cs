@@ -3,6 +3,7 @@ using System.Linq;
 using Buildings;
 using Mechanics;
 using Pathfinding;
+using Scripts3.Mobs;
 using Stats;
 using UnityEngine;
 
@@ -11,11 +12,10 @@ namespace Mobs
     public class MobAI : MonoBehaviour
     {
         public AIDestinationSetter _mobDestinationSetter;
-        public BuildingContainer _buildingContainer;
 
         private Coroutine attackCoroutine;
         private HealthSystem _healthSystem;
-        private MobBehaviour mobBehaviour;
+        private Mob mob;
         private bool stopUpdatingTarget;
         private float timeSinceLastTargetUpdate;
         private float distanceToClosestTargetInVision;
@@ -26,7 +26,7 @@ namespace Mobs
 
         private void Start()
         {
-            mobBehaviour = GetComponent<MobBehaviour>();
+            mob = GetComponent<Mob>();
             _healthSystem = GetComponent<HealthSystem>();
             mobAnimator = GetComponent<Animator>();
         }
@@ -40,49 +40,49 @@ namespace Mobs
         {
             if (stopUpdatingTarget) return;
 
-            var targetMobBehaviour = target.GetComponent<MobBehaviour>();
-            if (targetMobBehaviour == null) return;
+            var targetMob = target.GetComponent<Mob>();
+            if (targetMob == null) return;
 
-            if (mobBehaviour._mobData._teamColor != targetMobBehaviour._mobData._teamColor)
-            {
-                var destinationTarget = _mobDestinationSetter.target;
-                if (destinationTarget != targetMobBehaviour.transform)
-                {
-                    _mobDestinationSetter.target = targetMobBehaviour.transform;
-                    timeSinceLastTargetUpdate = 0f;
-                    stopUpdatingTarget = true;
-
-                    var enemyHealth = target.GetComponent<HealthSystem>();
-                    attackCoroutine = StartCoroutine(Attack(enemyHealth));
-                    mobAnimator.SetBool(Attacking, true);
-                    Debug.Log($"Target updated: {destinationTarget}");
-                }
-            }
+            // if (mob._mobData._teamColor != targetMob._mobData._teamColor)
+            // {
+            //     var destinationTarget = _mobDestinationSetter.target;
+            //     if (destinationTarget != targetMob.transform)
+            //     {
+            //         _mobDestinationSetter.target = targetMob.transform;
+            //         timeSinceLastTargetUpdate = 0f;
+            //         stopUpdatingTarget = true;
+            //
+            //         var enemyHealth = target.GetComponent<HealthSystem>();
+            //         attackCoroutine = StartCoroutine(Attack(enemyHealth));
+            //         mobAnimator.SetBool(Attacking, true);
+            //         Debug.Log($"Target updated: {destinationTarget}");
+            //     }
+            // }
         }
 
         private void OnTriggerExit(Collider target)
         {
-            var targetMobBehaviour = target.GetComponent<MobBehaviour>();
-            if (targetMobBehaviour == null) return;
+            var targetMob = target.GetComponent<Mob>();
+            if (targetMob == null) return;
 
-            if (_mobDestinationSetter.target == target.transform)
-            {
-                StopCoroutine(attackCoroutine);
-                Debug.Log($"Target lost: {_mobDestinationSetter.target}");
-                
-                var enemyThrone = _buildingContainer._buildings.Single(bb =>
-                    bb._buildingData._teamColor != mobBehaviour._mobData._teamColor &&
-                    bb._buildingData._buildingType == BuildingType.Throne);
-
-                _mobDestinationSetter.target = enemyThrone.transform;
-                mobAnimator.SetBool(Running, true);
-            }
+            // if (_mobDestinationSetter.target == target.transform)
+            // {
+            //     StopCoroutine(attackCoroutine);
+            //     Debug.Log($"Target lost: {_mobDestinationSetter.target}");
+            //     
+            //     var enemyThrone = _buildingContainer._buildings.Single(bb =>
+            //         bb._buildingData._teamColor != mob._mobData._teamColor &&
+            //         bb._buildingData._buildingType == BuildingType.Throne);
+            //
+            //     _mobDestinationSetter.target = enemyThrone.transform;
+            //     mobAnimator.SetBool(Running, true);
+            // }
         }
 
-        private IEnumerator Attack(HealthSystem enemyHealth)
-        {
-            enemyHealth.TakeDamage((int) mobBehaviour._mobData.activeStats[StatType.AttackDamage]._currentValue);
-            yield return new WaitForSeconds(1);
-        }
+        // private IEnumerator Attack(HealthSystem enemyHealth)
+        // {
+        //     enemyHealth.TakeDamage((int) mob._mobData.activeStats[StatType.AttackDamage]._currentValue);
+        //     yield return new WaitForSeconds(1);
+        // }
     }
 }

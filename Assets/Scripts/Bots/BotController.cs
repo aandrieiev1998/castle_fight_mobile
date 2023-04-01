@@ -31,12 +31,12 @@ namespace Bots
                 _spawnPointsContainer.MobBuildingsSpawnPoints.Where(sp => sp._teamColor == botTeam).ToList();
             foreach (var mobBuildingSpawnPoint in mobBuildingsSpawnPoints)
             {
-                _buildingSpawner.SpawnBuilding(BuildingType.Barracks, botTeam,
-                    mobBuildingSpawnPoint._transform.position);
+                // _buildingSpawner.SpawnBuilding(BuildingType.Barracks, botTeam,
+                //     mobBuildingSpawnPoint._transform.position);
             }
 
-            Debug.Log(
-                $"Spawned {mobBuildingsSpawnPoints.Count} buildings of type {BuildingType.Barracks}");
+            // Debug.Log(
+            //     $"Spawned {mobBuildingsSpawnPoints.Count} buildings of type {BuildingType.Barracks}");
         }
     }
 }

@@ -2,6 +2,9 @@
 {
     public class Archery : MobBuilding
     {
-        
+        public override void SpawnMobs()
+        {
+            // spawn Archers
+        }
     }
 }

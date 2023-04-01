@@ -1,4 +1,5 @@
 ﻿using Scripts3.Mobs;
+using Scripts3.Systems;
 using UnityEngine;
 
 namespace Scripts3.Controller
@@ -9,8 +10,7 @@ namespace Scripts3.Controller
 
         public void Start()
         {
-            var component = this.Mob.GetComponent<Unit>();
-            Debug.Log(component.name);
+            
         }
     }
 }

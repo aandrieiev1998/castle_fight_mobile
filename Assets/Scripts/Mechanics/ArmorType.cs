@@ -7,7 +7,7 @@ namespace Mechanics
     {
         Building,
         LightArmor,
-        MidleArmor,
+        MediumArmor,
         HeavyArmor,
         MechanicArmor
     }

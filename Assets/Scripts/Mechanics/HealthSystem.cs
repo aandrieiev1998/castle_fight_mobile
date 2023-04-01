@@ -32,7 +32,7 @@ namespace Mechanics
             float damageModifier = armorType switch
             {
                 ArmorType.LightArmor => damage / (armor * IReceiveDamage.LightArmorFactor),
-                ArmorType.MidleArmor => damage / (armor * IReceiveDamage.MiddleArmorFactor),
+                ArmorType.MediumArmor => damage / (armor * IReceiveDamage.MiddleArmorFactor),
                 ArmorType.HeavyArmor => damage / (armor * IReceiveDamage.HeavyArmorFactor),
                 ArmorType.MechanicArmor => damage / (armor * IReceiveDamage.MechanicArmorFactor),
                 ArmorType.Building => damage / (armor * IReceiveDamage.BuildArmorFactor)

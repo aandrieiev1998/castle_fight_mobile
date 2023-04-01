@@ -1,4 +1,6 @@
-﻿using Scripts3.Mechanics;
+﻿using System;
+using System.Collections.Generic;
+using Scripts3.Mechanics;
 
 namespace Scripts3.Systems
 {
@@ -8,5 +10,8 @@ namespace Scripts3.Systems
         public float HealthRegen { get; set; }
         public float Armor { get; set; }
         public ArmorType ArmorType { get; set; }
+
+        
+        
     }
 }

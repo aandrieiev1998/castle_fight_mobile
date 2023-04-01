@@ -11,6 +11,7 @@ namespace Scripts3.Buildings
         [SerializeField] private float _healthRegen;
         [SerializeField] private float _armor;
         [SerializeField] private ArmorType _armorType;
+        [SerializeField] private TeamColor _teamColor;
 
         public float HealthAmount
         {
@@ -36,6 +37,17 @@ namespace Scripts3.Buildings
             set => _armorType = value;
         }
 
-        public TeamColor TeamColor { get; set; }
+        public TeamColor TeamColor
+        {
+            get => _teamColor;
+            set => _teamColor = value;
+        }
+
+        private void Start()
+        {
+            var teamMaterialsContainer = FindObjectOfType<TeamMaterialsContainer>();
+            var buildingRenderer = GetComponent<Renderer>();
+            buildingRenderer.material = teamMaterialsContainer.BuildingMaterials[_teamColor];
+        }
     }
 }

@@ -11,7 +11,6 @@ namespace Bots
     {
         [SerializeField] private TeamSelectionMenuController _teamSelectionMenuController;
         [SerializeField] private BuildingSpawner _buildingSpawner;
-        [SerializeField] private SpawnPointsContainer _spawnPointsContainer;
 
         private void Start()
         {
@@ -27,9 +26,9 @@ namespace Bots
                 _ => throw new Exception("Bot crashed")
             };
 
-            var mobBuildingsSpawnPoints =
-                _spawnPointsContainer.MobBuildingsSpawnPoints.Where(sp => sp._teamColor == botTeam).ToList();
-            foreach (var mobBuildingSpawnPoint in mobBuildingsSpawnPoints)
+            // var mobBuildingsSpawnPoints =
+            //     _spawnPointsContainer.MobBuildingsSpawnPoints.Where(sp => sp._teamColor == botTeam).ToList();
+            // foreach (var mobBuildingSpawnPoint in mobBuildingsSpawnPoints)
             {
                 // _buildingSpawner.SpawnBuilding(BuildingType.Barracks, botTeam,
                 //     mobBuildingSpawnPoint._transform.position);

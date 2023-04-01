@@ -44,21 +44,21 @@ namespace Cameras
         
         private void OnPlayerTeamSelected(TeamColor teamColor)
         {
-            switch (teamColor)
-            {
-                case TeamColor.Blue:
-                    MoveToLocation(CameraLocationId.BlueTeamThrone);
-                    break;
-                case TeamColor.Red:
-                    MoveToLocation(CameraLocationId.RedTeamThrone);
-                    break;
-                case TeamColor.Green:
-                    break;
-                case TeamColor.Yellow:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(teamColor), teamColor, null);
-            }
+            // switch (teamColor)
+            // {
+            //     case TeamColor.Blue:
+            //         MoveToLocation(CameraLocationId.BlueTeamThrone);
+            //         break;
+            //     case TeamColor.Red:
+            //         MoveToLocation(CameraLocationId.RedTeamThrone);
+            //         break;
+            //     case TeamColor.Green:
+            //         break;
+            //     case TeamColor.Yellow:
+            //         break;
+            //     default:
+            //         throw new ArgumentOutOfRangeException(nameof(teamColor), teamColor, null);
+            // }
 
             _allowMoveCamera = true;
         }

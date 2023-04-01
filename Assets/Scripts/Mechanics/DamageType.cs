@@ -3,7 +3,7 @@
     public enum DamageType
     {
         NormalDamage = 0,
-        MagickDamage = 1,
+        MagicDamage = 1,
         SiegeDamage = 2,
         HeroDamage = 3,
     }

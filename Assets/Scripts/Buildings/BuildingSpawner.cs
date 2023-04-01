@@ -34,6 +34,7 @@ namespace Buildings
         private void OnLocalPlayerTeamSelected(TeamColor teamColor)
         {
             _teamSelectionMenuController.Hide();
+            _matchInfo.MatchStarted = true;
 
             var buildingPlatforms = FindObjectsOfType<BuildingPlatform>();
             foreach (var buildingPlatform in buildingPlatforms)
@@ -56,6 +57,8 @@ namespace Buildings
 
         private void HandlePlayerInput()
         {
+            if (_matchInfo.MatchStarted == false) return;
+
             if (Input.GetMouseButtonDown(0))
             {
                 Ray ray = _playerCamera.ScreenPointToRay(Input.mousePosition);
@@ -63,15 +66,17 @@ namespace Buildings
 
                 if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << LayerIndex))
                 {
-                    selectedPlatform = hit.transform.GetComponent<BuildingPlatform>();
-                    if (!selectedPlatform.IsOccupied)
+                    var targetPlatform = hit.transform.GetComponent<BuildingPlatform>();
+
+                    if (!targetPlatform.IsOccupied && targetPlatform.TeamColor == _matchInfo.LocalTeamColor)
                     {
                         _buildingMenuController.Show();
                         spawnPoint = hit.transform.position;
+                        selectedPlatform = targetPlatform;
                     }
                     else
                     {
-                        Debug.Log("Is occupied");
+                        Debug.Log("Is occupied or is in control of other team");
                     }
                 }
             }

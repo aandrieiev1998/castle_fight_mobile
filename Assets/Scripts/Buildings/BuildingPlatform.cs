@@ -7,8 +7,8 @@ namespace Buildings
     {
         [SerializeField] private TeamColor _teamColor;
         [SerializeField] private bool _isOccupied;
-        
-        
+
+
         public bool IsOccupied
         {
             get => _isOccupied;

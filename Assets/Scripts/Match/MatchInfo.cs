@@ -9,5 +9,7 @@ namespace Match
 
         public TeamColor LocalTeamColor { get; set; }
 
+        public bool MatchStarted { get; set; } = false;
+
     }
 }

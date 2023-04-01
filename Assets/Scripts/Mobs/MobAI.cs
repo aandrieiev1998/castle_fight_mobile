@@ -1,5 +1,4 @@
 ﻿using Pathfinding;
-using Scripts3.Mobs;
 using UnityEngine;
 
 namespace Mobs

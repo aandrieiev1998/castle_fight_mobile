@@ -1,4 +1,4 @@
-﻿namespace Scripts3.Systems
+﻿namespace Systems
 {
     public interface IMobSpawningSystem
     {

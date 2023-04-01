@@ -1,4 +1,4 @@
-﻿namespace Scripts3.Mobs.Units
+﻿namespace Mobs.Units
 {
     public class Catapult : Unit
     {

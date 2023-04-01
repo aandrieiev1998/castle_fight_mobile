@@ -1,6 +1,6 @@
 ﻿using Match;
-using Scripts3.Mechanics;
-using Scripts3.Systems;
+using Mechanics;
+using Systems;
 using UnityEngine;
 
 namespace Scripts3.Buildings

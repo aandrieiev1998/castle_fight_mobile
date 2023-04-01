@@ -1,4 +1,4 @@
-﻿namespace Scripts3.Mechanics
+﻿namespace Mechanics
 {
     public enum ArmorType
     {

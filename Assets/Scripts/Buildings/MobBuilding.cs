@@ -1,9 +1,10 @@
 ﻿using Match;
-using Scripts3.Mobs;
-using Scripts3.Systems;
+using Mobs;
+using Scripts3.Buildings;
+using Systems;
 using UnityEngine;
 
-namespace Scripts3.Buildings
+namespace Buildings
 {
     public abstract class MobBuilding : Building, IMobSpawningSystem
     {

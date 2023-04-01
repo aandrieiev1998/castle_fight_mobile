@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Scripts3.Mechanics;
+using Mechanics;
 
-namespace Scripts3.Systems
+namespace Systems
 {
     public static class DamageUtils
     {

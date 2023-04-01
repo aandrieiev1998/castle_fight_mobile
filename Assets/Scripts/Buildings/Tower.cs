@@ -1,4 +1,6 @@
-﻿namespace Scripts3.Buildings
+﻿using Scripts3.Buildings;
+
+namespace Buildings
 {
     public class Tower : Building
     {

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using Scripts3.Mechanics;
-using Scripts3.Systems;
+using Mechanics;
+using Systems;
 using UnityEngine;
 
-namespace Scripts3.Mobs
+namespace Mobs
 {
     public abstract class Hero : Mob, IManaSystem, IAbilitiesSystem
     {

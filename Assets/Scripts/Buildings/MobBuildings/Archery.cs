@@ -1,4 +1,4 @@
-﻿namespace Scripts3.Buildings.MobBuildings
+﻿namespace Buildings.MobBuildings
 {
     public class Archery : MobBuilding
     {

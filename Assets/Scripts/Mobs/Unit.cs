@@ -1,4 +1,4 @@
-﻿namespace Scripts3.Mobs
+﻿namespace Mobs
 {
     public abstract class Unit : Mob
     {

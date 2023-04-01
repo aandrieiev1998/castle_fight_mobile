@@ -1,6 +1,6 @@
-﻿using Scripts3.Mechanics;
+﻿using Mechanics;
 
-namespace Scripts3.Systems
+namespace Systems
 {
     public interface IHealthSystem
     {

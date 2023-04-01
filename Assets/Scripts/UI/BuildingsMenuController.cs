@@ -1,7 +1,7 @@
 ﻿using System;
 using Buildings;
+using Buildings.MobBuildings;
 using Scripts3.Buildings;
-using Scripts3.Buildings.MobBuildings;
 using UnityEngine;
 
 namespace UI

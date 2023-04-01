@@ -19336,6 +19336,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Swordsman
       objectReference: {fileID: 0}
+    - target: {fileID: 2147550042520967120, guid: 9785eb04d861a3745a013acfabc1b77b,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 92cde4416d9a0ed419c356d55bb7409b, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9785eb04d861a3745a013acfabc1b77b, type: 3}
 --- !u!4 &2382107959696295900 stripped

@@ -2,7 +2,7 @@
 {
     public enum DamageType
     {
-        StandardDamage,
+        NormalDamage,
         SiegeDamage,
         MagicDamage,
         HeroDamage,

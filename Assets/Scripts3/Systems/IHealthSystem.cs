@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Scripts3.Mechanics;
+﻿using Scripts3.Mechanics;
 
 namespace Scripts3.Systems
 {
@@ -11,7 +9,11 @@ namespace Scripts3.Systems
         public float Armor { get; set; }
         public ArmorType ArmorType { get; set; }
 
-        
-        
+        public void TakeDamage(DamageType damageType, float damageAmount)
+        {
+            float damagePercentage = DamageUtils.GetDamagePercentage(ArmorType, damageType);
+            float damageReduced = (damageAmount * damagePercentage);
+            HealthAmount -= damageReduced;
+        }
     }
 }

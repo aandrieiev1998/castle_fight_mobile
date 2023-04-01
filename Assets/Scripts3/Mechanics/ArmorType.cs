@@ -3,7 +3,7 @@
     public enum ArmorType
     {
         LightArmor,
-        NormalArmor,
+        MediumArmor,
         HeavyArmor,
         MechanicArmor,
         HeroArmor,

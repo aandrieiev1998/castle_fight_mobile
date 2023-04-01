@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Buildings;
 using Match;
-using Mechanics;
-using Pathfinding;
 using Scripts3.Buildings;
 using Scripts3.Mechanics;
-using Stats;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Mobs

@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Linq;
 using Buildings;
-using Mechanics;
 using Pathfinding;
 using Scripts3.Mobs;
 using Stats;
@@ -14,7 +13,7 @@ namespace Mobs
         public AIDestinationSetter _mobDestinationSetter;
 
         private Coroutine attackCoroutine;
-        private HealthSystem _healthSystem;
+        // private HealthSystem _healthSystem;
         private Mob mob;
         private bool stopUpdatingTarget;
         private float timeSinceLastTargetUpdate;
@@ -27,7 +26,7 @@ namespace Mobs
         private void Start()
         {
             mob = GetComponent<Mob>();
-            _healthSystem = GetComponent<HealthSystem>();
+           // _healthSystem = GetComponent<HealthSystem>();
             mobAnimator = GetComponent<Animator>();
         }
 

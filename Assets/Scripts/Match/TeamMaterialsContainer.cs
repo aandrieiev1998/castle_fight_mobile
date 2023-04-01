@@ -12,7 +12,7 @@ namespace Match
         public Dictionary<TeamColor, Material> BuildingMaterials { get; } = new();
         public Dictionary<TeamColor, Material> MobMaterials { get; } = new();
 
-        private void Start()
+        private void Awake()
         {
             foreach (var buildingMaterial in _buildingMaterials)
             {

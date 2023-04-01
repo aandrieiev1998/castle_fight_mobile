@@ -29,7 +29,7 @@ namespace Scripts3.Buildings
             {
                 rend.material = teamMaterial;
             }
-        
+            
             mob.TeamColor = TeamColor;
         
             // var mobHealth = mob.AddComponent<HealthSystem>();

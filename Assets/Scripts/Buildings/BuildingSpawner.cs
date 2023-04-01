@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Match;
-using Scripts3.Buildings;
 using UI;
 using UnityEngine;
 
@@ -10,7 +9,7 @@ namespace Buildings
 {
     public class BuildingSpawner : MonoBehaviour
     {
-        [SerializeField] private List<Building> _buildingPrefabs;
+        [SerializeField] private List<MobBuilding> _mobBuildingPrefabs;
         [SerializeField] private Camera _playerCamera;
         [SerializeField] private BuildingsMenuController _buildingMenuController;
         [SerializeField] private TeamSelectionMenuController _teamSelectionMenuController;
@@ -48,7 +47,10 @@ namespace Buildings
 
         private void OnBuildingSelected(Type buildingType)
         {
-            SpawnBuilding(buildingType, _matchInfo.LocalTeamColor, spawnPoint);
+            SpawnMobBuilding(buildingType, _matchInfo.LocalTeamColor, spawnPoint);
+
+            selectedPlatform.IsOccupied = true;
+
             _buildingMenuController.Hide();
         }
 
@@ -75,16 +77,16 @@ namespace Buildings
             }
         }
 
-        public void SpawnBuilding(Type buildingType, TeamColor teamColor, Vector3 position)
+        public void SpawnMobBuilding(Type buildingType, TeamColor teamColor, Vector3 position)
         {
-            var buildingPrefab = _buildingPrefabs.Single(bp => bp.GetType() == buildingType);
+            var buildingPrefab = _mobBuildingPrefabs.Single(bp => bp.GetType() == buildingType);
 
             var building = Instantiate(buildingPrefab, position,
                 Quaternion.Euler(new Vector3(-90f, 0f, 0f)));
             building.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
             building.TeamColor = teamColor;
-            
-            selectedPlatform.IsOccupied = true;
+
+            building.SpawnMobs();
         }
     }
 }

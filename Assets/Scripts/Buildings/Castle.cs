@@ -1,6 +1,4 @@
-﻿using Scripts3.Buildings;
-
-namespace Buildings
+﻿namespace Buildings
 {
     public class Castle : Building
     {

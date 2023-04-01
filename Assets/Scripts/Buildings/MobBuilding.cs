@@ -1,6 +1,8 @@
-﻿using Match;
+﻿using System.Collections;
+using System.Linq;
+using Match;
 using Mobs;
-using Scripts3.Buildings;
+using Pathfinding;
 using Systems;
 using UnityEngine;
 
@@ -13,46 +15,44 @@ namespace Buildings
 
         public Mob SpawnedMob => _spawnedMob;
 
-        public abstract void SpawnMobs();
-        
-        internal Mob SpawnMob()
+        public void SpawnMobs()
+        {
+            StartCoroutine(MobSpawningEnumerator());
+        }
+
+        private IEnumerator MobSpawningEnumerator()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(_spawnedMob.SpawnInterval);
+
+                SpawnMob();
+            }
+        }
+
+        private Mob SpawnMob()
         {
             var mob = Instantiate(_spawnedMob, transform.position, Quaternion.identity);
-        
+            mob.TeamColor = TeamColor;
+
+            var teamMaterialsContainer = FindObjectOfType<TeamMaterialsContainer>();
+            var teamMaterial = teamMaterialsContainer.MobMaterials[TeamColor];
             var renderers = mob.GetComponentsInChildren<Renderer>();
-            var teamMaterial = TeamMaterials.MobMaterials[TeamColor];
             foreach (var rend in renderers)
             {
                 rend.material = teamMaterial;
             }
+
+            var aiPath = mob.GetComponent<AIPath>();
+            aiPath.maxSpeed = mob.MovementSpeed;
+
+            var castlesInScene = FindObjectsOfType<Castle>();
+            var enemyCastle = castlesInScene.Single(castle => castle.TeamColor != TeamColor);
             
-            mob.TeamColor = TeamColor;
-        
-            // var mobHealth = mob.AddComponent<HealthSystem>();
-            // mobHealth._mobData = mob._mobData;
-            //
-            // var aiPath = mob.AddComponent<AIPath>();
-            // aiPath.radius = mob._pathfindingParameters._aiRadius;
-            // aiPath.height = mob._pathfindingParameters._aiHeight;
-            // aiPath.maxSpeed = mob._pathfindingParameters._aiMaxSpeed;
-            //
-            // var destinationSetter = mob.AddComponent<AIDestinationSetter>();
-            //
-            // var enemyThrone = _buildingContainer._buildings.Single(bb =>
-            //     bb._buildingData._teamColor != mobTeamColor && bb._buildingData._buildingType == BuildingType.Throne);
-            //
-            // destinationSetter.target = enemyThrone.transform;
-            //
-            // var mobTrigger = mob.AddComponent<CapsuleCollider>();
-            // mobTrigger.radius = mob._mobStats.Stats[StatType.VisionRadius];
-            // mobTrigger.height = 100;
-            // mobTrigger.isTrigger = true;
-            //
-            // var mobAI = mob.AddComponent<MobAI>();
-            // mobAI._mobDestinationSetter = destinationSetter;
-            // mobAI._buildingContainer = _buildingContainer;
-        
-            // Debug.Log($"Spawned mob: {mobDefinition._type}");
+            var destinationSetter = mob.GetComponent<AIDestinationSetter>();
+            destinationSetter.target = enemyCastle.transform;
+            
+            Debug.Log($"Spawned mob: {mob.GetType()}");
             return mob;
         }
         

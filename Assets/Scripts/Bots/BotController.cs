@@ -1,9 +1,10 @@
 ﻿using System;
-using System.Linq;
 using Buildings;
+using Buildings.MobBuildings;
 using Match;
 using UI;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Bots
 {
@@ -26,16 +27,18 @@ namespace Bots
                 _ => throw new Exception("Bot crashed")
             };
 
-            // var mobBuildingsSpawnPoints =
-            //     _spawnPointsContainer.MobBuildingsSpawnPoints.Where(sp => sp._teamColor == botTeam).ToList();
-            // foreach (var mobBuildingSpawnPoint in mobBuildingsSpawnPoints)
+            var buildingPlatforms = FindObjectsOfType<BuildingPlatform>();
+            foreach (var buildingPlatform in buildingPlatforms)
             {
-                // _buildingSpawner.SpawnBuilding(BuildingType.Barracks, botTeam,
-                //     mobBuildingSpawnPoint._transform.position);
+                if (buildingPlatform.TeamColor != botTeam || buildingPlatform.IsOccupied) continue;
+
+                var botBuildingType = Random.value > 0.5f ? typeof(Barracks) : typeof(Archery);
+                _buildingSpawner.SpawnMobBuilding(botBuildingType, botTeam, buildingPlatform.transform.position);
+                buildingPlatform.IsOccupied = true;
             }
 
-            // Debug.Log(
-            //     $"Spawned {mobBuildingsSpawnPoints.Count} buildings of type {BuildingType.Barracks}");
+            Debug.Log(
+                $"Spawned {buildingPlatforms.Length} by for bot team");
         }
     }
 }

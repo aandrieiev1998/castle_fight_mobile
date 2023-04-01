@@ -5,10 +5,10 @@ using UnityEngine;
 
 namespace Mobs
 {
-    public abstract class Mob : MonoBehaviour, IHealthSystem, IDamageSystem, IBountySystem, ITeamSystem
+    public abstract class Mob : MonoBehaviour, IHealthSystem, IDamageSystem, IBountySystem, ITeamSystem, IMovementSystem
     {
         [SerializeField] private float _rageDistance;
-        [SerializeField] private int _spawnInterval;
+        [SerializeField] private float _spawnInterval;
         [SerializeField] private float _healthAmount;
         [SerializeField] private float _healthRegen;
         [SerializeField] private float _armor;
@@ -19,6 +19,7 @@ namespace Mobs
         [SerializeField] private float _attackDistance;
         [SerializeField] private int _goldForKill;
         [SerializeField] private int _experienceForKill;
+        [SerializeField] private float _movementSpeed;
 
         public float RageDistance
         {
@@ -26,7 +27,7 @@ namespace Mobs
             set => _rageDistance = value;
         }
 
-        public int SpawnInterval
+        public float SpawnInterval
         {
             get => _spawnInterval;
             set => _spawnInterval = value;
@@ -90,6 +91,12 @@ namespace Mobs
         {
             get => _experienceForKill;
             set => _experienceForKill = value;
+        }
+
+        public float MovementSpeed
+        {
+            get => _movementSpeed;
+            set => _movementSpeed = value;
         }
 
         public TeamColor TeamColor { get; set; }

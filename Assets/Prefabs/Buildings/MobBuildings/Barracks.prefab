@@ -101,4 +101,5 @@ MonoBehaviour:
   _armor: 0
   _armorType: 0
   _teamColor: 0
-  _spawnedMob: {fileID: 0}
+  _spawnedMob: {fileID: 3947263101263815009, guid: af8c802912ce8a74aaec90ec3551f773,
+    type: 3}

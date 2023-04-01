@@ -3,7 +3,7 @@ using Mechanics;
 using Systems;
 using UnityEngine;
 
-namespace Scripts3.Buildings
+namespace Buildings
 {
     public abstract class Building : MonoBehaviour, IHealthSystem, ITeamSystem
     {

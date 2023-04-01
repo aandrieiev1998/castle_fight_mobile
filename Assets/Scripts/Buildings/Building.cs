@@ -1,4 +1,5 @@
-﻿using Match;
+﻿using System;
+using Match;
 using Mechanics;
 using Systems;
 using UnityEngine;
@@ -48,6 +49,20 @@ namespace Buildings
             var teamMaterialsContainer = FindObjectOfType<TeamMaterialsContainer>();
             var buildingRenderer = GetComponent<Renderer>();
             buildingRenderer.material = teamMaterialsContainer.BuildingMaterials[_teamColor];
+        }
+
+        public void ReceiveDamage(DamageType damageType, float damageAmount)
+        {
+            var damagePercentage = DamageUtils.GetDamagePercentage(ArmorType, damageType);
+            var damageReduced = damageAmount * damagePercentage *
+                                (1.0f - 0.06f * Armor / (1.0f + 0.06f * Math.Abs(Armor)));
+            HealthAmount -= damageReduced;
+            
+            if (HealthAmount <= 0f)
+            {
+                Debug.Log($"{gameObject.name} has died");
+                Destroy(gameObject);
+            }
         }
     }
 }

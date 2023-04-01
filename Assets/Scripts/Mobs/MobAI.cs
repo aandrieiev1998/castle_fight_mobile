@@ -1,13 +1,16 @@
-﻿using Pathfinding;
+﻿using System.Collections;
+using Pathfinding;
+using Systems;
 using UnityEngine;
 
 namespace Mobs
 {
     public class MobAI : MonoBehaviour
     {
-        public AIDestinationSetter _mobDestinationSetter;
+        private AIDestinationSetter _mobDestinationSetter;
 
         private Coroutine attackCoroutine;
+
         // private HealthSystem _healthSystem;
         private Mob mob;
         private bool stopUpdatingTarget;
@@ -21,8 +24,9 @@ namespace Mobs
         private void Start()
         {
             mob = GetComponent<Mob>();
-           // _healthSystem = GetComponent<HealthSystem>();
+            // _healthSystem = GetComponent<HealthSystem>();
             mobAnimator = GetComponent<Animator>();
+            _mobDestinationSetter = GetComponent<AIDestinationSetter>();
         }
 
         private void Update()
@@ -37,21 +41,21 @@ namespace Mobs
             var targetMob = target.GetComponent<Mob>();
             if (targetMob == null) return;
 
-            // if (mob._mobData._teamColor != targetMob._mobData._teamColor)
-            // {
-            //     var destinationTarget = _mobDestinationSetter.target;
-            //     if (destinationTarget != targetMob.transform)
-            //     {
-            //         _mobDestinationSetter.target = targetMob.transform;
-            //         timeSinceLastTargetUpdate = 0f;
-            //         stopUpdatingTarget = true;
-            //
-            //         var enemyHealth = target.GetComponent<HealthSystem>();
-            //         attackCoroutine = StartCoroutine(Attack(enemyHealth));
-            //         mobAnimator.SetBool(Attacking, true);
-            //         Debug.Log($"Target updated: {destinationTarget}");
-            //     }
-            // }
+            if (mob.TeamColor != targetMob.TeamColor)
+            {
+                var destinationTarget = _mobDestinationSetter.target;
+                if (destinationTarget != targetMob.transform)
+                {
+                    _mobDestinationSetter.target = targetMob.transform;
+                    timeSinceLastTargetUpdate = 0f;
+                    stopUpdatingTarget = true;
+
+                    var enemyHealth = target.GetComponent<IHealthSystem>();
+                    attackCoroutine = StartCoroutine(Attack(enemyHealth));
+                    mobAnimator.SetBool(Attacking, true);
+                    Debug.Log($"Target updated: {destinationTarget}");
+                }
+            }
         }
 
         private void OnTriggerExit(Collider target)
@@ -73,10 +77,11 @@ namespace Mobs
             // }
         }
 
-        // private IEnumerator Attack(HealthSystem enemyHealth)
-        // {
-        //     enemyHealth.TakeDamage((int) mob._mobData.activeStats[StatType.AttackDamage]._currentValue);
-        //     yield return new WaitForSeconds(1);
-        // }
+        private IEnumerator Attack(IHealthSystem enemyHealth)
+        {
+            mob.InflictDamage(enemyHealth);
+            // enemyHealth.TakeDamage((int) mob._mobData.activeStats[StatType.AttackDamage]._currentValue);
+            yield return new WaitForSeconds(1);
+        }
     }
 }

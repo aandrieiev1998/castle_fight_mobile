@@ -4,9 +4,12 @@ namespace Systems
 {
     public interface IDamageSystem
     {
-        public float Damage { get; set; }
+        public float DamageAmount { get; set; }
         public DamageType DamageType { get; set; }
         public float AttackSpeed { get; set; }
         public float AttackDistance { get; set; }
+
+        public void InflictDamage(IHealthSystem healthSystem);
+
     }
 }

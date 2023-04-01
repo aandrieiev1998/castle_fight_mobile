@@ -52,7 +52,7 @@ namespace Buildings
             var destinationSetter = mob.GetComponent<AIDestinationSetter>();
             destinationSetter.target = enemyCastle.transform;
             
-            Debug.Log($"Spawned mob: {mob.GetType()}");
+            // Debug.Log($"Spawned mob: {mob.GetType()}");
             return mob;
         }
         

@@ -1,4 +1,5 @@
-﻿using Match;
+﻿using System;
+using Match;
 using Mechanics;
 using Systems;
 using UnityEngine;
@@ -13,7 +14,7 @@ namespace Mobs
         [SerializeField] private float _healthRegen;
         [SerializeField] private float _armor;
         [SerializeField] private ArmorType _armorType;
-        [SerializeField] private float _damage;
+        [SerializeField] private float _damageAmount;
         [SerializeField] private DamageType _damageType;
         [SerializeField] private float _attackSpeed;
         [SerializeField] private float _attackDistance;
@@ -57,10 +58,10 @@ namespace Mobs
             set => _armorType = value;
         }
 
-        public float Damage
+        public float DamageAmount
         {
-            get => _damage;
-            set => _damage = value;
+            get => _damageAmount;
+            set => _damageAmount = value;
         }
 
         public DamageType DamageType
@@ -100,5 +101,24 @@ namespace Mobs
         }
 
         public TeamColor TeamColor { get; set; }
+
+        public void InflictDamage(IHealthSystem healthSystem)
+        {
+            healthSystem.ReceiveDamage(DamageType, DamageAmount);
+        }
+
+        public void ReceiveDamage(DamageType damageType, float damageAmount)
+        {
+            var damagePercentage = DamageUtils.GetDamagePercentage(ArmorType, damageType);
+            var damageReduced = damageAmount * damagePercentage *
+                                (1.0f - 0.06f * Armor / (1.0f + 0.06f * Math.Abs(Armor)));
+            HealthAmount -= damageReduced;
+            
+            if (HealthAmount <= 0f)
+            {
+                Debug.Log($"{gameObject.name} has died");
+                Destroy(gameObject);
+            }
+        }
     }
 }

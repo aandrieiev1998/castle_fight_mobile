@@ -35,6 +35,15 @@ namespace Buildings
         private void OnLocalPlayerTeamSelected(TeamColor teamColor)
         {
             _teamSelectionMenuController.Hide();
+
+            var buildingPlatforms = FindObjectsOfType<BuildingPlatform>();
+            foreach (var buildingPlatform in buildingPlatforms)
+            {
+                if (buildingPlatform.TeamColor != _matchInfo.LocalTeamColor)
+                {
+                    buildingPlatform.GetComponent<MeshRenderer>().enabled = false;
+                }
+            }
         }
 
         private void OnBuildingSelected(Type buildingType)
@@ -74,7 +83,8 @@ namespace Buildings
                 Quaternion.Euler(new Vector3(-90f, 0f, 0f)));
             building.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
             building.TeamColor = teamColor;
-            // selectedPlatform.IsOccupied = true;
+            
+            selectedPlatform.IsOccupied = true;
         }
     }
 }

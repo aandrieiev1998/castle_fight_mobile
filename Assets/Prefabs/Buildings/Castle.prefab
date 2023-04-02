@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 9153284363449345508}
   - component: {fileID: 9153284363450345252}
   - component: {fileID: 291189389581139784}
-  m_Layer: 0
+  - component: {fileID: 3744569098979475782}
+  m_Layer: 7
   m_Name: Castle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,3 +103,16 @@ MonoBehaviour:
   _armorType: 0
   _teamColor: 0
   Level: 0
+--- !u!65 &3744569098979475782
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9153284363452611044}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 8.393069, y: 8.199763, z: 9.572265}
+  m_Center: {x: 0.018764496, y: 0, z: 3.917519}

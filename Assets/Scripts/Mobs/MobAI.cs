@@ -1,4 +1,7 @@
 ﻿using System.Collections;
+using System.Linq;
+using Buildings;
+using Match;
 using Pathfinding;
 using Systems;
 using UnityEngine;
@@ -9,7 +12,7 @@ namespace Mobs
     {
         private static readonly int Attacking = Animator.StringToHash("Attacking");
         private static readonly int Running = Animator.StringToHash("Running");
-        
+
         private Coroutine attackCoroutine;
         private float distanceToClosestTargetInVision;
         private Mob mob;
@@ -17,6 +20,7 @@ namespace Mobs
         private bool stopUpdatingTarget;
         private Transform targetTransform;
         private float timeSinceLastTargetUpdate;
+        private IAstarAI astarAI;
 
         public Transform TargetTransform
         {
@@ -24,25 +28,29 @@ namespace Mobs
             set => targetTransform = value;
         }
 
-        public IAstarAI AstarAI { get; private set; }
-
-        private void Start()
+        private void Awake()
         {
             mob = GetComponent<Mob>();
-            // _healthSystem = GetComponent<HealthSystem>();
             mobAnimator = GetComponent<Animator>();
-            AstarAI = GetComponent<IAstarAI>();
+            
+            astarAI = GetComponent<IAstarAI>();
+            astarAI.onSearchPath += Update;
+            astarAI.maxSpeed = mob.MovementSpeed;
 
-            AstarAI.onSearchPath += Update;
+            var capsuleCollider = GetComponent<CapsuleCollider>();
+            capsuleCollider.radius = mob.RageDistance;
         }
 
         private void Update()
         {
             timeSinceLastTargetUpdate += Time.deltaTime;
 
-            if (targetTransform != null && AstarAI != null)
+            if (targetTransform != null && astarAI != null)
                 // better to move this outside Update function, we don't need a call every frame 
-                AstarAI.destination = targetTransform.position;
+                astarAI.destination = targetTransform.position;
+
+            if (transform.position.y <= -5.0f)
+                Destroy(gameObject);
         }
 
 
@@ -60,11 +68,28 @@ namespace Mobs
             targetTransform = targetMob.transform;
             timeSinceLastTargetUpdate = 0f;
             stopUpdatingTarget = true;
+            astarAI.isStopped = true;
+        }
 
-            // var enemyHealth = target.GetComponent<IHealthSystem>();
-            // attackCoroutine = StartCoroutine(Attack(enemyHealth));
-            // mobAnimator.SetBool(Attacking, true);
-            Debug.Log($"Target updated: {target.name}");
+        private void OnTriggerStay(Collider target)
+        {
+            var targetMob = target.GetComponent<Mob>();
+            if (targetMob == null) return;
+
+            if (target.transform != targetTransform) return;
+
+            if (Vector3.Distance(transform.position, targetTransform.position) > mob.AttackDistance) return;
+            
+            Debug.Log($"{mob.name } is attacking");
+        }
+
+        private void OnDrawGizmos()
+        {
+            if (!Application.isPlaying) return;
+            
+            var transformPosition = transform.position;
+            Gizmos.DrawWireSphere(transformPosition, mob.AttackDistance);
+            Gizmos.DrawWireSphere(transformPosition, mob.RageDistance);
         }
 
         private void OnTriggerExit(Collider target)
@@ -74,22 +99,9 @@ namespace Mobs
 
             if (target.transform != targetTransform) return;
 
-            targetTransform = null;
-            Debug.Log($"Target lost: {target.name}");
-
-
-            // if (_mobDestinationSetter.target == target.transform)
-            // {
-            //     StopCoroutine(attackCoroutine);
-            //     Debug.Log($"Target lost: {_mobDestinationSetter.target}");
-            //     
-            //     var enemyThrone = _buildingContainer._buildings.Single(bb =>
-            //         bb._buildingData._teamColor != mob._mobData._teamColor &&
-            //         bb._buildingData._buildingType == BuildingType.Throne);
-            //
-            //     _mobDestinationSetter.target = enemyThrone.transform;
-            //     mobAnimator.SetBool(Running, true);
-            // }
+            var enemyCastle = FindObjectsOfType<Castle>().Single(castle => castle.TeamColor != mob.TeamColor);
+            targetTransform = enemyCastle.transform;
+            astarAI.isStopped = false;
         }
 
         private IEnumerator Attack(IHealthSystem enemyHealth)

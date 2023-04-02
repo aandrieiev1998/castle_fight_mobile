@@ -20,11 +20,13 @@ namespace Buildings
 
         private IEnumerator MobSpawningEnumerator()
         {
+            yield return new WaitForSeconds(1.0f);
+
             while (true)
             {
-                yield return new WaitForSeconds(_spawnedMob.SpawnInterval);
-
                 SpawnMob();
+
+                yield return new WaitForSeconds(_spawnedMob.SpawnInterval);
             }
         }
 
@@ -38,11 +40,9 @@ namespace Buildings
             var renderers = mob.GetComponentsInChildren<Renderer>();
             foreach (var rend in renderers) rend.material = teamMaterial;
 
-            var castlesInScene = FindObjectsOfType<Castle>();
-            var enemyCastle = castlesInScene.Single(castle => castle.TeamColor != TeamColor);
+            var enemyCastle = FindObjectsOfType<Castle>().Single(castle => castle.TeamColor != mob.TeamColor);
 
             var mobAI = mob.GetComponent<MobAI>();
-            mobAI.AstarAI.maxSpeed = mob.MovementSpeed;
             mobAI.TargetTransform = enemyCastle.transform;
 
             // Debug.Log($"Spawned mob: {mob.GetType()}");

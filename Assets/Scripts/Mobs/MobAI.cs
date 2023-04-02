@@ -24,6 +24,7 @@ namespace Mobs
         private float timeSinceLastTargetUpdate;
 
         private bool wasAttackingInPreviousFrame;
+        private bool isAttacking;
 
         public Transform TargetTransform
         {
@@ -57,6 +58,11 @@ namespace Mobs
             if (targetTransform != null && astarAI != null)
                 // better to move this outside Update function, we don't need a call every frame 
                 astarAI.destination = targetTransform.position;
+
+            if (isAttacking)
+            {
+                transform.LookAt(targetTransform);
+            }
 
             if (transform.position.y <= -5.0f)
                 Destroy(gameObject);
@@ -94,6 +100,7 @@ namespace Mobs
             {
                 if (!wasAttackingInPreviousFrame) return;
 
+                isAttacking = false;
                 astarAI.isStopped = false;
                 wasAttackingInPreviousFrame = false;
                 mobAnimator.SetBool(IsAttacking, false);
@@ -104,11 +111,12 @@ namespace Mobs
 
             if (!wasAttackingInPreviousFrame)
             {
+                isAttacking = true;
+                astarAI.isStopped = true;
                 mobAnimator.SetBool(IsAttacking, true);
                 mobAnimator.SetBool(IsRunning, false);
             }
 
-            astarAI.isStopped = true;
             wasAttackingInPreviousFrame = true;
         }
 

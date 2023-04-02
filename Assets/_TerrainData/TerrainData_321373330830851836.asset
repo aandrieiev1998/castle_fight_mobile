@@ -237,6 +237,21 @@ Texture2D:
     offset: 0
     size: 0
     path: 
+--- !u!114 &-5873695734857981680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aba2bd1d74124a54d8737ba971cd7633, type: 3}
+  m_Name: Mask
+  m_EditorClassIdentifier: 
+  terrainData: {fileID: 11400000}
+  maskMapResolution: 256
+  maskMap: {fileID: 0}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -254,7 +269,7 @@ MonoBehaviour:
   shading: {fileID: -7013165828967732423}
   rendering: {fileID: -8061975201046820367}
   foliage: {fileID: 4844214161833717375}
-  mask: {fileID: 0}
+  mask: {fileID: -5873695734857981680}
   geometryData: {fileID: 11400000, guid: de61746cb8a3a424d9064f81d1b29e47, type: 2}
 --- !u!114 &4844214161833717375
 MonoBehaviour:

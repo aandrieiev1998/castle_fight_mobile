@@ -19379,4 +19379,4 @@ MonoBehaviour:
   _attackDistance: 1.5
   _goldForKill: 0
   _experienceForKill: 0
-  _movementSpeed: 3
+  _movementSpeed: 1.25

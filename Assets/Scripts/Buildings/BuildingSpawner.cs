@@ -62,7 +62,8 @@ namespace Buildings
                 if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << LayerIndex))
                 {
                     var targetPlatform = hit.transform.GetComponent<BuildingPlatform>();
-
+                    if (targetPlatform == null) return;
+                    
                     if (!targetPlatform.IsOccupied && targetPlatform.TeamColor == _matchInfo.LocalTeamColor)
                     {
                         _buildingMenuController.Show();

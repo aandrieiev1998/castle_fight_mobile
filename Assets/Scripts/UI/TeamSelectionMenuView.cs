@@ -5,7 +5,6 @@ namespace UI
 {
     public class TeamSelectionMenuView : MonoBehaviour
     {
-
         [SerializeField] private Button _fistTeamButton;
         [SerializeField] private Button _secondTeamButton;
 

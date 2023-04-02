@@ -24,7 +24,7 @@ namespace Bots
             {
                 TeamColor.Blue => TeamColor.Red,
                 TeamColor.Red => TeamColor.Blue,
-                _ => throw new Exception("Bot crashed")
+                _ => throw new Exception($"Unsupported team color: {teamColor}")
             };
 
             var buildingPlatforms = FindObjectsOfType<BuildingPlatform>();
@@ -37,10 +37,10 @@ namespace Bots
                 Debug.Log(value);
                 _buildingSpawner.SpawnMobBuilding(botBuildingType, botTeam, buildingPlatform.transform.position);
                 buildingPlatform.IsOccupied = true;
+                break;
             }
 
-            Debug.Log(
-                $"Spawned {buildingPlatforms.Length} by for bot team");
+            Debug.Log($"Spawned {buildingPlatforms.Length} mob buildings for Bots team");
         }
     }
 }

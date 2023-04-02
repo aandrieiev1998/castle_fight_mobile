@@ -14,6 +14,13 @@ namespace Buildings
         [SerializeField] private ArmorType _armorType;
         [SerializeField] private TeamColor _teamColor;
 
+        private void Start()
+        {
+            var teamMaterialsContainer = FindObjectOfType<TeamMaterialsContainer>();
+            var buildingRenderer = GetComponent<Renderer>();
+            buildingRenderer.material = teamMaterialsContainer.BuildingMaterials[_teamColor];
+        }
+
         public float HealthAmount
         {
             get => _healthAmount;
@@ -38,31 +45,24 @@ namespace Buildings
             set => _armorType = value;
         }
 
-        public TeamColor TeamColor
-        {
-            get => _teamColor;
-            set => _teamColor = value;
-        }
-
-        private void Start()
-        {
-            var teamMaterialsContainer = FindObjectOfType<TeamMaterialsContainer>();
-            var buildingRenderer = GetComponent<Renderer>();
-            buildingRenderer.material = teamMaterialsContainer.BuildingMaterials[_teamColor];
-        }
-
         public void ReceiveDamage(DamageType damageType, float damageAmount)
         {
             var damagePercentage = DamageUtils.GetDamagePercentage(ArmorType, damageType);
             var damageReduced = damageAmount * damagePercentage *
                                 (1.0f - 0.06f * Armor / (1.0f + 0.06f * Math.Abs(Armor)));
             HealthAmount -= damageReduced;
-            
+
             if (HealthAmount <= 0f)
             {
                 Debug.Log($"{gameObject.name} has died");
                 Destroy(gameObject);
             }
+        }
+
+        public TeamColor TeamColor
+        {
+            get => _teamColor;
+            set => _teamColor = value;
         }
     }
 }

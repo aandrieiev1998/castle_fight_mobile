@@ -12,7 +12,7 @@ namespace DefaultNamespace
         [SerializeField] private Button mainMenuButton;
         [SerializeField] private Button audioButton;
         [SerializeField] private Button musicButton;
-        
+
         private void Start()
         {
             overlay.SetActive(false);
@@ -25,13 +25,10 @@ namespace DefaultNamespace
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                overlay.SetActive(!overlay.activeSelf);
-            }
+            if (Input.GetKeyDown(KeyCode.Escape)) overlay.SetActive(!overlay.activeSelf);
         }
 
-        
+
         private void MenuButtonOnClick()
         {
             overlay.SetActive(!overlay.activeSelf);

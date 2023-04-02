@@ -15,13 +15,8 @@ namespace Match
         private void Awake()
         {
             foreach (var buildingMaterial in _buildingMaterials)
-            {
                 BuildingMaterials.Add(buildingMaterial._teamColor, buildingMaterial._material);
-            }
-            foreach (var mobMaterial in _mobMaterials)
-            {
-                MobMaterials.Add(mobMaterial._teamColor, mobMaterial._material);
-            }
+            foreach (var mobMaterial in _mobMaterials) MobMaterials.Add(mobMaterial._teamColor, mobMaterial._material);
         }
     }
 

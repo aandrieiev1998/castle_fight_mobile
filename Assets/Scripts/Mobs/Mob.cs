@@ -34,28 +34,16 @@ namespace Mobs
             set => _spawnInterval = value;
         }
 
-        public float HealthAmount
+        public int GoldForKill
         {
-            get => _healthAmount;
-            set => _healthAmount = value;
+            get => _goldForKill;
+            set => _goldForKill = value;
         }
 
-        public float HealthRegen
+        public int ExperienceForKill
         {
-            get => _healthRegen;
-            set => _healthRegen = value;
-        }
-
-        public float Armor
-        {
-            get => _armor;
-            set => _armor = value;
-        }
-
-        public ArmorType ArmorType
-        {
-            get => _armorType;
-            set => _armorType = value;
+            get => _experienceForKill;
+            set => _experienceForKill = value;
         }
 
         public float DamageAmount
@@ -82,16 +70,47 @@ namespace Mobs
             set => _attackDistance = value;
         }
 
-        public int GoldForKill
+        public void InflictDamage(IHealthSystem healthSystem)
         {
-            get => _goldForKill;
-            set => _goldForKill = value;
+            healthSystem.ReceiveDamage(DamageType, DamageAmount);
         }
 
-        public int ExperienceForKill
+        public float HealthAmount
         {
-            get => _experienceForKill;
-            set => _experienceForKill = value;
+            get => _healthAmount;
+            set => _healthAmount = value;
+        }
+
+        public float HealthRegen
+        {
+            get => _healthRegen;
+            set => _healthRegen = value;
+        }
+
+        public float Armor
+        {
+            get => _armor;
+            set => _armor = value;
+        }
+
+        public ArmorType ArmorType
+        {
+            get => _armorType;
+            set => _armorType = value;
+        }
+
+        public void ReceiveDamage(DamageType damageType, float damageAmount)
+        {
+            var damagePercentage = DamageUtils.GetDamagePercentage(ArmorType, damageType);
+            var damageReduced = damageAmount * damagePercentage *
+                                (1.0f - 0.06f * Armor / (1.0f + 0.06f * Math.Abs(Armor)));
+            HealthAmount -= damageReduced;
+
+            if (HealthAmount <= 0f)
+            {
+                Debug.Log($"{gameObject.name} has died");
+                Destroy(gameObject);
+            }
         }
 
         public float MovementSpeed
@@ -101,24 +120,5 @@ namespace Mobs
         }
 
         public TeamColor TeamColor { get; set; }
-
-        public void InflictDamage(IHealthSystem healthSystem)
-        {
-            healthSystem.ReceiveDamage(DamageType, DamageAmount);
-        }
-
-        public void ReceiveDamage(DamageType damageType, float damageAmount)
-        {
-            var damagePercentage = DamageUtils.GetDamagePercentage(ArmorType, damageType);
-            var damageReduced = damageAmount * damagePercentage *
-                                (1.0f - 0.06f * Armor / (1.0f + 0.06f * Math.Abs(Armor)));
-            HealthAmount -= damageReduced;
-            
-            if (HealthAmount <= 0f)
-            {
-                Debug.Log($"{gameObject.name} has died");
-                Destroy(gameObject);
-            }
-        }
     }
 }

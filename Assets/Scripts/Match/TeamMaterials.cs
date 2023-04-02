@@ -14,7 +14,7 @@ namespace Match
             var buildingMaterialRed = Resources.Load("Materials/Buildings_red.mat", typeof(Material)) as Material;
             BuildingMaterials.Add(TeamColor.Blue, buildingMaterialBlue);
             BuildingMaterials.Add(TeamColor.Red, buildingMaterialRed);
-            
+
             var mobMaterialBlue = Resources.Load("Materials/Mobs_blue.mat", typeof(Material)) as Material;
             var mobMaterialRed = Resources.Load("Materials/Mobs_red.mat", typeof(Material)) as Material;
             MobMaterials.Add(TeamColor.Blue, mobMaterialBlue);

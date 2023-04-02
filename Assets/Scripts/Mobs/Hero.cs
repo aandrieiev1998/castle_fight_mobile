@@ -9,8 +9,10 @@ namespace Mobs
     {
         [SerializeField] private float _mana;
         [SerializeField] private float _manaRegen;
-        public int Level { get; set; } 
+        public int Level { get; set; }
         public int Experience { get; set; }
+
+        public List<Ability> Abilities { get; set; }
 
         public float Mana
         {
@@ -23,7 +25,5 @@ namespace Mobs
             get => _manaRegen;
             set => _manaRegen = value;
         }
-
-        public List<Ability> Abilities { get; set; }
     }
 }

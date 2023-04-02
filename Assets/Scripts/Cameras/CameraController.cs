@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Match;
 using UI;
 using UnityEngine;
@@ -29,7 +28,7 @@ namespace Cameras
             _teamSelectionMenuController.PlayerTeamSelected += OnPlayerTeamSelected;
             _allowMoveCamera = false;
         }
-        
+
 
         private void LateUpdate()
         {
@@ -41,7 +40,7 @@ namespace Cameras
 
             LimitHeight();
         }
-        
+
         private void OnPlayerTeamSelected(TeamColor teamColor)
         {
             // switch (teamColor)
@@ -85,22 +84,14 @@ namespace Cameras
         {
             var mousePosition = Input.mousePosition;
             if (mousePosition.x < _borderThickness)
-            {
                 _cameraTransform.Translate(Vector3.left * _cameraSpeed * Time.deltaTime);
-            }
             else if (mousePosition.x > Screen.width - _borderThickness)
-            {
                 _cameraTransform.Translate(Vector3.right * _cameraSpeed * Time.deltaTime);
-            }
 
             if (mousePosition.y < _borderThickness)
-            {
                 _cameraTransform.Translate(Vector3.back * _cameraSpeed * Time.deltaTime, Space.World);
-            }
             else if (mousePosition.y > Screen.height - _borderThickness)
-            {
                 _cameraTransform.Translate(Vector3.forward * _cameraSpeed * Time.deltaTime, Space.World);
-            }
         }
 
         private void LimitHeight()

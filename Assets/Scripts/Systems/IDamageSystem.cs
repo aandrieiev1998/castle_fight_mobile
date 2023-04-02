@@ -10,6 +10,5 @@ namespace Systems
         public float AttackDistance { get; set; }
 
         public void InflictDamage(IHealthSystem healthSystem);
-
     }
 }

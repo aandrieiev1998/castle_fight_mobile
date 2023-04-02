@@ -9,16 +9,15 @@ namespace Buildings
 {
     public class BuildingSpawner : MonoBehaviour
     {
+        private const int LayerIndex = 6;
         [SerializeField] private List<MobBuilding> _mobBuildingPrefabs;
         [SerializeField] private Camera _playerCamera;
         [SerializeField] private BuildingsMenuController _buildingMenuController;
         [SerializeField] private TeamSelectionMenuController _teamSelectionMenuController;
         [SerializeField] private MatchInfo _matchInfo;
-
-        private const int LayerIndex = 6;
-        private Vector3 spawnPoint;
-        private BuildingPlatform selectedPlatform;
         private bool occupied;
+        private BuildingPlatform selectedPlatform;
+        private Vector3 spawnPoint;
 
         private void Start()
         {
@@ -38,12 +37,8 @@ namespace Buildings
 
             var buildingPlatforms = FindObjectsOfType<BuildingPlatform>();
             foreach (var buildingPlatform in buildingPlatforms)
-            {
                 if (buildingPlatform.TeamColor != _matchInfo.LocalTeamColor)
-                {
                     buildingPlatform.GetComponent<MeshRenderer>().enabled = false;
-                }
-            }
         }
 
         private void OnBuildingSelected(Type buildingType)
@@ -61,7 +56,7 @@ namespace Buildings
 
             if (Input.GetMouseButtonDown(0))
             {
-                Ray ray = _playerCamera.ScreenPointToRay(Input.mousePosition);
+                var ray = _playerCamera.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
 
                 if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << LayerIndex))

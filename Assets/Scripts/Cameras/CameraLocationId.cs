@@ -4,6 +4,6 @@
     {
         Mid = 0,
         BlueTeamThrone = 1,
-        RedTeamThrone = 2,
+        RedTeamThrone = 2
     }
 }

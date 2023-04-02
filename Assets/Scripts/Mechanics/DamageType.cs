@@ -5,6 +5,6 @@
         NormalDamage,
         SiegeDamage,
         MagicDamage,
-        HeroDamage,
+        HeroDamage
     }
 }

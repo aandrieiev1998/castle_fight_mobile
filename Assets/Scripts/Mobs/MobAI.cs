@@ -68,7 +68,6 @@ namespace Mobs
             targetTransform = targetMob.transform;
             timeSinceLastTargetUpdate = 0f;
             stopUpdatingTarget = true;
-            astarAI.isStopped = true;
         }
 
         private void OnTriggerStay(Collider target)
@@ -80,6 +79,7 @@ namespace Mobs
 
             if (Vector3.Distance(transform.position, targetTransform.position) > mob.AttackDistance) return;
             
+            astarAI.isStopped = true;
             Debug.Log($"{mob.name } is attacking");
         }
 

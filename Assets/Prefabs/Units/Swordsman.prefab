@@ -19376,7 +19376,7 @@ MonoBehaviour:
   _damageAmount: 50
   _damageType: 0
   _attackSpeed: 0
-  _attackDistance: 2
+  _attackDistance: 1.5
   _goldForKill: 0
   _experienceForKill: 0
   _movementSpeed: 3

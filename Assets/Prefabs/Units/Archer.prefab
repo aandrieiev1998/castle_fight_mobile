@@ -19371,7 +19371,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6830d1a50c744806b18311c876d6488c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rageDistance: 7
+  _rageDistance: 8
   _spawnInterval: 10
   _healthAmount: 1
   _healthRegen: 0
@@ -19380,7 +19380,7 @@ MonoBehaviour:
   _damageAmount: 50
   _damageType: 0
   _attackSpeed: 0
-  _attackDistance: 4
+  _attackDistance: 7
   _goldForKill: 0
   _experienceForKill: 0
   _movementSpeed: 1.25

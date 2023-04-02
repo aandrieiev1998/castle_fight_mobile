@@ -99,6 +99,8 @@ namespace Mobs
             set => _armorType = value;
         }
 
+        public TeamColor TeamColor { get; set; }
+
         public void ReceiveDamage(DamageType damageType, float damageAmount)
         {
             var damagePercentage = DamageUtils.GetDamagePercentage(ArmorType, damageType);
@@ -118,7 +120,5 @@ namespace Mobs
             get => _movementSpeed;
             set => _movementSpeed = value;
         }
-
-        public TeamColor TeamColor { get; set; }
     }
 }

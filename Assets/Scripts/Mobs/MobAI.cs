@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Linq;
 using Buildings;
 using Pathfinding;
@@ -12,7 +13,7 @@ namespace Mobs
         private static readonly int IsAttacking = Animator.StringToHash("IsAttacking");
         private static readonly int IsRunning = Animator.StringToHash("IsRunning");
         private static readonly int IsWalking = Animator.StringToHash("IsWalking");
-        private static readonly int MobHasDied = Animator.StringToHash("MobHasDied");
+        private static readonly int MobHasDied = Animator.StringToHash("HasDied");
 
         private Transform targetTransform;
         private Mob mob;
@@ -35,6 +36,8 @@ namespace Mobs
         private void Awake()
         {
             mob = GetComponent<Mob>();
+            mob.HealthSystem.Death += OnMobDeath;
+            
             mobAnimator = GetComponent<Animator>();
 
             astarAI = GetComponent<IAstarAI>();
@@ -43,6 +46,13 @@ namespace Mobs
 
             var capsuleCollider = GetComponent<CapsuleCollider>();
             capsuleCollider.radius = mob.RageDistance;
+        }
+
+        private void OnMobDeath()
+        {
+            mobAnimator.SetTrigger(MobHasDied);
+            
+            Destroy(gameObject, 1.0f);
         }
 
         private void Start()
@@ -105,6 +115,8 @@ namespace Mobs
                 wasAttackingInPreviousFrame = false;
                 mobAnimator.SetBool(IsAttacking, false);
                 mobAnimator.SetBool(IsRunning, true);
+                
+                StopCoroutine(attackCoroutine);
 
                 return;
             }
@@ -115,6 +127,8 @@ namespace Mobs
                 astarAI.isStopped = true;
                 mobAnimator.SetBool(IsAttacking, true);
                 mobAnimator.SetBool(IsRunning, false);
+
+                attackCoroutine = StartCoroutine(Attack(targetMob.HealthSystem));
             }
 
             wasAttackingInPreviousFrame = true;
@@ -139,16 +153,28 @@ namespace Mobs
             var enemyCastle = FindObjectsOfType<Castle>().Single(castle => castle.TeamColor != mob.TeamSystem.TeamColor);
             targetTransform = enemyCastle.transform;
             astarAI.isStopped = false;
+            isAttacking = false;
             mobAnimator.SetBool(IsRunning, false);
             mobAnimator.SetBool(IsWalking, true);
             mobAnimator.SetBool(IsAttacking, false);
+            
+            StopCoroutine(attackCoroutine);
         }
+
+        // private void OnDisable()
+        // {
+        //     StopCoroutine(attackCoroutine);
+        // }
 
         private IEnumerator Attack(IHealthSystem enemyHealth)
         {
-            // mob.InflictDamage(enemyHealth);
-            // enemyHealth.TakeDamage((int) mob._mobData.activeStats[StatType.AttackDamage]._currentValue);
-            yield return new WaitForSeconds(1);
+            while (true)
+            {
+                mob.DamageSystem.InflictDamage(enemyHealth);
+                
+                yield return new WaitForSeconds(1);    
+            }
+            
         }
     }
 }

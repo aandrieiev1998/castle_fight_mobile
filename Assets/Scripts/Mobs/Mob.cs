@@ -1,4 +1,5 @@
-﻿using Systems.Impl;
+﻿using System;
+using Systems.Impl;
 using UnityEngine;
 
 namespace Mobs
@@ -11,6 +12,7 @@ namespace Mobs
 
         [SerializeField] private float _rageDistance;
         [SerializeField] private float _spawnInterval;
+        
 
         public MovementSystem MovementSystem => _movementSystem;
 

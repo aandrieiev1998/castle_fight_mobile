@@ -1,4 +1,5 @@
-﻿using UI.Views;
+﻿using System;
+using UI.Views;
 using UnityEngine;
 
 namespace Mobs
@@ -21,6 +22,10 @@ namespace Mobs
 
             unitInfoView = Instantiate(_unitInfoViewPrefab, guiView.transform);
             rectTransform = unitInfoView.GetComponent<RectTransform>();
+
+            unitInfoView.HealthSlider.maxValue = mob.HealthSystem.HealthAmount;
+            unitInfoView.HealthSlider.value = mob.HealthSystem.HealthAmount;
+            unitInfoView.HealthSlider.minValue = 0;
         }
 
         private void Update()
@@ -29,6 +34,11 @@ namespace Mobs
 
             unitInfoView.HpText.SetText(string.Format(unitInfoView.hpTemplate, mob.HealthSystem.HealthAmount));
             unitInfoView.ArmorText.SetText(string.Format(unitInfoView.armorTemplate, mob.HealthSystem.ArmorAmount));
+        }
+
+        private void OnDestroy()
+        {
+            Destroy(unitInfoView.gameObject);
         }
     }
 }

@@ -34,11 +34,14 @@ namespace Bots
                 if (buildingPlatform.TeamColor != botTeam || buildingPlatform.IsOccupied) continue;
 
                 var value = Random.value;
-                var botBuildingType = value > 0.5f ? typeof(Barracks) : typeof(Archery);
+                // var botBuildingType = value > 0.5f ? typeof(Barracks) : typeof(Archery);
                 // var botBuildingType = typeof(Archery);
+                var botBuildingType = typeof(Barracks);
                 Debug.Log(value);
                 _buildingSpawner.SpawnMobBuilding(botBuildingType, botTeam, buildingPlatform.transform.position);
                 buildingPlatform.IsOccupied = true;
+                
+                break;
             }
 
             Debug.Log($"Spawned {buildingPlatforms.Length} mob buildings for Bots team");

@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Match;
+using Mobs;
 using UI;
+using UI.Controllers;
 using UnityEngine;
 
 namespace Buildings
@@ -43,10 +45,9 @@ namespace Buildings
 
         private void OnBuildingSelected(Type buildingType)
         {
-            SpawnMobBuilding(buildingType, _matchInfo.LocalTeamColor, spawnPoint);
+            var mobBuilding = SpawnMobBuilding(buildingType, _matchInfo.LocalTeamColor, spawnPoint);
 
             selectedPlatform.IsOccupied = true;
-
             _buildingMenuController.Hide();
         }
 
@@ -78,16 +79,18 @@ namespace Buildings
             }
         }
 
-        public void SpawnMobBuilding(Type buildingType, TeamColor teamColor, Vector3 position)
+        public MobBuilding SpawnMobBuilding(Type buildingType, TeamColor teamColor, Vector3 position)
         {
             var buildingPrefab = _mobBuildingPrefabs.Single(bp => bp.GetType() == buildingType);
 
-            var building = Instantiate(buildingPrefab, position,
+            var mobBuilding = Instantiate(buildingPrefab, position,
                 Quaternion.Euler(new Vector3(-90f, 0f, 0f)));
-            building.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-            building.TeamColor = teamColor;
+            mobBuilding.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            mobBuilding.TeamColor = teamColor;
 
-            building.SpawnMobs();
+            mobBuilding.SpawnMobs();
+
+            return mobBuilding;
         }
     }
 }

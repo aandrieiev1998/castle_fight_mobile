@@ -2,7 +2,7 @@
 using Match;
 using UnityEngine;
 
-namespace UI
+namespace UI.Controllers
 {
     public class TeamSelectionMenuController : MonoBehaviour
     {

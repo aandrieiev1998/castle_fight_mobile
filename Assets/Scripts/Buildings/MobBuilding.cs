@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Linq;
 using Match;
 using Mobs;
@@ -13,6 +14,8 @@ namespace Buildings
 
         public Mob SpawnedMob => _spawnedMob;
 
+        public event Action<Mob> MobSpawned;
+
         public void SpawnMobs()
         {
             StartCoroutine(MobSpawningEnumerator());
@@ -24,7 +27,8 @@ namespace Buildings
 
             while (true)
             {
-                SpawnMob();
+                var spawnedMob = SpawnMob();
+                MobSpawned?.Invoke(spawnedMob);
 
                 yield return new WaitForSeconds(_spawnedMob.SpawnInterval);
             }

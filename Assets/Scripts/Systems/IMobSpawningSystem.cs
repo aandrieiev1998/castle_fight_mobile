@@ -1,12 +1,16 @@
 ﻿using System;
+using Entities.Mobs;
+using Match;
 using Mobs;
+using UnityEngine;
 
 namespace Systems
 {
     public interface IMobSpawningSystem
     {
-        public event Action<Mob> MobSpawned;
+        public Mob MobPrefab { get; }
 
-        public void SpawnMobs();
+        public Mob SpawnMob(Vector3 position, TeamColor teamColor);
+        public event Action<Mob> MobSpawned;
     }
 }

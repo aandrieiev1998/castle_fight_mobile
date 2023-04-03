@@ -38,11 +38,13 @@ namespace Systems.Impl
 
         public void ReceiveDamage(DamageType damageType, float damageAmount)
         {
+            if (HealthAmount <= 0f) return; 
+            
             var damagePercentage = DamageUtils.GetDamagePercentage(ArmorType, damageType);
             var damageReduced = damageAmount * damagePercentage *
                                 (1.0f - 0.06f * ArmorAmount / (1.0f + 0.06f * Math.Abs(ArmorAmount)));
             HealthAmount -= damageReduced;
-
+            
             if (HealthAmount <= 0f) Death?.Invoke();
         }
 

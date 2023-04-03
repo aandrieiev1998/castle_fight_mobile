@@ -19370,7 +19370,7 @@ MonoBehaviour:
   _damageSystem:
     _damageAmount: 25
     _damageType: 0
-    _attackSpeed: 1
+    _attackSpeed: 1.5
     _attackDistance: 2
   _healthSystem:
     _armorAmount: 15

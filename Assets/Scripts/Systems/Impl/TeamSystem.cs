@@ -1,10 +1,18 @@
 ﻿using System;
 using Match;
+using UnityEngine;
 
 namespace Systems.Impl
 {
+    [Serializable]
     public class TeamSystem : ITeamSystem
     {
-        public TeamColor TeamColor { get; set; }
+        [SerializeField] private TeamColor _teamColor;
+
+        public TeamColor TeamColor
+        {
+            get => _teamColor;
+            set => _teamColor = value;
+        }
     }
 }

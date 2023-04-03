@@ -2,10 +2,10 @@
 using Mechanics;
 using UnityEngine;
 
-namespace Systems.Impl
+namespace Systems
 {
     [Serializable]
-    public class DamageSystem : IDamageSystem
+    public class DamageSystem
     {
         [SerializeField] private float _damageAmount;
         [SerializeField] private DamageType _damageType;
@@ -36,7 +36,7 @@ namespace Systems.Impl
             set => _attackDistance = value;
         }
 
-        public void InflictDamage(IHealthSystem healthSystem)
+        public void InflictDamage(HealthSystem healthSystem)
         {
             healthSystem.ReceiveDamage(DamageType, DamageAmount);
         }

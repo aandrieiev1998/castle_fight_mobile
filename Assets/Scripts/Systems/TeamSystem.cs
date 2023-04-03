@@ -2,10 +2,10 @@
 using Match;
 using UnityEngine;
 
-namespace Systems.Impl
+namespace Systems
 {
     [Serializable]
-    public class TeamSystem : ITeamSystem
+    public class TeamSystem
     {
         [SerializeField] private TeamColor _teamColor;
 

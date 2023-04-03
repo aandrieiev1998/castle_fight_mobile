@@ -1,5 +1,5 @@
 ﻿using Match;
-using Systems.Impl;
+using Systems;
 using UnityEngine;
 
 namespace Entities.Mobs
@@ -35,6 +35,8 @@ namespace Entities.Mobs
             var teamMaterial = teamMaterialsContainer.MobMaterials[TeamSystem.TeamColor];
             var renderers = GetComponentsInChildren<Renderer>();
             foreach (var rend in renderers) rend.material = teamMaterial;
+
+            gameObject.name = GetType().Name + TeamSystem.TeamColor;
         }
     }
 }

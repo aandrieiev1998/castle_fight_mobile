@@ -35,8 +35,8 @@ namespace Cameras
         {
             if (AllowMoveCamera)
             {
-                HandleKeyboardInput();
-                HandleMouseInput();
+                // HandleKeyboardInput();
+                // HandleMouseInput();
             }
 
             LimitHeight();

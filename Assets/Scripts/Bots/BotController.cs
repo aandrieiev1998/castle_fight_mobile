@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Linq;
 using Buildings;
 using Buildings.MobBuildings;
+using Entities.Buildings;
 using Match;
-using UI;
 using UI.Controllers;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -28,23 +29,21 @@ namespace Bots
                 _ => throw new Exception($"Unsupported team color: {teamColor}")
             };
 
-            var buildingPlatforms = FindObjectsOfType<BuildingPlatform>();
+            var buildingPlatforms = FindObjectsOfType<BuildingPlatform>().Where(buildingPlatform =>
+                buildingPlatform.TeamColor == botTeam && !buildingPlatform.IsOccupied).ToList();
             foreach (var buildingPlatform in buildingPlatforms)
             {
-                if (buildingPlatform.TeamColor != botTeam || buildingPlatform.IsOccupied) continue;
-
                 var value = Random.value;
                 // var botBuildingType = value > 0.5f ? typeof(Barracks) : typeof(Archery);
                 // var botBuildingType = typeof(Archery);
                 var botBuildingType = typeof(Barracks);
-                Debug.Log(value);
                 _buildingSpawner.SpawnMobBuilding(botBuildingType, botTeam, buildingPlatform.transform.position);
                 buildingPlatform.IsOccupied = true;
                 
+                Debug.Log($"Spawned {botBuildingType.Name} for Bots team");
+
                 break;
             }
-
-            Debug.Log($"Spawned {buildingPlatforms.Length} mob buildings for Bots team");
         }
     }
 }

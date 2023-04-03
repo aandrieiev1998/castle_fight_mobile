@@ -1,17 +1,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Entities.Buildings;
+using Buildings;
 using Match;
 using UI;
 using UI.Controllers;
 using UnityEngine;
 
-namespace Buildings
+namespace Entities.Buildings
 {
     public class BuildingSpawner : MonoBehaviour
     {
-        private const int LayerIndex = 6;
         [SerializeField] private List<MobBuilding> _mobBuildingPrefabs;
         [SerializeField] private Camera _playerCamera;
         [SerializeField] private BuildingsMenuController _buildingMenuController;
@@ -60,7 +59,7 @@ namespace Buildings
                 var ray = _playerCamera.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
 
-                if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << LayerIndex))
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("Terrain")))
                 {
                     var targetPlatform = hit.transform.GetComponent<BuildingPlatform>();
                     if (targetPlatform == null) return;

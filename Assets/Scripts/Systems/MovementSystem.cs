@@ -1,10 +1,10 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Systems.Impl
+namespace Systems
 {
     [Serializable]
-    public class MovementSystem : IMovementSystem
+    public class MovementSystem
     {
         [SerializeField] private float _movementSpeed;
 

@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using Buildings;
-using Systems.Impl;
+using Systems;
 using UnityEngine;
 
 namespace Entities.Buildings
@@ -12,7 +12,6 @@ namespace Entities.Buildings
 
         public override void Start()
         {
-            Debug.Log("MobBuilding start method");
             base.Start();
             StartCoroutine(MobSpawningEnumerator());
         }
@@ -20,13 +19,15 @@ namespace Entities.Buildings
         private IEnumerator MobSpawningEnumerator()
         {
             yield return new WaitForSeconds(1.0f);
+            
+            _mobSpawningSystem.SpawnMob(transform.position, TeamSystem.TeamColor);
 
-            while (true)
-            {
-                _mobSpawningSystem.SpawnMob(transform.position, TeamSystem.TeamColor);
-
-                yield return new WaitForSeconds(_mobSpawningSystem.MobPrefab.SpawnInterval);
-            }
+            // while (true)
+            // {
+            //     _mobSpawningSystem.SpawnMob(transform.position, TeamSystem.TeamColor);
+            //
+            //     yield return new WaitForSeconds(_mobSpawningSystem.MobPrefab.SpawnInterval);
+            // }
         }
 
         

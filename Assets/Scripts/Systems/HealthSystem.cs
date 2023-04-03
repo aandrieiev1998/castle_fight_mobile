@@ -2,10 +2,10 @@
 using Mechanics;
 using UnityEngine;
 
-namespace Systems.Impl
+namespace Systems
 {
     [Serializable]
-    public class HealthSystem : IHealthSystem
+    public class HealthSystem
     {
         [SerializeField] private float _armorAmount;
         [SerializeField] private ArmorType _armorType;
@@ -38,15 +38,20 @@ namespace Systems.Impl
 
         public void ReceiveDamage(DamageType damageType, float damageAmount)
         {
-            if (HealthAmount <= 0f) return; 
+            if (IsDead) return;
             
             var damagePercentage = DamageUtils.GetDamagePercentage(ArmorType, damageType);
             var damageReduced = damageAmount * damagePercentage *
                                 (1.0f - 0.06f * ArmorAmount / (1.0f + 0.06f * Math.Abs(ArmorAmount)));
             HealthAmount -= damageReduced;
+
+            if (HealthAmount > 0f) return;
             
-            if (HealthAmount <= 0f) Death?.Invoke();
+            IsDead = true;
+            Death?.Invoke();
         }
+        
+        public bool IsDead { get; set; }
 
         public event Action Death;
     }

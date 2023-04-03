@@ -1,6 +1,9 @@
-﻿namespace Systems
+﻿using System;
+
+namespace Systems
 {
-    public interface IManaSystem
+    [Serializable]
+    public class ManaSystem
     {
         public float Mana { get; set; }
         public float ManaRegen { get; set; }

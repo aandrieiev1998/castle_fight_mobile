@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Linq;
-using Buildings;
 using Entities.Buildings;
 using Entities.Mobs;
 using Match;
-using Mobs;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Systems.Impl
+namespace Systems
 {
     [Serializable]
-    public class MobSpawningSystem : IMobSpawningSystem
+    public class MobSpawningSystem
     {
         [SerializeField] private Mob _spawnedMob;
 

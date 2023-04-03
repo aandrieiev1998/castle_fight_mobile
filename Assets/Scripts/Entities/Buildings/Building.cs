@@ -7,7 +7,6 @@ namespace Entities.Buildings
     {
         public virtual void Start()
         {
-            Debug.Log("Building start method");
             var teamMaterialsContainer = FindObjectOfType<TeamMaterialsContainer>();
             var buildingRenderer = GetComponentInChildren<Renderer>();
             buildingRenderer.material = teamMaterialsContainer.BuildingMaterials[TeamSystem.TeamColor];

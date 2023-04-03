@@ -1,10 +1,10 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Systems.Impl
+namespace Systems
 {
     [Serializable]
-    public class BountySystem : IBountySystem
+    public class BountySystem
     {
         [SerializeField] private int _goldForKill;
         [SerializeField] private int _experienceForKill;

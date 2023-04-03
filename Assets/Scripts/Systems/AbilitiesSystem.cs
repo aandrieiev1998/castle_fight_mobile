@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Mechanics;
 
 namespace Systems
 {
-    public interface IAbilitiesSystem
+    [Serializable]
+    public class AbilitiesSystem
     {
         public List<Ability> Abilities { get; set; }
     }

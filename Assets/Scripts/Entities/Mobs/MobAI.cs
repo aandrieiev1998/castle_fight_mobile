@@ -1,9 +1,7 @@
 ﻿using System.Collections;
 using System.Linq;
-using Buildings;
 using Entities.Buildings;
 using Pathfinding;
-using Systems;
 using UnityEngine;
 
 namespace Entities.Mobs
@@ -20,6 +18,7 @@ namespace Entities.Mobs
         private Animator mobAnimator;
         private IAstarAI astarAI;
         private Coroutine attackCoroutine;
+        private Coroutine deathCoroutine;
         private bool stopUpdatingTarget;
         private float distanceToClosestTargetInVision;
         private float timeSinceLastTargetUpdate;
@@ -50,9 +49,7 @@ namespace Entities.Mobs
 
         private void OnMobDeath()
         {
-            mobAnimator.SetTrigger(MOB_HAS_DIED);
-
-            Destroy(gameObject, 2.0f);
+            deathCoroutine = StartCoroutine(Die());
         }
 
         private void Start()
@@ -78,18 +75,19 @@ namespace Entities.Mobs
                 Destroy(gameObject);
         }
 
-
         private void OnTriggerEnter(Collider target)
         {
             if (stopUpdatingTarget) return;
+            Debug.Log($"Potential new target: {target.name}");
 
-            var targetMob = target.GetComponent<Mob>();
-            if (targetMob == null) return;
+            var targetEntity = target.GetComponent<GameEntity>();
+            if (targetEntity == null) return;
 
-            if (mob.TeamSystem.TeamColor == targetMob.TeamSystem.TeamColor ||
-                targetTransform == targetMob.transform) return;
-
-            targetTransform = targetMob.transform;
+            if (mob.TeamSystem.TeamColor == targetEntity.TeamSystem.TeamColor ||
+                targetTransform == targetEntity.transform) return;
+            
+            Debug.Log($"Acquired new target: {target.name}");
+            targetTransform = targetEntity.transform;
             timeSinceLastTargetUpdate = 0f;
             stopUpdatingTarget = true;
             mobAnimator.SetBool(IS_RUNNING, true);
@@ -97,8 +95,8 @@ namespace Entities.Mobs
 
         private void OnTriggerStay(Collider target)
         {
-            var targetMob = target.GetComponent<Mob>();
-            if (targetMob == null) return;
+            var targetEntity = target.GetComponent<GameEntity>();
+            if (targetEntity == null) return;
 
             if (target.transform != targetTransform) return;
 
@@ -106,6 +104,14 @@ namespace Entities.Mobs
              If distance to enemy too far for attack we return.
              If enemy moved out from attack range, but is still in vision, we stop attacking and try move closer.
              */
+            
+            // RaycastHit hit;
+            // if (Physics.Raycast(transform.position, targetTransform.position, out hit, mob.DamageSystem.AttackDistance, LayerMask.GetMask("AI Agent", "AI Obstacle")))
+            // {
+            //     
+            // }
+            
+            Debug.DrawLine(transform.position, targetTransform.position);
             if (Vector3.Distance(transform.position, targetTransform.position) > mob.DamageSystem.AttackDistance)
             {
                 if (!wasAttackingInPreviousFrame) return;
@@ -128,7 +134,7 @@ namespace Entities.Mobs
                 mobAnimator.SetBool(IS_ATTACKING, true);
                 mobAnimator.SetBool(IS_RUNNING, false);
 
-                attackCoroutine = StartCoroutine(Attack(targetMob.HealthSystem));
+                attackCoroutine = StartCoroutine(Attack(targetEntity));
             }
 
             wasAttackingInPreviousFrame = true;
@@ -155,26 +161,51 @@ namespace Entities.Mobs
             targetTransform = enemyCastle.transform;
             astarAI.isStopped = false;
             isAttacking = false;
+            stopUpdatingTarget = false;
             mobAnimator.SetBool(IS_RUNNING, false);
             mobAnimator.SetBool(IS_WALKING, true);
             mobAnimator.SetBool(IS_ATTACKING, false);
 
             StopCoroutine(attackCoroutine);
+            Debug.Log("Target defeated");
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             if (attackCoroutine != null) StopCoroutine(attackCoroutine);
+            if (deathCoroutine != null) StopCoroutine(deathCoroutine);
         }
 
-        private IEnumerator Attack(IHealthSystem enemyHealth)
+
+        private IEnumerator Attack(GameEntity targetEntity)
         {
-            while (true)
+            while (!targetEntity.HealthSystem.IsDead)
             {
                 yield return new WaitForSeconds(mob.DamageSystem.AttackSpeed);
-                
-                mob.DamageSystem.InflictDamage(enemyHealth);
+
+                // check if "I" am not dead myself before attack
+                // Debug.Log($"I AM {mob.TeamSystem.TeamColor} I HAVE {mob.HealthSystem.HealthAmount}");
+
+                if (!mob.HealthSystem.IsDead)
+                    mob.DamageSystem.InflictDamage(targetEntity.HealthSystem);
             }
+
+            // Debug.Log($"I AM WINNER {mob.TeamSystem.TeamColor}");
+            isAttacking = false;
+            // mobAnimator.SetBool(IS_ATTACKING, false);
+        }
+
+        private IEnumerator Die()
+        {
+            mobAnimator.SetTrigger(MOB_HAS_DIED);
+
+            yield return new WaitForSeconds(1.3f);
+
+            transform.Translate(new Vector3(1000f, 1000f, 1000f));
+
+            yield return new WaitForSeconds(0.1f);
+
+            // Destroy(gameObject);
         }
     }
 }

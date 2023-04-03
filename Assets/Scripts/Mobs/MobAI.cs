@@ -39,7 +39,7 @@ namespace Mobs
 
             astarAI = GetComponent<IAstarAI>();
             astarAI.onSearchPath += Update;
-            astarAI.maxSpeed = mob.MovementSpeed;
+            astarAI.maxSpeed = mob.MovementSystem.MovementSpeed;
 
             var capsuleCollider = GetComponent<CapsuleCollider>();
             capsuleCollider.radius = mob.RageDistance;
@@ -76,7 +76,7 @@ namespace Mobs
             var targetMob = target.GetComponent<Mob>();
             if (targetMob == null) return;
 
-            if (mob.TeamColor == targetMob.TeamColor ||
+            if (mob.TeamSystem.TeamColor == targetMob.TeamSystem.TeamColor ||
                 targetTransform == targetMob.transform) return;
 
             targetTransform = targetMob.transform;
@@ -96,7 +96,7 @@ namespace Mobs
              If distance to enemy too far for attack we return.
              If enemy moved out from attack range, but is still in vision, we stop attacking and try move closer.
              */
-            if (Vector3.Distance(transform.position, targetTransform.position) > mob.AttackDistance)
+            if (Vector3.Distance(transform.position, targetTransform.position) > mob.DamageSystem.AttackDistance)
             {
                 if (!wasAttackingInPreviousFrame) return;
 
@@ -125,7 +125,7 @@ namespace Mobs
             if (!Application.isPlaying) return;
 
             var transformPosition = transform.position;
-            Gizmos.DrawWireSphere(transformPosition, mob.AttackDistance);
+            Gizmos.DrawWireSphere(transformPosition, mob.DamageSystem.AttackDistance);
             Gizmos.DrawWireSphere(transformPosition, mob.RageDistance);
         }
 
@@ -136,7 +136,7 @@ namespace Mobs
 
             if (target.transform != targetTransform) return;
 
-            var enemyCastle = FindObjectsOfType<Castle>().Single(castle => castle.TeamColor != mob.TeamColor);
+            var enemyCastle = FindObjectsOfType<Castle>().Single(castle => castle.TeamColor != mob.TeamSystem.TeamColor);
             targetTransform = enemyCastle.transform;
             astarAI.isStopped = false;
             mobAnimator.SetBool(IsRunning, false);

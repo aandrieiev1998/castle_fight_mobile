@@ -6,8 +6,8 @@ namespace UI.Views
 {
     public class UnitInfoView : MonoBehaviour
     {
-        public const string HP_TEMPLATE = "HP: {0}";
-        public const string ARMOR_TEMPLATE = "Armor: {0}";
+        public readonly string hpTemplate = "HP: {0}";
+        public readonly string armorTemplate = "Armor: {0}";
 
         [SerializeField] private TMP_Text _hpText;
         [SerializeField] private TMP_Text _armorText;

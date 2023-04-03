@@ -37,14 +37,14 @@ namespace Buildings
         private Mob SpawnMob()
         {
             var mob = Instantiate(_spawnedMob, transform.position, Quaternion.identity);
-            mob.TeamColor = TeamColor;
+            mob.TeamSystem.TeamColor = TeamColor;
 
             var teamMaterialsContainer = FindObjectOfType<TeamMaterialsContainer>();
             var teamMaterial = teamMaterialsContainer.MobMaterials[TeamColor];
             var renderers = mob.GetComponentsInChildren<Renderer>();
             foreach (var rend in renderers) rend.material = teamMaterial;
 
-            var enemyCastle = FindObjectsOfType<Castle>().Single(castle => castle.TeamColor != mob.TeamColor);
+            var enemyCastle = FindObjectsOfType<Castle>().Single(castle => castle.TeamColor != mob.TeamSystem.TeamColor);
 
             var mobAI = mob.GetComponent<MobAI>();
             mobAI.TargetTransform = enemyCastle.transform;

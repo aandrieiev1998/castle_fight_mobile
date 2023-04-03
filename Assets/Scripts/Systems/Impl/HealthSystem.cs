@@ -1,25 +1,16 @@
 ﻿using System;
-using Match;
 using Mechanics;
-using Systems;
 using UnityEngine;
 
-namespace Buildings
+namespace Systems.Impl
 {
-    public abstract class Building : MonoBehaviour, IHealthSystem, ITeamSystem
+    [Serializable]
+    public class HealthSystem : IHealthSystem
     {
+        [SerializeField] private float _armorAmount;
+        [SerializeField] private ArmorType _armorType;
         [SerializeField] private float _healthAmount;
         [SerializeField] private float _healthRegen;
-        [SerializeField] private float _armor;
-        [SerializeField] private ArmorType _armorType;
-        [SerializeField] private TeamColor _teamColor;
-
-        private void Start()
-        {
-            var teamMaterialsContainer = FindObjectOfType<TeamMaterialsContainer>();
-            var buildingRenderer = GetComponent<Renderer>();
-            buildingRenderer.material = teamMaterialsContainer.BuildingMaterials[_teamColor];
-        }
 
         public float HealthAmount
         {
@@ -35,8 +26,8 @@ namespace Buildings
 
         public float ArmorAmount
         {
-            get => _armor;
-            set => _armor = value;
+            get => _armorAmount;
+            set => _armorAmount = value;
         }
 
         public ArmorType ArmorType
@@ -52,17 +43,9 @@ namespace Buildings
                                 (1.0f - 0.06f * ArmorAmount / (1.0f + 0.06f * Math.Abs(ArmorAmount)));
             HealthAmount -= damageReduced;
 
-            if (HealthAmount <= 0f)
-            {
-                Debug.Log($"{gameObject.name} has died");
-                Destroy(gameObject);
-            }
+            if (HealthAmount <= 0f) Death?.Invoke();
         }
 
-        public TeamColor TeamColor
-        {
-            get => _teamColor;
-            set => _teamColor = value;
-        }
+        public event Action Death;
     }
 }

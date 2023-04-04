@@ -976,6 +976,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Catapult
       objectReference: {fileID: 0}
+    - target: {fileID: 2147550042520967120, guid: 9785eb04d861a3745a013acfabc1b77b,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 7b9ec72ef44f89f43a4b018aa4ceaf73, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9785eb04d861a3745a013acfabc1b77b, type: 3}
 --- !u!1 &3197008749724928237 stripped
@@ -996,18 +1001,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c8cbc2856ab4612a8c7c3af0da12856, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _healthSystem:
+    _armorAmount: 0
+    _armorType: 0
+    _healthAmount: 0
+    _healthRegen: 0
+  _teamSystem:
+    _teamColor: 0
+  _damageSystem:
+    _damageAmount: 0
+    _damageType: 0
+    _attackSpeed: 0
+    _attackDistance: 0
+  _movementSystem:
+    _movementSpeed: 0
   _rageDistance: 0
   _spawnInterval: 0
-  _healthAmount: 0
-  _healthRegen: 0
-  _armor: 0
-  _armorType: 0
-  _damage: 0
-  _damageType: 0
-  _attackSpeed: 0
-  _attackDistance: 0
-  _goldForKill: 0
-  _experienceForKill: 0
 --- !u!4 &3596113077167905355 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 32750243176301768, guid: 9785eb04d861a3745a013acfabc1b77b,

@@ -6,7 +6,7 @@ using Entities.Buildings;
 using Match;
 using UI.Controllers;
 using UnityEngine;
-using Random = UnityEngine.Random;
+// using Random = UnityEngine.Random;
 
 namespace Bots
 {
@@ -22,28 +22,18 @@ namespace Bots
 
         private void OnPlayerTeamSelected(TeamColor teamColor)
         {
-            var botTeam = teamColor switch
-            {
-                TeamColor.Blue => TeamColor.Red,
-                TeamColor.Red => TeamColor.Blue,
-                _ => throw new Exception($"Unsupported team color: {teamColor}")
-            };
+            var buildingPlatforms = FindObjectsOfType<BuildingPlatform>().ToArray();
 
-            var buildingPlatforms = FindObjectsOfType<BuildingPlatform>().Where(buildingPlatform =>
-                buildingPlatform.TeamColor == botTeam && !buildingPlatform.IsOccupied).ToList();
-            foreach (var buildingPlatform in buildingPlatforms)
-            {
-                var value = Random.value;
-                // var botBuildingType = value > 0.5f ? typeof(Barracks) : typeof(Archery);
-                // var botBuildingType = typeof(Archery);
-                var botBuildingType = typeof(Barracks);
-                _buildingSpawner.SpawnMobBuilding(botBuildingType, botTeam, buildingPlatform.transform.position);
-                buildingPlatform.IsOccupied = true;
-                
-                Debug.Log($"Spawned {botBuildingType.Name} for Bots team");
+            var botBuilding1Type = typeof(Archery);
+            var botBuilding1Team = buildingPlatforms[0].TeamColor;
+            _buildingSpawner.SpawnMobBuilding(botBuilding1Type, botBuilding1Team, buildingPlatforms[0].transform.position);
+            buildingPlatforms[0].IsOccupied = true;
+            
+            var botBuilding2Type = typeof(Barracks);
+            var botBuilding2Team = buildingPlatforms[1].TeamColor;
+            _buildingSpawner.SpawnMobBuilding(botBuilding2Type, botBuilding2Team, buildingPlatforms[1].transform.position);
+            buildingPlatforms[1].IsOccupied = true;
 
-                break;
-            }
         }
     }
 }

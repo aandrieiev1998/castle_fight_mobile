@@ -19,8 +19,13 @@ namespace Entities.Buildings
         private IEnumerator MobSpawningEnumerator()
         {
             yield return new WaitForSeconds(1.0f);
-            
-            _mobSpawningSystem.SpawnMob(transform.position, TeamSystem.TeamColor);
+
+            for (var i = 0; i < 100; i++)
+            {
+                _mobSpawningSystem.SpawnMob(transform.position, TeamSystem.TeamColor);
+                
+                yield return new WaitForSeconds(_mobSpawningSystem.MobPrefab.SpawnInterval);
+            }
 
             // while (true)
             // {

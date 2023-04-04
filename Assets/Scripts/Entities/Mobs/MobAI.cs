@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Linq;
 using Entities.Buildings;
+using Mechanics;
 using Pathfinding;
 using UnityEngine;
 
@@ -12,25 +14,22 @@ namespace Entities.Mobs
         private static readonly int IS_RUNNING = Animator.StringToHash("IsRunning");
         private static readonly int IS_WALKING = Animator.StringToHash("IsWalking");
         private static readonly int MOB_HAS_DIED = Animator.StringToHash("HasDied");
-
-        private Transform targetTransform;
-        private Mob mob;
-        private Animator mobAnimator;
         private IAstarAI astarAI;
         private Coroutine attackCoroutine;
+        private AttackTrigger attackTrigger;
         private Coroutine deathCoroutine;
-        private bool stopUpdatingTarget;
         private float distanceToClosestTargetInVision;
+        private bool isAttacking;
+        private bool isInAttackRange;
+        private Mob mob;
+        private Animator mobAnimator;
+        private bool stopUpdatingTarget;
+
         private float timeSinceLastTargetUpdate;
 
         private bool wasAttackingInPreviousFrame;
-        private bool isAttacking;
 
-        public Transform TargetTransform
-        {
-            get => targetTransform;
-            set => targetTransform = value;
-        }
+        public Transform TargetTransform { get; set; }
 
         private void Awake()
         {
@@ -43,18 +42,19 @@ namespace Entities.Mobs
             astarAI.onSearchPath += Update;
             astarAI.maxSpeed = mob.MovementSystem.MovementSpeed;
 
-            var capsuleCollider = GetComponent<CapsuleCollider>();
-            capsuleCollider.radius = mob.RageDistance;
-        }
+            var rageTrigger = GetComponent<CapsuleCollider>();
+            rageTrigger.radius = mob.RageDistance;
 
-        private void OnMobDeath()
-        {
-            deathCoroutine = StartCoroutine(Die());
+            attackTrigger = GetComponentInChildren<AttackTrigger>();
+            attackTrigger.CapsuleCollider.radius = mob.DamageSystem.AttackDistance;
+
+            attackTrigger.OnEnter += AttackTriggerOnEnter;
+            attackTrigger.OnExit += AttackTriggerOnExit;
         }
 
         private void Start()
         {
-            if (targetTransform != null)
+            if (TargetTransform != null)
                 mobAnimator.SetBool(IS_WALKING, true);
         }
 
@@ -62,35 +62,67 @@ namespace Entities.Mobs
         {
             timeSinceLastTargetUpdate += Time.deltaTime;
 
-            if (targetTransform != null && astarAI != null)
+            if (TargetTransform != null && astarAI != null)
                 // better to move this outside Update function, we don't need a call every frame 
-                astarAI.destination = targetTransform.position;
+                astarAI.destination = TargetTransform.position;
 
-            if (isAttacking)
-            {
-                transform.LookAt(targetTransform);
-            }
+            if (isAttacking) transform.LookAt(TargetTransform);
 
             if (transform.position.y <= -5.0f)
                 Destroy(gameObject);
         }
 
+        private void OnDestroy()
+        {
+            if (attackCoroutine != null) StopCoroutine(attackCoroutine);
+            if (deathCoroutine != null) StopCoroutine(deathCoroutine);
+        }
+
+        private void OnDrawGizmos()
+        {
+            if (!Application.isPlaying) return;
+
+            // var transformPosition = transform.position;
+            // Gizmos.DrawWireSphere(transformPosition, mob.DamageSystem.AttackDistance);
+            // Gizmos.DrawWireSphere(transformPosition, mob.RageDistance);
+        }
+
         private void OnTriggerEnter(Collider target)
         {
+            // Debug.Log($"Rage trigger enter: {target.name}");
             if (stopUpdatingTarget) return;
-            Debug.Log($"Potential new target: {target.name}");
 
             var targetEntity = target.GetComponent<GameEntity>();
             if (targetEntity == null) return;
 
             if (mob.TeamSystem.TeamColor == targetEntity.TeamSystem.TeamColor ||
-                targetTransform == targetEntity.transform) return;
-            
-            Debug.Log($"Acquired new target: {target.name}");
-            targetTransform = targetEntity.transform;
+                TargetTransform == targetEntity.transform) return;
+
+            // Debug.Log($"Acquired new target: {target.name}");
+            TargetTransform = targetEntity.transform;
             timeSinceLastTargetUpdate = 0f;
             stopUpdatingTarget = true;
             mobAnimator.SetBool(IS_RUNNING, true);
+        }
+
+        private void OnTriggerExit(Collider target)
+        {
+            var targetMob = target.GetComponent<Mob>();
+            if (targetMob == null) return;
+
+            if (target.transform != TargetTransform) return;
+
+            var enemyCastle = FindObjectsOfType<Castle>()
+                .Single(castle => castle.TeamSystem.TeamColor != mob.TeamSystem.TeamColor);
+            TargetTransform = enemyCastle.transform;
+            astarAI.isStopped = false;
+            isAttacking = false;
+            stopUpdatingTarget = false;
+            mobAnimator.SetBool(IS_RUNNING, false);
+            mobAnimator.SetBool(IS_WALKING, true);
+            mobAnimator.SetBool(IS_ATTACKING, false);
+
+            StopCoroutine(attackCoroutine);
         }
 
         private void OnTriggerStay(Collider target)
@@ -98,21 +130,10 @@ namespace Entities.Mobs
             var targetEntity = target.GetComponent<GameEntity>();
             if (targetEntity == null) return;
 
-            if (target.transform != targetTransform) return;
+            if (target.transform != TargetTransform) return;
 
-            /*
-             If distance to enemy too far for attack we return.
-             If enemy moved out from attack range, but is still in vision, we stop attacking and try move closer.
-             */
-            
-            // RaycastHit hit;
-            // if (Physics.Raycast(transform.position, targetTransform.position, out hit, mob.DamageSystem.AttackDistance, LayerMask.GetMask("AI Agent", "AI Obstacle")))
-            // {
-            //     
-            // }
-            
-            Debug.DrawLine(transform.position, targetTransform.position);
-            if (Vector3.Distance(transform.position, targetTransform.position) > mob.DamageSystem.AttackDistance)
+            // Debug.Log($"isInAttackRange = {isInAttackRange}");
+            if (Vector3.Distance(transform.position, TargetTransform.position) > mob.DamageSystem.AttackDistance)
             {
                 if (!wasAttackingInPreviousFrame) return;
 
@@ -140,40 +161,21 @@ namespace Entities.Mobs
             wasAttackingInPreviousFrame = true;
         }
 
-        private void OnDrawGizmos()
+        private void AttackTriggerOnExit(Collider target)
         {
-            if (!Application.isPlaying) return;
-
-            var transformPosition = transform.position;
-            Gizmos.DrawWireSphere(transformPosition, mob.DamageSystem.AttackDistance);
-            Gizmos.DrawWireSphere(transformPosition, mob.RageDistance);
+            Debug.Log($"Attack trigger exit: {target.name}");
+            isInAttackRange = false;
         }
 
-        private void OnTriggerExit(Collider target)
+        private void AttackTriggerOnEnter(Collider target)
         {
-            var targetMob = target.GetComponent<Mob>();
-            if (targetMob == null) return;
-
-            if (target.transform != targetTransform) return;
-
-            var enemyCastle = FindObjectsOfType<Castle>()
-                .Single(castle => castle.TeamSystem.TeamColor != mob.TeamSystem.TeamColor);
-            targetTransform = enemyCastle.transform;
-            astarAI.isStopped = false;
-            isAttacking = false;
-            stopUpdatingTarget = false;
-            mobAnimator.SetBool(IS_RUNNING, false);
-            mobAnimator.SetBool(IS_WALKING, true);
-            mobAnimator.SetBool(IS_ATTACKING, false);
-
-            StopCoroutine(attackCoroutine);
-            Debug.Log("Target defeated");
+            Debug.Log($"Attack trigger enter: {target.name}");
+            isInAttackRange = true;
         }
 
-        private void OnDestroy()
+        private void OnMobDeath()
         {
-            if (attackCoroutine != null) StopCoroutine(attackCoroutine);
-            if (deathCoroutine != null) StopCoroutine(deathCoroutine);
+            deathCoroutine = StartCoroutine(Die());
         }
 
 

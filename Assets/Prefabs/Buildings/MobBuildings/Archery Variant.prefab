@@ -93,7 +93,7 @@ PrefabInstance:
     - target: {fileID: 5009428331073832861, guid: cc8e6006e3a85704c8fc152e11de0be2,
         type: 3}
       propertyPath: m_Name
-      value: Building
+      value: Archery Variant
       objectReference: {fileID: 0}
     - target: {fileID: 9011840428371264956, guid: cc8e6006e3a85704c8fc152e11de0be2,
         type: 3}

@@ -1,6 +1,4 @@
-﻿using Entities.Buildings;
-
-namespace Buildings
+﻿namespace Entities.Buildings
 {
     public class Tower : Building
     {

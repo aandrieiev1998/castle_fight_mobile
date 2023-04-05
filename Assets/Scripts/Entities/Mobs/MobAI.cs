@@ -133,7 +133,8 @@ namespace Entities.Mobs
             if (target.transform != TargetTransform) return;
 
             // Debug.Log($"isInAttackRange = {isInAttackRange}");
-            if (Vector3.Distance(transform.position, TargetTransform.position) > mob.DamageSystem.AttackDistance)
+            // if (Vector3.Distance(transform.position, TargetTransform.position) > mob.DamageSystem.AttackDistance)
+            if (!isInAttackRange)
             {
                 if (!wasAttackingInPreviousFrame) return;
 
@@ -207,7 +208,7 @@ namespace Entities.Mobs
 
             yield return new WaitForSeconds(0.1f);
 
-            // Destroy(gameObject);
+            Destroy(gameObject);
         }
     }
 }

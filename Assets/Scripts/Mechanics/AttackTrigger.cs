@@ -24,20 +24,20 @@ namespace Mechanics
 
         private void OnTriggerEnter(Collider target)
         {
-            // if (FilterTarget(target))
-                // OnEnter?.Invoke(target);
+            if (FilterTarget(target))
+                OnEnter?.Invoke(target);
         }
 
         private void OnTriggerExit(Collider target)
         {
-            // if (FilterTarget(target))
-                // OnExit?.Invoke(target);
+            if (FilterTarget(target))
+                OnExit?.Invoke(target);
         }
 
         private void OnTriggerStay(Collider target)
         {
-            // if (FilterTarget(target))
-                // OnStay?.Invoke(target);
+            if (FilterTarget(target))
+                OnStay?.Invoke(target);
         }
 
         private bool FilterTarget(Collider target)

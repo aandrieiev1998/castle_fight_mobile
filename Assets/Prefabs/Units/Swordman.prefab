@@ -19276,6 +19276,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1069743660737298745, guid: 9785eb04d861a3745a013acfabc1b77b,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2147550042511210844, guid: 9785eb04d861a3745a013acfabc1b77b,
         type: 3}
       propertyPath: m_RootOrder
@@ -19334,13 +19339,23 @@ PrefabInstance:
     - target: {fileID: 2147550042511480430, guid: 9785eb04d861a3745a013acfabc1b77b,
         type: 3}
       propertyPath: m_Name
-      value: Swordsman
+      value: Swordman
       objectReference: {fileID: 0}
     - target: {fileID: 2147550042520967120, guid: 9785eb04d861a3745a013acfabc1b77b,
         type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 92cde4416d9a0ed419c356d55bb7409b, type: 2}
+    - target: {fileID: 2670115374633112816, guid: 9785eb04d861a3745a013acfabc1b77b,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3828723002671794040, guid: 9785eb04d861a3745a013acfabc1b77b,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9785eb04d861a3745a013acfabc1b77b, type: 3}
 --- !u!4 &2382107959696295900 stripped
@@ -19375,11 +19390,11 @@ MonoBehaviour:
   _teamSystem:
     _teamColor: 0
   _damageSystem:
-    _damageAmount: 50
+    _damageAmount: 1
     _damageType: 0
     _attackSpeed: 1.5
-    _attackDistance: 2
+    _attackDistance: 1.25
   _movementSystem:
     _movementSpeed: 3
   _rageDistance: 4
-  _spawnInterval: 10
+  _spawnInterval: 2

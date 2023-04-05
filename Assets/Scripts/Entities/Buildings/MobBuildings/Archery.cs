@@ -1,6 +1,4 @@
-﻿using Entities.Buildings;
-
-namespace Buildings.MobBuildings
+﻿namespace Entities.Buildings.MobBuildings
 {
     public class Archery : MobBuilding
     {

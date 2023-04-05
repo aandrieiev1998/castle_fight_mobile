@@ -1,5 +1,5 @@
 ﻿using System;
-using Buildings.MobBuildings;
+using Entities.Buildings.MobBuildings;
 using UnityEngine;
 
 namespace UI

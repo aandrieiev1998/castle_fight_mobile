@@ -122,7 +122,7 @@ namespace Entities.Mobs
             mobAnimator.SetBool(IS_WALKING, true);
             mobAnimator.SetBool(IS_ATTACKING, false);
 
-            StopCoroutine(attackCoroutine);
+            if (attackCoroutine != null) StopCoroutine(attackCoroutine);
         }
 
         private void OnTriggerStay(Collider target)
@@ -132,9 +132,8 @@ namespace Entities.Mobs
 
             if (target.transform != TargetTransform) return;
 
-            // Debug.Log($"isInAttackRange = {isInAttackRange}");
-            // if (Vector3.Distance(transform.position, TargetTransform.position) > mob.DamageSystem.AttackDistance)
-            if (!isInAttackRange)
+            if (Vector3.Distance(transform.position, TargetTransform.position) > mob.DamageSystem.AttackDistance)
+            // if (!isInAttackRange)
             {
                 if (!wasAttackingInPreviousFrame) return;
 
@@ -144,7 +143,7 @@ namespace Entities.Mobs
                 mobAnimator.SetBool(IS_ATTACKING, false);
                 mobAnimator.SetBool(IS_RUNNING, true);
 
-                StopCoroutine(attackCoroutine);
+                if (attackCoroutine != null) StopCoroutine(attackCoroutine);
 
                 return;
             }

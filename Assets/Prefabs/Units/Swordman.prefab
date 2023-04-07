@@ -19390,11 +19390,11 @@ MonoBehaviour:
   _teamSystem:
     _teamColor: 0
   _damageSystem:
-    _damageAmount: 1
+    _damageAmount: 50
     _damageType: 0
     _attackSpeed: 1.5
     _attackDistance: 1.25
   _movementSystem:
     _movementSpeed: 3
   _rageDistance: 4
-  _spawnInterval: 2
+  _spawnInterval: 5

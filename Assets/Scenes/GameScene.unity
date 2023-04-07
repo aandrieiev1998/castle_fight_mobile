@@ -4466,6 +4466,80 @@ Transform:
   m_Father: {fileID: 515186763}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &419339598
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 666609984}
+    m_Modifications:
+    - target: {fileID: 3994865822428320975, guid: e221c68fdfcc58c4db739f7e9074b2ae,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3994865822428320975, guid: e221c68fdfcc58c4db739f7e9074b2ae,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 95.425446
+      objectReference: {fileID: 0}
+    - target: {fileID: 3994865822428320975, guid: e221c68fdfcc58c4db739f7e9074b2ae,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -21.914732
+      objectReference: {fileID: 0}
+    - target: {fileID: 3994865822428320975, guid: e221c68fdfcc58c4db739f7e9074b2ae,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 60.576164
+      objectReference: {fileID: 0}
+    - target: {fileID: 3994865822428320975, guid: e221c68fdfcc58c4db739f7e9074b2ae,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3994865822428320975, guid: e221c68fdfcc58c4db739f7e9074b2ae,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3994865822428320975, guid: e221c68fdfcc58c4db739f7e9074b2ae,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3994865822428320975, guid: e221c68fdfcc58c4db739f7e9074b2ae,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3994865822428320975, guid: e221c68fdfcc58c4db739f7e9074b2ae,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3994865822428320975, guid: e221c68fdfcc58c4db739f7e9074b2ae,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3994865822428320975, guid: e221c68fdfcc58c4db739f7e9074b2ae,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3994865822428321008, guid: e221c68fdfcc58c4db739f7e9074b2ae,
+        type: 3}
+      propertyPath: m_Name
+      value: BuildingPlatform (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6639806414287154102, guid: e221c68fdfcc58c4db739f7e9074b2ae,
+        type: 3}
+      propertyPath: _teamColor
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e221c68fdfcc58c4db739f7e9074b2ae, type: 3}
 --- !u!1 &428705121
 GameObject:
   m_ObjectHideFlags: 0
@@ -4767,7 +4841,7 @@ PrefabInstance:
     - target: {fileID: 844545062225767386, guid: 9bb0ddde16f521d4c866c0a51ba3ed03,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 98.79001
+      value: 98.4
       objectReference: {fileID: 0}
     - target: {fileID: 844545062225767386, guid: 9bb0ddde16f521d4c866c0a51ba3ed03,
         type: 3}
@@ -6988,6 +7062,7 @@ Transform:
   m_Children:
   - {fileID: 439353385}
   - {fileID: 1959898701}
+  - {fileID: 961195658}
   m_Father: {fileID: 2004580697}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10713,6 +10788,12 @@ Transform:
   m_Father: {fileID: 1700927084}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &961195658 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3994865822428320975, guid: e221c68fdfcc58c4db739f7e9074b2ae,
+    type: 3}
+  m_PrefabInstance: {fileID: 419339598}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -12344,12 +12425,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cameraTransform: {fileID: 963194228}
   _cameraLocationsContainer: {fileID: 1076328898}
-  _teamSelectionMenuController: {fileID: 1236819681}
   _cameraSpeed: 20
   _borderThickness: 10
   _cameraMaxHeight: 50
   _cameraMinHeight: 5
   _allowMoveCamera: 0
+  _teamSelectionMenuController: {fileID: 1236819681}
 --- !u!114 &1076328898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24789,7 +24870,7 @@ PrefabInstance:
     - target: {fileID: 844545062225767386, guid: 9bb0ddde16f521d4c866c0a51ba3ed03,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 61.120003
+      value: 61.65
       objectReference: {fileID: 0}
     - target: {fileID: 844545062225767386, guid: 9bb0ddde16f521d4c866c0a51ba3ed03,
         type: 3}

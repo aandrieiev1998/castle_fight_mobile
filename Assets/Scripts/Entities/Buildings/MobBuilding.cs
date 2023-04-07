@@ -20,7 +20,7 @@ namespace Entities.Buildings
         {
             yield return new WaitForSeconds(1.0f);
 
-            for (var i = 0; i < 100; i++)
+            for (var i = 0; i < 3; i++)
             {
                 _mobSpawningSystem.SpawnMob(transform.position, TeamSystem.TeamColor);
                 

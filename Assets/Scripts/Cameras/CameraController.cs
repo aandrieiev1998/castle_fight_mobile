@@ -1,6 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Match;
-using UI;
+
 using UI.Controllers;
 using UnityEngine;
 
@@ -10,13 +11,13 @@ namespace Cameras
     {
         [SerializeField] private Transform _cameraTransform;
         [SerializeField] private CameraLocationsContainer _cameraLocationsContainer;
-        [SerializeField] private TeamSelectionMenuController _teamSelectionMenuController;
 
         [SerializeField] private float _cameraSpeed = 20f;
         [SerializeField] private float _borderThickness = 10f;
         [SerializeField] private float _cameraMaxHeight = 50f;
         [SerializeField] private float _cameraMinHeight = 5f;
         [SerializeField] private bool _allowMoveCamera;
+        [SerializeField] private TeamSelectionMenuController _teamSelectionMenuController;
 
         public bool AllowMoveCamera
         {
@@ -35,8 +36,8 @@ namespace Cameras
         {
             if (AllowMoveCamera)
             {
-                // HandleKeyboardInput();
-                // HandleMouseInput();
+                HandleKeyboardInput();
+                HandleMouseInput();
             }
 
             LimitHeight();
@@ -44,21 +45,17 @@ namespace Cameras
 
         private void OnPlayerTeamSelected(TeamColor teamColor)
         {
-            // switch (teamColor)
-            // {
-            //     case TeamColor.Blue:
-            //         MoveToLocation(CameraLocationId.BlueTeamThrone);
-            //         break;
-            //     case TeamColor.Red:
-            //         MoveToLocation(CameraLocationId.RedTeamThrone);
-            //         break;
-            //     case TeamColor.Green:
-            //         break;
-            //     case TeamColor.Yellow:
-            //         break;
-            //     default:
-            //         throw new ArgumentOutOfRangeException(nameof(teamColor), teamColor, null);
-            // }
+            switch (teamColor)
+            {
+                case TeamColor.Blue:
+                    // MoveToLocation(CameraLocationId.BlueTeamThrone);
+                    break;
+                case TeamColor.Red:
+                    // MoveToLocation(CameraLocationId.RedTeamThrone);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(teamColor), teamColor, null);
+            }
 
             _allowMoveCamera = true;
         }
